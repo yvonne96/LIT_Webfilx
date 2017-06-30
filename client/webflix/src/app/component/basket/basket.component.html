@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="jumbotron col-md-8">
+    <table class="table">
+      <thead>
+      <tr>
+        <th class="col-md-9">Item</th>
+        <th class="col-md-2">Price</th>
+        <th class="col-md-1"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let movie of summary.movies">
+        <td>{{movie.title}}</td>
+        <td>{{movie.price}}</td>
+        <td>
+          <button class="btn btn-danger" (click)="removeMovie(movie)">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-danger" (click)="clearBasket()">Clear</button>
+  </div>
+  <div class="col-md-4">
+    <div class="jumbotron">
+      <h3>Total Cost: {{summary.total | currency:'GBP':true:'1.2-2'}}</h3>
+      <button class="btn btn-success" (click)="checkout()">Purchase</button>
+    </div>
+  </div>
+</div>

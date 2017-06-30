@@ -1,0 +1,21 @@
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <img src="assets/logo.png" width="75" height="50"/>
+    </div>
+    <button class='btn btn-danger' *ngIf="isAdmin" routerLink="./admin" routerLinkActive="active">Admin Tools</button>
+    <button class='btn navbar-btn' routerLink="./" routerLinkActive="active">Home</button>
+    <button class='btn navbar-btn' routerLink="./mymovies" routerLinkActive="active">My Movies</button>
+    <div class="nav navbar-right">
+      <basket-button></basket-button>
+      <button class='btn navbar-btn' (click)="logout()">Logout</button>
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="separator"></div>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+

@@ -1,0 +1,11 @@
+<div>
+  <form (ngSubmit)='doSearch()' #f='ngForm'>
+    <input name='searchTitle' type='text' [(ngModel)]="title"
+           required>
+    <input type="submit" value='Search' class='btn-primary'
+           [disabled]='!f.form.valid'>
+
+    <label [hidden]='!isSearching'>Searching...</label>
+  </form>
+  <movie-table [movies]='movies'></movie-table>
+</div>

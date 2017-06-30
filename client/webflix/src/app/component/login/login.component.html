@@ -1,0 +1,28 @@
+<div class="text-center">
+  <img src="assets/logo.png" width="100" height="70"/>
+</div>
+<div class="col-md-6 col-md-offset-3 jumbotron">
+  <h2>Login</h2>
+  <form name="login" #f="ngForm" (ngSubmit)="login()">
+    <div id="failure-alert" *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !e.valid}">
+      <label htmlFor="emailAddress">Login Email</label>
+      <input type="text" class="form-control" name="emailAddress" #e="ngModel"
+             [(ngModel)]="emailAddress" required/>
+      <div *ngIf="f.submitted && !e.valid && !isLoading" class="help-block">Please enter a valid email address</div>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+      <label htmlFor="password">Password</label>
+      <input type="password" class="form-control" name="password" #p="ngModel"
+             [(ngModel)]="password" required/>
+      <div *ngIf="f.submitted && !p.valid && !isLoading" class="help-block">Please enter a valid password</div>
+    </div>
+
+    <div class="form-group">
+      <button [disabled]="isLoading" class="btn btn-primary">Login</button>
+      <a [routerLink]="['/register']" class="btn btn-link">Register</a>
+    </div>
+  </form>
+</div>
