@@ -27,4 +27,7 @@ export class MovieDisplayComponent {
   movieAdded(movie: Movie) {
     this.basket.addToBasket(movie).subscribe();
   }
+  showDescription() {
+    alert('hello');
+  }
 }

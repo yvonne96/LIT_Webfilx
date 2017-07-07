@@ -2,5 +2,6 @@
 <td>{{theMovie.year}}</td>
 <td>{{theMovie.genre.value}}</td>
 <td>{{theMovie.classification.value}}</td>
+<td>{{theMovie.description}}</td>
 <td *ngIf="showPrice">{{theMovie.price | currency:'GBP':true:'1.2-2'}}</td>
 <td *ngIf="showAddToBasket"><span class='btn btn-success' (click)="addMovieToBasket()">Add to basket</span></td>

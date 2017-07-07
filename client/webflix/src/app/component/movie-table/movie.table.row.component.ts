@@ -22,4 +22,5 @@ export class MovieTableRowComponent {
     this.showPrice = true;
     this.onAddMovieToBasket.emit(this.theMovie);
   }
+
 }

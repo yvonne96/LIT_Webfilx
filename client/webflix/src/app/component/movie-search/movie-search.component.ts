@@ -25,7 +25,7 @@ export class MovieSearchComponent {
 
   doSearch() {
     this.isSearching = true;
-    this.extractMovies(this.movieService.fetchByTitle(this.title));
+    this.extractMovies(this.movieService.fetchByTitle(this.title.toLowerCase()));
   }
 
   private fetchAllMovies(): void {
