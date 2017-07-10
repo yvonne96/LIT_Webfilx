@@ -30,37 +30,23 @@ public class MovieRestController {
 
 	@RequestMapping(method = GET, produces = "application/json")
 	public Iterable<Movie> allMoviesAsJson() {
-		
 		Iterable<Movie> allMovies = repository.findAll();
-		
 		Iterable<Movie> mine = allMyMovies();
-		
 		ArrayList<Movie> whatRemains = new ArrayList<>();
-		
 		for(Movie m : allMovies)
 		{
 			boolean found = false;
-			
-			for(Movie n : mine)
-			{
-				if(m.equals(n))
-				{
+			for(Movie n : mine){
+				if(m.equals(n)){
 					found = true;
 				}
 			}
-			
-			if(!found)
-			{
-				
+			if(!found){
 				whatRemains.add(m);
-				
 			}	
-			
 		}
 		Iterable<Movie> check = whatRemains;
-		
 		return check;
-		
 		//return repository.findAll();
 	}
 

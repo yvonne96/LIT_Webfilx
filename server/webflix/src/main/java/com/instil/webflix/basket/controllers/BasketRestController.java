@@ -47,8 +47,6 @@ public class BasketRestController {
     		{
     			inBasket = true;
     		}
-    		
-    		
     	}
     	if(!inBasket)
     	{
