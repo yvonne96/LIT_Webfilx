@@ -38,7 +38,23 @@ public class BasketRestController {
 
     @RequestMapping(method = POST, value = "/addItem", produces = "application/json")
     public void addMovie(@RequestBody() Movie movie) {
-        basketService.addMovieToBasket(accountService.getCurrent(), movie);
+    	boolean inBasket = false;
+    	Iterable<Movie> itemsInBasket = getBasket().getMovies();
+    	
+    	for(Movie m: itemsInBasket){
+    		
+    		if(m.equals(movie))
+    		{
+    			inBasket = true;
+    		}
+    		
+    		
+    	}
+    	if(!inBasket)
+    	{
+    		basketService.addMovieToBasket(accountService.getCurrent(), movie);
+    	}
+    	
     }
 
     @RequestMapping(method = DELETE, value = "/", produces = "application/json")
