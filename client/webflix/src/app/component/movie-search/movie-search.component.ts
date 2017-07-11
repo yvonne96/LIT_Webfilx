@@ -24,13 +24,15 @@ export class MovieSearchComponent {
   }
 
   doSearch() {
-    debugger;
     this.isSearching = true;
     this.extractMovies(this.movieService.fetchByTitle(this.title));
   }
 
   private fetchAllMovies(): void {
-    this.extractMovies(this.movieService.fetchAllMovies());
+
+  //  this.extractMovies(this.checkDuplicates(this.movieService.fetchAllMovies()));
+
+     this.extractMovies(this.movieService.fetchAllMovies());
   }
 
   private extractMovies(source: Observable<Movie[]>) {
@@ -40,4 +42,5 @@ export class MovieSearchComponent {
         this.isSearching = false;
       }, error => this.router.navigate(['/login']));
   }
+
 }

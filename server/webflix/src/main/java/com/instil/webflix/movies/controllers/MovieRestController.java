@@ -15,7 +15,6 @@ import com.instil.webflix.movies.model.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/movie")
@@ -30,7 +29,8 @@ public class MovieRestController {
 	//refractor this into another method!!!
 	@RequestMapping(method = GET, produces = "application/json")
 	public Iterable<Movie> allMoviesAsJson() {
-		return checkMyMovies(repository.findAll());
+		//return checkMyMovies(repository.findAll());
+		return repository.findAll();
 	}
 
 	@RequestMapping(method = GET, value = "/mine", produces = "application/json")
@@ -71,7 +71,8 @@ public class MovieRestController {
 		repository.save(movie);
 	}
 	
-	private Iterable<Movie> checkMyMovies(Iterable<Movie> movies) {
+	//Not called - previous version 2.1 and less
+	/* private Iterable<Movie> checkMyMovies(Iterable<Movie> movies) {
 		Iterable<Movie> mine = allMyMovies();
 		ArrayList<Movie> whatRemains = new ArrayList<>();
 		for(Movie m : movies) {
@@ -87,5 +88,5 @@ public class MovieRestController {
 		}
 		Iterable<Movie> check = whatRemains;
 		return check;
-	}
+	} */
 }
