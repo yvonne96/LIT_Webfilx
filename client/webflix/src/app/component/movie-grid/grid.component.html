@@ -1,0 +1,9 @@
+<div class="grid">
+  <div class="col-sm-12">
+    <div class="col-sm-4" *ngFor="let movie of movies" movie-grid
+         [currentMovie]="movie"
+         [showAddToBasket]="showAddToBasket" [showPrice]="showPrice"
+         (onAddMovieToBasket)="movieAdded($event)">
+    </div>
+  </div>
+</div>

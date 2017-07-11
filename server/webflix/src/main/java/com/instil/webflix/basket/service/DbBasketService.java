@@ -33,7 +33,9 @@ public class DbBasketService implements BasketService {
 	private AccountRepository accountRepository;
 
 	public int getItemCount(Account account) {
+		System.out.println(account);
 		Basket basket = getBasketForAccount(account);
+		
 		return basket.getItems().size();
 	}
 
@@ -83,7 +85,13 @@ public class DbBasketService implements BasketService {
 
 	private BigDecimal getTotalCostForMovies(Collection<Movie> movies) {
 		// TODO: Don't check in code like this, go back later and implement
-		return new BigDecimal(-1);
+		BigDecimal total = new BigDecimal(0);
+		for(Movie m : movies)
+		{
+			total = total.add(m.getPrice());
+		}
+		return total;
+
 	}
 	
 
@@ -95,10 +103,13 @@ public class DbBasketService implements BasketService {
 	
 	private Basket getBasketForAccount(Account account) {
 		Basket basket = basketRepository.findByAccount(account);
-		if (basket == null) {
+		if (!(basket == null)) {
+			return basket;
+		}
+		else
+		{
 			logger.info("Could not find basket for account: " + account.getEmailAddress());
 			return new Basket(account);
 		}
-		return basket;
 	}
 }

@@ -3,13 +3,13 @@ import {Movie} from '../../model/movie';
 
 @Component({
   moduleId: module.id,
-  selector: '[movie-table-row]',
-  templateUrl: 'movie.table.row.component.html',
-  styleUrls: ['movie.table.row.component.css']
+  selector: '[movie-grid]',
+  templateUrl: 'movie.grid.component.html',
+  styleUrls: ['movie.grid.component.css']
 })
-export class MovieTableRowComponent {
+export class MovieGridComponent {
   desc: string = '';
-  descLen: number = 50;
+  descLen: number = 100;
   @Input('currentMovie')
   theMovie: any;
   @Input('showAddToBasket')
@@ -18,6 +18,7 @@ export class MovieTableRowComponent {
   showPrice: boolean;
   @Output()
   onAddMovieToBasket = new EventEmitter<Movie>();
+  info: string = '';
 
   addMovieToBasket(): void {
 
@@ -32,5 +33,13 @@ export class MovieTableRowComponent {
 
   hideDescription() {
     this.desc = '';
+  }
+
+  showInfo() {
+    this.info = 'Genre: ' + this.theMovie.genre.value + ', Classification: ' + this.theMovie.classification.value + ', Year: ' + this.theMovie.year;
+  }
+
+  hideInfo() {
+    this.info = '';
   }
 }

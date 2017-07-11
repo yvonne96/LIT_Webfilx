@@ -27,6 +27,7 @@ public class MovieRestController {
 	@RequestMapping(method = GET, produces = "application/json")
 	public Iterable<Movie> allMoviesAsJson() {
 		return repository.findAll();
+		
 	}
 
 	@RequestMapping(method = GET, value = "/mine", produces = "application/json")
@@ -54,7 +55,7 @@ public class MovieRestController {
 	
 	@RequestMapping(method = GET, value="/byTitle/{title}", produces = "application/json")
 	public Iterable<Movie> moviesByTitle(@PathVariable("title") String title) {
-		return repository.findByTitleContains(title);
+		return repository.findByTitleContainsAllIgnoreCase(title);
 	}
 	
 	@RequestMapping(method = DELETE, value="/byId/{id}")
