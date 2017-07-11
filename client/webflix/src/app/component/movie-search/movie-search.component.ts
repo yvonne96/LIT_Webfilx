@@ -16,6 +16,8 @@ export class MovieSearchComponent {
   movies: Movie[];
   isSearching: boolean;
 
+  checked: boolean = true;
+
   constructor(private movieService: MovieService,
               private router: Router) {
     this.title = '';
@@ -38,5 +40,12 @@ export class MovieSearchComponent {
         this.movies = movies;
         this.isSearching = false;
       }, error => this.router.navigate(['/login']));
+  }
+  setView() {
+    if (this.checked === true) {
+      this.checked = false;
+    }else {
+      this.checked = true;
+    }
   }
 }

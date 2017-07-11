@@ -7,5 +7,8 @@
 
     <label [hidden]='!isSearching'>Searching...</label>
   </form>
-  <m-grid [movies]='movies'></m-grid>
+    <span class="viewtype">Grid View </span><input type="checkbox" (click)="setView()" checked>
+   <m-grid *ngIf='checked' [movies]="movies"></m-grid>
+   <movie-table *ngIf="!checked" [movies]="movies"></movie-table>
+
 </div>
