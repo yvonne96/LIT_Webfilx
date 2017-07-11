@@ -1,11 +1,11 @@
 <table class="table">
   <thead>
   <tr>
-    <th class="col-md-5">Title</th>
+    <th class="col-md-4">Title</th>
     <th class="col-md-1">Year</th>
     <th class="col-md-2">Genre</th>
     <th class="col-md-1">Classification</th>
-    <th class="col-md-2">Description</th>
+
     <th class="col-md-1" *ngIf="showPrice">Price</th>
     <th class='col-md-1' *ngIf="showAddToBasket"></th>
   </tr>
@@ -14,7 +14,8 @@
   <tr *ngFor="let movie of movies" movie-table-row
       [currentMovie]="movie"
       [showAddToBasket]="showAddToBasket" [showPrice]="showPrice"
-      (onAddMovieToBasket)="movieAdded($event)" (hover)="showDescription()">
+      (onAddMovieToBasket)="movieAdded($event)">
   </tr>
   </tbody>
 </table>
+

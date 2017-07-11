@@ -22,7 +22,7 @@ export class HttpMovieService extends MovieService {
   }
 
   fetchByTitle(title: string): Observable<Movie[]> {
-    return this.restService.get(baseUrl + '/byTitle/' + title)
+    return this.restService.get(baseUrl + '/byTitle/' + title.toLowerCase())
       .build()
       .map(resp => resp.json());
   }

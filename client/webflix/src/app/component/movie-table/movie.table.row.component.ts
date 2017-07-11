@@ -8,6 +8,8 @@ import {Movie} from '../../model/movie';
   styleUrls: ['movie.table.row.component.css']
 })
 export class MovieTableRowComponent {
+  desc: string = '';
+  descLen: number = 400;
   @Input('currentMovie')
   theMovie: any;
   @Input('showAddToBasket')
@@ -18,9 +20,17 @@ export class MovieTableRowComponent {
   onAddMovieToBasket = new EventEmitter<Movie>();
 
   addMovieToBasket(): void {
+
     this.showAddToBasket = true;
     this.showPrice = true;
     this.onAddMovieToBasket.emit(this.theMovie);
   }
 
+  showDescription() {
+    this.desc = this.theMovie.description.slice(0, this.descLen);
+  }
+
+  hideDescription() {
+    this.desc = '';
+  }
 }
