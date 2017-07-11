@@ -24,6 +24,7 @@ export class MovieSearchComponent {
   }
 
   doSearch() {
+    debugger;
     this.isSearching = true;
     this.extractMovies(this.movieService.fetchByTitle(this.title));
   }
