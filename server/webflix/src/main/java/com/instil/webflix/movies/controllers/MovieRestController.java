@@ -27,27 +27,10 @@ public class MovieRestController {
 	private AccountService accountService;
 	
 	
-
+	//refractor this into another method!!!
 	@RequestMapping(method = GET, produces = "application/json")
 	public Iterable<Movie> allMoviesAsJson() {
-		Iterable<Movie> allMovies = repository.findAll();
-		Iterable<Movie> mine = allMyMovies();
-		ArrayList<Movie> whatRemains = new ArrayList<>();
-		for(Movie m : allMovies)
-		{
-			boolean found = false;
-			for(Movie n : mine){
-				if(m.equals(n)){
-					found = true;
-				}
-			}
-			if(!found){
-				whatRemains.add(m);
-			}	
-		}
-		Iterable<Movie> check = whatRemains;
-		return check;
-		//return repository.findAll();
+		return checkMyMovies(repository.findAll());
 	}
 
 	@RequestMapping(method = GET, value = "/mine", produces = "application/json")
@@ -86,5 +69,23 @@ public class MovieRestController {
 	@RequestMapping(method = PUT, consumes = "application/json")
 	public void createMovie(@RequestBody Movie movie) {
 		repository.save(movie);
+	}
+	
+	private Iterable<Movie> checkMyMovies(Iterable<Movie> movies) {
+		Iterable<Movie> mine = allMyMovies();
+		ArrayList<Movie> whatRemains = new ArrayList<>();
+		for(Movie m : movies) {
+			boolean found = false;
+			for(Movie n : mine){
+				if(m.equals(n)){
+					found = true;
+				}
+			}
+			if(!found){
+				whatRemains.add(m);
+			}	
+		}
+		Iterable<Movie> check = whatRemains;
+		return check;
 	}
 }
