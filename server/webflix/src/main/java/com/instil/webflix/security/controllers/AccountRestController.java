@@ -4,8 +4,6 @@ import com.instil.webflix.security.model.LoginResponse;
 import com.instil.webflix.security.service.AccountService;
 import com.instil.webflix.security.data.AccountRepository;
 import com.instil.webflix.security.model.Account;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,13 +19,10 @@ import javax.annotation.security.RolesAllowed;
 @RestController
 @RequestMapping("/account")
 public class AccountRestController {
-	private final Log logger = LogFactory.getLog(this.getClass());
 
 	@Autowired
 	private AccountRepository accountRepository;
 
-	
-	
 	@Autowired
 	private AccountService accountService;
 
