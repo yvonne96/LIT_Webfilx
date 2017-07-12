@@ -26,17 +26,12 @@ export class MovieTableRowComponent {
     this.summary = BasketSummary.empty();
     this.readBasketForUser();
     this.readMyMoviesForUser();
-    this.basketService.getBasketSummary().subscribe(
-      summary => this.summary = summary
-    );
-    this.movieService.fetchMyMovies().subscribe(
-      myMovies => this.myMovies = myMovies );
   }
 
   addMovieToBasket(): void {
     if (this.checkForMovieDuplicates()) {
       alert('Already bought!!');
-    } else if (this.checkForBasketDuplicates() {
+    } else if (this.checkForBasketDuplicates()){
       alert('Already in basket!!');
     } else {
       this.showAddToBasket = true;
