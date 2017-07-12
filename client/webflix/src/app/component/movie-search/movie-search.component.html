@@ -1,5 +1,5 @@
 <div>
-  <form (ngSubmit)='doSearch()' #f='ngForm'>
+  <form (ngSubmit)='doSearch()' #f='ngForm' class="sform">
     <input name='searchTitle' type='text' [(ngModel)]="title"
            required>
     <input type="submit" value='Search' class='btn-primary'
@@ -7,7 +7,12 @@
 
     <label [hidden]='!isSearching'>Searching...</label>
   </form>
-    <span class="viewtype">Grid View </span><input type="checkbox" (click)="updateView()" [checked]="checked">
+    <span class="viewtype">Table View</span>
+  <span class="switcher">
+  <label class="switch">
+    <input type="checkbox" (click)="updateView()" [checked]="checked">
+    <span class="slider round"></span>
+  </label></span><span class="viewtype">Grid View</span>
    <m-grid *ngIf='checked' [movies]="movies"></m-grid>
    <movie-table *ngIf="!checked" [movies]="movies"></movie-table>
 
