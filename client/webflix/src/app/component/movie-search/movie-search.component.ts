@@ -15,7 +15,6 @@ export class MovieSearchComponent {
   title: string;
   movies: Movie[];
   isSearching: boolean;
-
   checked: boolean = true;
 
   constructor(private movieService: MovieService,
@@ -23,6 +22,7 @@ export class MovieSearchComponent {
     this.title = '';
     this.isSearching = false;
     this.fetchAllMovies();
+    this.setView();
   }
 
   doSearch() {
@@ -41,11 +41,35 @@ export class MovieSearchComponent {
         this.isSearching = false;
       }, error => this.router.navigate(['/login']));
   }
+
+  checkboxStatus() {
+    //
+  }
+
   setView() {
-    if (this.checked === true) {
-      this.checked = false;
-    }else {
+    if (document.cookie.length === 0) {
+      document.cookie = 'defaultView=grid; expires=Thu, 01 Jan 2020 00:00:00 UTC;';
       this.checked = true;
+      return true;
+    } else {
+      let cookie = document.cookie.split(';')[0].slice(12);
+      if (cookie === 'grid') {
+        this.checked = true;
+        return true;
+      } else {
+        this.checked = false;
+        return false;
+      }
     }
   }
+  updateView() {
+    if (this.setView()) {
+      this.checked = false;
+      document.cookie = 'defaultView=table; expires=Thu, 01 Jan 2020 00:00:00 UTC;';
+    } else {
+      this.checked = true;
+      document.cookie = 'defaultView=grid; expires=Thu, 01 Jan 2020 00:00:00 UTC;';
+    }
+  }
+
 }
