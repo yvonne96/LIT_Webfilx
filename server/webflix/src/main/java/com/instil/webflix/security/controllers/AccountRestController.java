@@ -25,6 +25,10 @@ public class AccountRestController {
 
 	@Autowired
 	private AccountService accountService;
+	
+	public AccountRestController(){
+		
+	}
 
 	@RolesAllowed("ADMIN")
 	@RequestMapping(method = GET, value = "/all", produces = "application/json")
@@ -35,6 +39,7 @@ public class AccountRestController {
 	@RequestMapping(method = POST, value = "/login", produces = "application/json")
 	public ResponseEntity<LoginResponse> login(@RequestHeader(value = "username") String email,
                                                @RequestHeader(value = "password") String password) {
+		
 		return accountService.login(email, password);
 	}
 
