@@ -9,31 +9,30 @@
       <label htmlFor="emailAddress">Login Email</label>
       <input type="text" class="form-control" name="emailAddress"
              [(ngModel)]="emailAddress" required/>
-      <div *ngIf="f.submitted && !emailAddress.valid" class="help-block">Please enter a valid email address</div>
+      <div *ngIf="f.submitted && this.emailValidation()" class="help-block">Please enter a valid email address</div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
       <label htmlFor="firstname">Forename</label>
       <input type="text" class="form-control" name="firstname"
              [(ngModel)]="firstname" required/>
-      <div *ngIf="f.submitted && !firstname.valid" class="help-block">Please enter a valid first name</div>
+
     </div>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
       <label htmlFor="lastname">Surname</label>
       <input type="text" class="form-control" name="lastname"
              [(ngModel)]="lastname" required/>
-      <div *ngIf="f.submitted && !lastname.valid" class="help-block">Please enter a valid surname</div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
       <label htmlFor="password">Password</label>
       <input type="password" class="form-control" name="password"
              [(ngModel)]="password" required/>
-      <div *ngIf="f.submitted && !password.valid" class="help-block">Please enter a valid password</div>
+      <div *ngIf="f.submitted && this.passwordValidation()" class="help-block">Please enter a valid password</div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
       <label htmlFor="repeatPassword">Repeat Password</label>
       <input type="password" class="form-control" name="repeatPassword"
              [(ngModel)]="repeatPassword" required/>
-      <div *ngIf="f.submitted && !repeatPassword.valid" class="help-block">Please enter a valid repeated password</div>
+      <div *ngIf="f.submitted && this.passwordRestrictions()" class="help-block">Please enter a valid repeated password</div>
     </div>
     <div class="form-group">
       <button [disabled]="isLoading" class="btn btn-primary">Register</button>

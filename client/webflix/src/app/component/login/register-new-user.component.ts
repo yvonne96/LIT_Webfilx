@@ -16,6 +16,7 @@ export class RegisterNewUserComponent {
   private repeatPassword: string;
   private isLoading: boolean;
   private errorMessage: string;
+  private isError: boolean;
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService) {
@@ -26,18 +27,55 @@ export class RegisterNewUserComponent {
     this.isLoading = true;
     let user = new User(this.emailAddress, this.password, this.firstname, this.lastname);
     this.clearLoginFailureMessage();
-    this.authenticationService.register(user)
-      .subscribe(
-        next => {
-          this.router.navigate(['/login']);
-        },
-        error => {
-          this.setLoginFailureMessage();
-        }
-      );
-
+    if (this.validate()) {
+      this.authenticationService.register(user)
+        .subscribe(
+          next => {
+            this.router.navigate(['/login']);
+          },
+          error => {
+            this.setLoginFailureMessage();
+          }
+        );
+    }
+    this.setLoginFailureMessage();
     return false;
   }
+  validate() {
+    this.isError = false;
+    this.emailValidation();
+    this.passwordValidation();
+    this.passwordRestrictions();
+    // if there is an error then registration is incorrect
+    return !(this.isError);
+  }
+
+  emailValidation() {
+    let matcher = new RegExp(/([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/g);
+    if (!(matcher.test(this.emailAddress))) {
+      this.isError = true;
+      return true;
+    }
+    return false;
+  }
+  passwordValidation() {
+    if (this.password !== this.repeatPassword) {
+      this.isError = true;
+      return true;
+    }
+    return false;
+  }
+
+  passwordRestrictions() {
+    let matcher = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}/g);
+    // regular exp tests for specified test restrictions and white space
+    if (!(matcher.test(this.password))) {
+      this.isError = true;
+      return true;
+    }
+    return false;
+  }
+
 
   setLoginFailureMessage() {
     this.errorMessage = 'Registration failed.';

@@ -89,11 +89,18 @@ public class AccountRestController {
 			logger.info("Invalid registration");
 			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 		}
-
-		logger.info("Registering new user '" + newAccount.getEmailAddress());
-		newAccount.setPassword(passwordEncoder.encode(newAccount.getPassword()));
-		newAccount.getRoles().add(roles.getUserRole());
-		accountRepository.save(newAccount);
-		return ResponseEntity.ok().build();
+		
+		if(newAccount.passwordRestrictions()){
+			logger.info("Registering new user '" + newAccount.getEmailAddress());
+			newAccount.setPassword(passwordEncoder.encode(newAccount.getPassword()));
+			newAccount.getRoles().add(roles.getUserRole());
+			accountRepository.save(newAccount);
+			return ResponseEntity.ok().build();
+		}
+		else{
+			// System.out.println("We did it!");
+			logger.info("Invalid password");
+			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+		}
 	}
 }
