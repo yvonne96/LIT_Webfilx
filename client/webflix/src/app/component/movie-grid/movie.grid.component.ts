@@ -36,7 +36,9 @@ export class MovieGridComponent {
   }
 
   showInfo() {
-    this.info = 'Genre: ' + this.theMovie.genre.value + ', Classification: ' + this.theMovie.classification.value + ', Year: ' + this.theMovie.year;
+    this.info = 'Genre: ' + this.theMovie.genre.value
+      + ', Classification: ' + this.theMovie.classification.value
+      + ', Year: ' + this.theMovie.year;
   }
 
   hideInfo() {

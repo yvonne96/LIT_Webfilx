@@ -1,4 +1,12 @@
 <div>
-  <movie-table [showAddToBasket]="false" [showPrice]="false"
-               [movies]='movies'></movie-table>
+  <span class="viewtype">Table View</span>
+  <span class="switcher">
+  <label class="switch">
+    <input type="checkbox" (click)="updateView()" [checked]="checked">
+    <span class="slider round"></span>
+  </label></span><span class="viewtype">Grid View</span>
+  <m-grid *ngIf="checked"
+          [movies]='movies' [showAddToBasket]="false" [showPrice]="false"></m-grid>
+  <movie-table *ngIf="!checked" [movies]="movies" [showAddToBasket]="false" [showPrice]="false"></movie-table>
+
 </div>
