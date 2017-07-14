@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class RegistrationRestrictionTest {
+public class PasswordRestrictionTest {
 
 	@Test
 	public void test() {
