@@ -1,12 +1,14 @@
 package com.instil.webflix.security;
 
 
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
@@ -27,24 +29,36 @@ public class AccountRestControllerTest {
 	SecurityContextAccountService acMock;
 	
 	@Mock
-	ResponseEntity reMock;
+	ResponseEntity<LoginResponse> reMock;
 	
 	@InjectMocks
-	AccountRestController rest = new AccountRestController();
+	AccountRestController rest;
 	
-	
-	@Test
-	public void failLogin(){	
-		rest.login("admin","password");	
-		verify(acMock,times(1)).login("adin", "password");
+	@Before
+	public void setUp(){
+		rest = new AccountRestController();
+		MockitoAnnotations.initMocks(this);
 	}
 	
 	@Test
-	public void successfulLogin()
-	{
+	public void tesCallAccountServicePass(){	
 		rest.login("admin","password");	
-		when(acMock.login("admin","password")).thenReturn(reMock);
 		verify(acMock,times(1)).login("admin", "password");
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void tesCallAccountServiceFail(){
+		doThrow(new RuntimeException()).when(acMock).login("admin","password"); 
+		rest.login("admin","password");	
+	}
+	
+	
+	@Test
+	public void testAccountServiceReturnsResponse()
+	{
+		when(acMock.login("admin","password")).thenReturn(reMock);
+		ResponseEntity resp = rest.login("admin","password");	
+		assertEquals("Good One",resp,reMock);
 	}
 
 }
