@@ -1,20 +1,20 @@
 package com.instil.webflix.security;
 
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import static org.mockito.Mockito.*;
 
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import static org.mockito.Mockito.when;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 
 import com.instil.webflix.security.controllers.AccountRestController;
 import com.instil.webflix.security.model.LoginResponse;
@@ -34,22 +34,17 @@ public class AccountRestControllerTest {
 	
 	
 	@Test
-	public void failLogin(){		
-		when(acMock.login("admin","password")).thenReturn(reMock);
-		rest.login("admin","password");
-		//when(acMock.login( "admin","password")).thenReturn(reMock);		
-		verify(acMock,times(2)).login("admin", "password");
-		
-//		ResponseEntity<LoginResponse>((LoginResponse) null, HttpStatus.BAD_REQUEST)
+	public void failLogin(){	
+		rest.login("admin","password");	
+		verify(acMock,times(1)).login("adin", "password");
 	}
 	
-/*	@Test
-	public void userWithCredentialsInDbLogsInSuccessfully() {
-		
-		PowerMockito.mockStatic(AccountRestController.class);
-		//AccountRestController.login("D","admin");
-		expect(AccountRestController.login("D","admin").andReturn("")
-		
-	}*/
+	@Test
+	public void successfulLogin()
+	{
+		rest.login("admin","password");	
+		when(acMock.login("admin","password")).thenReturn(reMock);
+		verify(acMock,times(1)).login("admin", "password");
+	}
 
 }
