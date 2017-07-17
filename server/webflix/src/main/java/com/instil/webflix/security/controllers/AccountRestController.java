@@ -39,9 +39,7 @@ public class AccountRestController {
 	@RequestMapping(method = POST, value = "/login", produces = "application/json")
 	public ResponseEntity<LoginResponse> login(@RequestHeader(value = "username") String email,
                                                @RequestHeader(value = "password") String password) {
-		ResponseEntity<LoginResponse> login = accountService.login(email, password);
-		System.out.println(login);
-		return login;
+		return accountService.login(email, password);
 	}
 
 	@RequestMapping(method = POST, value = "/register", produces = "application/json")
