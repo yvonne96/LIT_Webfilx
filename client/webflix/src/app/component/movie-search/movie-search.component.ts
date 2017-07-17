@@ -50,15 +50,6 @@ export class MovieSearchComponent {
       }, error => this.router.navigate(['/login']));
   }
 
-
-
-
-  // getMovieImage(){
-  //  this.movieImage = this.imageService.getImageData('Terminator');
-  // }
-
-
-
   setView() {
     if (document.cookie.length === 0) {
       document.cookie = 'defaultView=grid; expires=Thu, 01 Jan 2020 00:00:00 UTC;';
