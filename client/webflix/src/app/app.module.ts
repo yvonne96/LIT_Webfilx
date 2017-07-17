@@ -29,6 +29,8 @@ import {HttpMovieService} from './service/movie/http-movie.service';
 import {MovieService} from './service/movie/movie.service';
 import {RestService} from './service/api-client/rest.service';
 import {StorageService} from './service/storage/storage.service';
+
+
 import {GridComponent} from './component/movie-grid/grid.component';
 
 const appRoutes: Routes = [
@@ -91,7 +93,7 @@ const appRoutes: Routes = [
     {provide: BasketService, useClass: HttpBasketService},
     {provide: MovieService, useClass: HttpMovieService},
     {provide: RestService, useClass: AuthorisedRestService},
-    StorageService
+    StorageService,
   ]
 })
 export class AppModule {

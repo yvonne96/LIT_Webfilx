@@ -1,8 +1,8 @@
 <div>
-  <form (ngSubmit)='doSearch()' #f='ngForm' class="sform">
-    <input name='searchTitle' type='text' [(ngModel)]="title"
+<form (ngSubmit)='doSearch()' #f='ngForm' class="sform">
+    <input id='value' name='searchTitle' type='text' [(ngModel)]="title"
            required>
-    <input type="submit" value='Search' class='btn-primary'
+    <input id='search' type="submit" value='Search' class='btn-primary'
            [disabled]='!f.form.valid'>
 
     <label [hidden]='!isSearching'>Searching...</label>
@@ -15,5 +15,7 @@
   </label></span><span class="viewtype">Grid View</span>
    <m-grid *ngIf='checked' [movies]="movies"></m-grid>
    <movie-table *ngIf="!checked" [movies]="movies"></movie-table>
+
+  <!--<button (click)="extractImage('the terminator')">GET JSON</button>-->
 
 </div>

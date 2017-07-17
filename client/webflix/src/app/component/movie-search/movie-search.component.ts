@@ -1,9 +1,13 @@
 import {Component} from '@angular/core';
+import {Http, } from '@angular/http';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/observable';
 
+
+
 import {MovieService} from '../../service/movie/movie.service';
 import {Movie} from '../../model/movie';
+import {Image} from '../../model/image';
 
 @Component({
   moduleId: module.id,
@@ -16,9 +20,13 @@ export class MovieSearchComponent {
   movies: Movie[];
   isSearching: boolean;
   checked: boolean = true;
+  movieImage: Observable<Image[]>;
+  images: string;
+  visited: boolean;
 
   constructor(private movieService: MovieService,
-              private router: Router) {
+              private router: Router,
+              private http: Http) {
     this.title = '';
     this.isSearching = false;
     this.fetchAllMovies();
@@ -42,9 +50,14 @@ export class MovieSearchComponent {
       }, error => this.router.navigate(['/login']));
   }
 
-  checkboxStatus() {
-    //
-  }
+
+
+
+  // getMovieImage(){
+  //  this.movieImage = this.imageService.getImageData('Terminator');
+  // }
+
+
 
   setView() {
     if (document.cookie.length === 0) {
@@ -71,5 +84,7 @@ export class MovieSearchComponent {
       document.cookie = 'defaultView=grid; expires=Thu, 01 Jan 2020 00:00:00 UTC;';
     }
   }
+
+
 
 }
