@@ -94,10 +94,7 @@ public class Account {
 		Pattern r = Pattern.compile("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{8,}");
 		Matcher m = r.matcher(this.password);
 	    // regular exp tests for specified test restrictions and white space
-	    if (!(m.matches())) {
-	      return false;
-	    }
-	    return true;
+	    return !(m.matches());
 	 }
 
 	public Collection<Movie> getMyMovies() {
