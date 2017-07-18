@@ -6,6 +6,8 @@ import com.instil.webflix.movies.model.Movie;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 @Table(name="account")
@@ -88,6 +90,12 @@ public class Account {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public boolean passwordRestrictions() {
+		Pattern r = Pattern.compile("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{8,}");
+		Matcher m = r.matcher(this.password);
+	    // regular exp tests for specified test restrictions and white space
+	    return !(m.matches());
+	 }
 
 	public Collection<Movie> getMyMovies() {
 		return myMovies;

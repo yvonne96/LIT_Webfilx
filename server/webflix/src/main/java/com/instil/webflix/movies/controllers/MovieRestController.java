@@ -58,7 +58,7 @@ public class MovieRestController {
 	
 	@RequestMapping(method = GET, value="/byTitle/{title}", produces = "application/json")
 	public Iterable<Movie> moviesByTitle(@PathVariable("title") String title) {
-		return repository.findByTitleContains(title);
+		return repository.findByTitleContainsAllIgnoreCase(title);
 	}
 	
 	@RequestMapping(method = DELETE, value="/byId/{id}")

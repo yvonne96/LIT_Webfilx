@@ -27,17 +27,31 @@ export class RegisterNewUserComponent {
     let user = new User(this.emailAddress, this.password, this.firstname, this.lastname);
     this.clearLoginFailureMessage();
     this.authenticationService.register(user)
-      .subscribe(
-        next => {
-          this.router.navigate(['/login']);
-        },
-        error => {
-          this.setLoginFailureMessage();
-        }
-      );
-
+        .subscribe(
+          next => {
+            this.router.navigate(['/login']);
+          },
+          error => {
+            this.setLoginFailureMessage();
+          }
+        );
     return false;
+    }
+
+  emailValidation() {
+    let matcher = new RegExp(/([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/g);
+    return !(matcher.test(this.emailAddress));
   }
+  passwordValidation() {
+    return(this.password !== this.repeatPassword);
+  }
+
+  passwordRestrictions() {
+    let matcher = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}/g);
+    // regular exp tests for specified test restrictions and white space
+    return !(matcher.test(this.password));
+  }
+
 
   setLoginFailureMessage() {
     this.errorMessage = 'Registration failed.';
