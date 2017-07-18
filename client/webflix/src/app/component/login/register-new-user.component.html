@@ -35,7 +35,7 @@
       <div *ngIf="f.submitted && this.passwordValidation() " class="help-block">Please enter a valid repeated password</div>
     </div>
     <div class="form-group">
-      <button [disabled]="isLoading" class="btn btn-primary">Register</button>
+      <button class="btn btn-primary">Register</button>
       <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
     </div>
   </form>
