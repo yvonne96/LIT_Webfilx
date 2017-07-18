@@ -83,7 +83,12 @@ public class DbBasketService implements BasketService {
 
 	private BigDecimal getTotalCostForMovies(Collection<Movie> movies) {
 		// TODO: Don't check in code like this, go back later and implement
-		return new BigDecimal(-1);
+		BigDecimal total = new BigDecimal(0);
+		for(Movie m : movies)
+		{
+			total = total.add(m.getPrice());
+		}
+		return total;
 	}
 	
 
