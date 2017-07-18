@@ -26,13 +26,13 @@
       <label htmlFor="password">Password</label>
       <input type="password" class="form-control" name="password"
              [(ngModel)]="password" required/>
-      <div *ngIf="f.submitted && this.passwordValidation()" class="help-block">Please enter a valid password</div>
+      <div *ngIf="f.submitted && this.passwordRestrictions()" class="help-block">Password should contain caps, lower, nums and be 8 char long</div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
       <label htmlFor="repeatPassword">Repeat Password</label>
       <input type="password" class="form-control" name="repeatPassword"
              [(ngModel)]="repeatPassword" required/>
-      <div *ngIf="f.submitted && this.passwordRestrictions()" class="help-block">Please enter a valid repeated password</div>
+      <div *ngIf="f.submitted && this.passwordValidation() " class="help-block">Please enter a valid repeated password</div>
     </div>
     <div class="form-group">
       <button [disabled]="isLoading" class="btn btn-primary">Register</button>
