@@ -3,6 +3,7 @@ import 'rxjs/add/operator/map';
 import {Movie} from '../../model/movie';
 import {BasketService} from '../../service/basket/basket.service';
 
+
 @Component({
   moduleId: module.id,
   selector: 'movie-table',

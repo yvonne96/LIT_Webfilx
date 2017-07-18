@@ -91,7 +91,6 @@ public class DbBasketService implements BasketService {
 			total = total.add(m.getPrice());
 		}
 		return total;
-
 	}
 	
 
