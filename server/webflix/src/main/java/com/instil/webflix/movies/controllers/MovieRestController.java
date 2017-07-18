@@ -31,6 +31,7 @@ public class MovieRestController {
 	public Iterable<Movie> allMoviesAsJson() {
 		//return checkMyMovies(repository.findAll());
 		return repository.findAll();
+		
 	}
 
 	@RequestMapping(method = GET, value = "/mine", produces = "application/json")

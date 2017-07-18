@@ -13,6 +13,7 @@ public class Movie {
 	private Long id;
 	private String title;
 	private String year;
+	private String description;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "genre")
@@ -30,6 +31,7 @@ public class Movie {
 		this.title = "";
 		this.year = "";
 		this.price = new BigDecimal(0);
+		this.description = "";
 	}
 
 	public Movie(String title) {

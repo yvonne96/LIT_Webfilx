@@ -11,6 +11,8 @@ import {MovieService} from '../../service/movie/movie.service';
   styleUrls: ['movie.table.row.component.css']
 })
 export class MovieTableRowComponent {
+  desc: string = '';
+  descLen: number = 50;
   @Input('currentMovie')
   theMovie: any;
   @Input('showAddToBasket')
@@ -67,6 +69,14 @@ export class MovieTableRowComponent {
     }
     this.summary.movies.push(this.theMovie);
     return false;
+  }
+
+  showDescription() {
+    this.desc = this.theMovie.description.slice(0, this.descLen);
+  }
+
+  hideDescription() {
+    this.desc = '';
   }
 }
 

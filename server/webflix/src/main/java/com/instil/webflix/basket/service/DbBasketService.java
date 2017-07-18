@@ -33,7 +33,9 @@ public class DbBasketService implements BasketService {
 	private AccountRepository accountRepository;
 
 	public int getItemCount(Account account) {
+		System.out.println(account);
 		Basket basket = getBasketForAccount(account);
+		
 		return basket.getItems().size();
 	}
 
@@ -100,10 +102,13 @@ public class DbBasketService implements BasketService {
 	
 	private Basket getBasketForAccount(Account account) {
 		Basket basket = basketRepository.findByAccount(account);
-		if (basket == null) {
+		if (!(basket == null)) {
+			return basket;
+		}
+		else
+		{
 			logger.info("Could not find basket for account: " + account.getEmailAddress());
 			return new Basket(account);
 		}
-		return basket;
 	}
 }

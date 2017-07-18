@@ -24,7 +24,7 @@ public class DbUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		logger.info("Looking up user " + username);
+
 		return accountRepository
 				.findByEmailAddress(username)
 				.map(a -> createUser(a))
