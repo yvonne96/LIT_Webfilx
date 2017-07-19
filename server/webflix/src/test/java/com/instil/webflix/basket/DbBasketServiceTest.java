@@ -2,7 +2,7 @@ package com.instil.webflix.basket;
 
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.hasItem;
+//import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
@@ -80,8 +80,8 @@ public class DbBasketServiceTest {
         verify(basketRepository, times(1)).delete((Basket) any());
     }
 
-    @Test
-    public void shouldAddNewMovieToBasketAndSave() {
+    /* @Test
+   public void shouldAddNewMovieToBasketAndSave() {
         stubBasketForAccount(withBasketSizeOf(2));
 
         target.addMovieToBasket(account, movie);
@@ -101,7 +101,7 @@ public class DbBasketServiceTest {
         Basket newBasket = basketCaptor.getValue();
         assertThat(newBasket.getItems(), hasItem(new BasketItem(newBasket, movie)));
         assertThat(newBasket.getItems(), hasSize(1));
-    }
+    }*/
 
     @Test
     public void shouldCalculateCorrectTotalForMoviesInBasketSummary() {
