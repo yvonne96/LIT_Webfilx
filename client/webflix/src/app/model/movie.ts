@@ -1,3 +1,4 @@
+
 export class Movie {
   id: number;
   title: string;
@@ -5,6 +6,7 @@ export class Movie {
   classification: Classification;
   genre: Genre;
   price: number;
+  description: string;
 }
 
 interface Classification {

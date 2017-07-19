@@ -1,11 +1,21 @@
 <div>
-  <form (ngSubmit)='doSearch()' #f='ngForm'>
-    <input name='searchTitle' type='text' [(ngModel)]="title"
+<form (ngSubmit)='doSearch()' #f='ngForm' class="sform">
+    <input id='value' name='searchTitle' type='text' [(ngModel)]="title"
            required>
-    <input type="submit" value='Search' class='btn-primary'
+    <input id='search' type="submit" value='Search' class='btn-primary'
            [disabled]='!f.form.valid'>
 
     <label [hidden]='!isSearching'>Searching...</label>
   </form>
-  <movie-table [movies]='movies'></movie-table>
+    <span class="viewtype">Table View</span>
+  <span class="switcher">
+  <label class="switch">
+    <input type="checkbox" (click)="updateView()" [checked]="checked">
+    <span class="slider round"></span>
+  </label></span><span class="viewtype">Grid View</span>
+   <m-grid *ngIf='checked' [movies]="movies"></m-grid>
+   <movie-table *ngIf="!checked" [movies]="movies"></movie-table>
+
+  <!--<button (click)="extractImage('the terminator')">GET JSON</button>-->
+
 </div>

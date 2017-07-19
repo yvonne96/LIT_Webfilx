@@ -1,0 +1,24 @@
+
+
+<div class="movie-panel">
+  <h1>{{theMovie.title}}</h1>
+  <img  src="http://image.tmdb.org/t/p/w500/{{isSet ? image : getImageData()}}">
+  <p>{{theMovie.description.slice(0, descLen)}}....</p>
+
+  <div class="buttonDiv">
+    <button *ngIf="showAddToBasket" (click)="addMovieToBasket()" class="btn btn-success">
+      <span class="glyphicon glyphicon-shopping-cart"></span>
+      <span> Buy now: </span>
+      <span class="badge" *ngIf="showPrice">{{theMovie.price | currency:'EUR':true}}</span>
+    </button>
+  </div>
+
+  <div class="infocontainer">
+  <div class="info">
+  <span class="glyphicon glyphicon-info-sign" (mouseenter)="showInfo()" (mouseleave)="hideInfo"></span>
+    <span class="tooltiptext">{{info}}</span>
+  </div>
+  </div>
+
+</div>
+

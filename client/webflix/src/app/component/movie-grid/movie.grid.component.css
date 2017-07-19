@@ -1,0 +1,77 @@
+.movie-panel{
+  background-color:white;
+  min-height:600px;
+  min-width:300px;
+  max-height:600px;
+  max-width:600px;
+  border-radius: 5px;
+
+}
+h1{
+  text-align: center;
+  padding:15px;
+}
+
+h2, p{
+  padding:15px;
+}
+
+img{
+  width: 280px;
+  height: 300px;
+  display: block;
+  margin:0 auto;
+  margin:0 auto;
+}
+
+button {
+  text-align: center;
+}
+
+.buttonDiv{
+  text-align:center;
+  bottom:5px;
+  top:0;
+  position: relative;
+}
+
+.infocontainer{
+  text-align: center;
+}
+
+.info {
+  position: relative;
+  display: inline-block;
+  padding:15px;
+}
+
+.info .tooltiptext {
+  visibility: hidden;
+  width: 300px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 80%;
+  left: 50%;
+  margin-left: -150px;
+}
+
+.info .tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #555 transparent;
+}
+
+.info:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}

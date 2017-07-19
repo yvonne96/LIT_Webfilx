@@ -1,18 +1,17 @@
-import {Component, Input} from '@angular/core';
-import 'rxjs/add/operator/map';
+import { Component, Input} from '@angular/core';
 import {Movie} from '../../model/movie';
 import {BasketService} from '../../service/basket/basket.service';
-
+import 'rxjs/add/operator/map';
 
 @Component({
   moduleId: module.id,
-  selector: 'movie-table',
-  templateUrl: 'movie-table.component.html',
-  styleUrls: ['movie-table.component.css']
+  selector: 'm-grid',
+  templateUrl: 'grid.component.html',
+  styleUrls: ['grid.component.css']
 })
-export class MovieDisplayComponent {
+export class GridComponent {
   @Input('movies')
-  movies: Movie;
+  movies: Movie[];
 
   @Input('showAddToBasket')
   showAddToBasket: boolean;

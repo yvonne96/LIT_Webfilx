@@ -13,6 +13,7 @@ public class Movie {
 	private Long id;
 	private String title;
 	private String year;
+	private String description;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "genre")
@@ -30,6 +31,7 @@ public class Movie {
 		this.title = "";
 		this.year = "";
 		this.price = new BigDecimal(0);
+		this.description = "";
 	}
 
 	public Movie(String title) {
@@ -84,4 +86,45 @@ public class Movie {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Movie other = (Movie) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		return true;
+	}
+	
+	
 }

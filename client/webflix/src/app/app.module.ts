@@ -18,6 +18,7 @@ import {MovieSearchComponent} from './component/movie-search/movie-search.compon
 import {MyMoviesComponent} from './component/my-movies/my-movies.component';
 import {RegisterNewUserComponent} from './component/login/register-new-user.component';
 import {UserDashboardComponent} from './component/user-dashboard/user-dashboard.components';
+import { MovieGridComponent } from './component/movie-grid/movie.grid.component';
 
 import {ApiClient} from './service/api-client/api-client.service';
 import {AuthenticationService} from './service/authentication/authentication.service';
@@ -28,6 +29,9 @@ import {HttpMovieService} from './service/movie/http-movie.service';
 import {MovieService} from './service/movie/movie.service';
 import {RestService} from './service/api-client/rest.service';
 import {StorageService} from './service/storage/storage.service';
+
+
+import {GridComponent} from './component/movie-grid/grid.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -74,7 +78,9 @@ const appRoutes: Routes = [
     MovieTableRowComponent,
     MyMoviesComponent,
     RegisterNewUserComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    MovieGridComponent,
+    GridComponent,
   ],
   bootstrap: [
     AppComponent
@@ -87,7 +93,7 @@ const appRoutes: Routes = [
     {provide: BasketService, useClass: HttpBasketService},
     {provide: MovieService, useClass: HttpMovieService},
     {provide: RestService, useClass: AuthorisedRestService},
-    StorageService
+    StorageService,
   ]
 })
 export class AppModule {
