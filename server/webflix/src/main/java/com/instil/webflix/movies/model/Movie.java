@@ -86,6 +86,14 @@ public class Movie {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	@Override
 	public int hashCode() {
