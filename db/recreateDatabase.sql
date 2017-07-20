@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.1
--- Dumped by pg_dump version 9.6.1
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -313,7 +313,8 @@ CREATE TABLE movie (
     title character varying(128),
     year character varying(4),
     genre integer,
-    classification integer
+    classification integer,
+    description text DEFAULT 'Fill me in'::text
 );
 
 
@@ -493,7 +494,7 @@ ALTER TABLE ONLY voucher ALTER COLUMN id SET DEFAULT nextval('voucher_id_seq'::r
 -- Name: User_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"User_id_seq"', 19, true);
+SELECT pg_catalog.setval('"User_id_seq"', 23, true);
 
 
 --
@@ -503,6 +504,10 @@ SELECT pg_catalog.setval('"User_id_seq"', 19, true);
 COPY account (id, firstname, lastname, email_address, password) FROM stdin;
 8	admin	password	eamonn.boyle3@instil.co	425be9b26d17bb9ddde20bf5617a0ae5408ef68c4b3e6d060311c3dec23e9e0430692654b66af568
 18	admin	admin	admin	3717e9035ba54fc5a8ca904d7fc06724cc2fde6a6204a98925be587fc229b453150cf9bd173853c8
+20	b	g	test"email.com	24d5760d4450d8b78a7bef828c8d9b7b12aeef8bb9da50a1e41ea5614a1953d79b3e584ad75559db
+21	asd	asd	asda@sda.co	b446331acfbf0d2f8afa84ec2ccbf620406c7ee25b6fb996a8fd310989ecbe7ebd94f2d2fd125717
+22	asd	asd	asd@asd.com	cec4932c2bc861929a3f7c830d56c7366d4a6d0fb85bdf108bb545779da93921248100a011886ba9
+23	jake	jake	jake@jake.com	4e54c95234a2ca4ee939956c2d5bcc1cbeae79f42c1800de1e329eae6205dbf9c057900f4c9e6de9
 \.
 
 
@@ -511,6 +516,39 @@ COPY account (id, firstname, lastname, email_address, password) FROM stdin;
 --
 
 COPY account_movie (id, account_id, movie_id) FROM stdin;
+240	23	9
+241	23	10
+197	18	6
+198	18	10
+199	18	6
+200	18	6
+201	18	6
+202	18	6
+203	18	6
+204	18	6
+205	18	9
+206	18	7
+207	18	6
+208	18	11
+209	18	11
+210	18	9
+211	18	10
+212	18	11
+213	18	11
+214	18	11
+215	18	10
+216	18	11
+217	18	6
+218	18	7
+219	18	10
+220	18	10
+221	18	11
+233	22	11
+234	22	9
+235	22	8
+236	22	6
+237	22	7
+238	22	10
 \.
 
 
@@ -518,7 +556,7 @@ COPY account_movie (id, account_id, movie_id) FROM stdin;
 -- Name: account_movie_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('account_movie_id_seq', 57, true);
+SELECT pg_catalog.setval('account_movie_id_seq', 241, true);
 
 
 --
@@ -529,6 +567,10 @@ COPY account_role (role_id, account_id, id) FROM stdin;
 1	8	1
 1	18	2
 2	18	3
+1	20	5
+1	21	6
+1	22	7
+1	23	8
 \.
 
 
@@ -536,7 +578,7 @@ COPY account_role (role_id, account_id, id) FROM stdin;
 -- Name: account_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('account_role_id_seq', 4, true);
+SELECT pg_catalog.setval('account_role_id_seq', 8, true);
 
 
 --
@@ -544,6 +586,8 @@ SELECT pg_catalog.setval('account_role_id_seq', 4, true);
 --
 
 COPY basket (account_id, id) FROM stdin;
+18	94
+20	67
 \.
 
 
@@ -551,7 +595,7 @@ COPY basket (account_id, id) FROM stdin;
 -- Name: basket_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('basket_id_seq', 40, true);
+SELECT pg_catalog.setval('basket_id_seq', 98, true);
 
 
 --
@@ -559,6 +603,36 @@ SELECT pg_catalog.setval('basket_id_seq', 40, true);
 --
 
 COPY basket_item (id, movie_id, basket_id) FROM stdin;
+190	11	\N
+192	6	\N
+194	6	\N
+197	7	\N
+198	6	\N
+199	7	\N
+200	6	\N
+201	6	\N
+202	7	\N
+383	11	67
+384	11	67
+385	11	67
+386	11	67
+390	11	\N
+391	10	\N
+392	10	\N
+221	11	\N
+220	11	\N
+219	11	\N
+223	10	\N
+218	11	\N
+216	11	\N
+438	11	\N
+439	11	\N
+411	11	\N
+412	11	\N
+415	11	\N
+418	10	\N
+425	9	\N
+482	9	94
 \.
 
 
@@ -566,7 +640,7 @@ COPY basket_item (id, movie_id, basket_id) FROM stdin;
 -- Name: basket_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('basket_item_id_seq', 189, true);
+SELECT pg_catalog.setval('basket_item_id_seq', 486, true);
 
 
 --
@@ -622,13 +696,13 @@ SELECT pg_catalog.setval('genre_id_seq', 8, true);
 -- Data for Name: movie; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY movie (id, title, year, genre, classification) FROM stdin;
-6	The Terminator  	1984	5	14
-7	Commando	1985	5	14
-8	Predator	1987	5	14
-9	Total Recall	1990	5	14
-10	True Lies	1994	5	14
-11	Eraser	1996	5	14
+COPY movie (id, title, year, genre, classification, description) FROM stdin;
+11	Eraser	1996	5	14	U.S. Marshal deputy John Kruger is one of the toughest Marshals, his methods are to "Erase" The identities of his witnesses he is assigned to protect.
+10	True Lies	1994	5	14	A fearless, globe-trotting, terrorist-battling secret agent has his life turned upside down when he discovers his wife might be having an affair with a used car salesman while terrorists smuggle nuclear war heads into the United States.
+9	Total Recall	1990	5	14	Quaid visits Rekall, a unique travel agency that implants the memory of an adventure into its customers' minds, to get the chance to live out his Martian fantasies.
+8	Predator	1987	5	14	Dutch and his group of commandos are hired by the CIA to rescue downed airmen from guerillas in a Central American jungle.
+7	Commando	1985	5	14	India's most wanted Black Money agent, Vicky Chaddha, gets arrested in Malaysia and is kept in a safe house by the Malaysian authorities, along with his wife.
+6	The Terminator  	1984	5	14	A Cyborg has been sent from the future on a deadly mission, it has been programmed to kill a young woman named Sarah Connor.
 \.
 
 
@@ -927,6 +1001,13 @@ ALTER TABLE ONLY movie
 
 ALTER TABLE ONLY movie_price
     ADD CONSTRAINT movie_price_movie_id_fk FOREIGN KEY (movie_id) REFERENCES movie(id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
