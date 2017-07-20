@@ -1,14 +1,70 @@
 <div class="row">
+  <div class="col-md-4">
+    <div class="jumbotron">
+      <!-- IMPLEMENT CREATEVOUCHERS()-->
+      <h3>Create Voucher</h3>
+      <form name="createVouchers" #f="ngForm" (ngSubmit)="createVouchers()">
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
+          <label htmlFor="code">Code</label>
+          <input type="text" class="form-control" name="code"
+                 [(ngModel)]="code" required/>
+          <div *ngIf="f.submitted && code.valid" class="help-block">Please enter a valid email address</div>
+        </div>
+
+        <div class="form-group">
+          <label>Discount Type</label>
+          <select value="Select" [(ngModel)]="menuType" name="menuType" (change)="setValue(menuType)">
+            <option value="" selected>Select your option</option>
+            <option value='buyXGetY' >Buy X Get Y Free</option>
+            <option value="percentage" >Percentage Discount</option>
+            <option value="spendXGetY" >Spend X Get Y Off</option>
+          </select>
+
+          <div *ngIf="toggledBuyXGetYFree">
+            <label>Buy X:</label>
+            <input type="number" name="buyX" required>
+            <label>Get Y Free:</label>
+            <input type="number" name="getYFree" required>
+          </div>
+
+          <div *ngIf="toggledPercentOff">
+            <label>Percentage Discount:</label>
+            <input min="0" max="100" type="number" name="discPercent" required>
+          </div>
+
+          <div *ngIf="toggledSpendXGetYOff">
+            <label>Spend:</label>
+            <input type="number" name="spendX">
+            <label>Get Y Off:</label>
+            <input type="number" name="getYOff">
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
+          <label htmlFor="expiryDate">Expiry Date</label>
+          <input type="text" class="form-control" name="expiryDate"
+                 [(ngModel)]="expiryDate" required/>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-primary">Create Voucher</button>
+        </div>
+      </form>
+    </div>
+    </div>
+
     <div class="jumbotron col-md-8">
       <h2>Manage Vouchers</h2>
       <table class="table">
         <thead>
         <tr>
-          <th class="col-md-9">ID</th>
-          <th class="col-md-8">Code</th>
-          <th class="col-md-5">Expires</th>
-          <th class="col-md-3">Global</th>
-          <th class="col-md-1">Remove</th>
+          <th class="col-md-1">ID</th>
+          <th class="col-md-3">Code</th>
+          <th class="col-md-3">Discount</th>
+          <th class="col-md-3">Expires</th>
+          <th class="col-md-2">Global</th>
+          <th class="col-md-3">Remove</th>
         </tr>
         </thead>
         <tbody>
@@ -26,35 +82,5 @@
         </tbody>
       </table>
     </div>
-    <div class="col-md-4">
-      <div class="jumbotron">
-        <!-- IMPLEMENT CREATEVOUCHERS()-->
-        <h3>Create Vouchers</h3>
-        <form name="createVouchers" #f="ngForm" (ngSubmit)="createVouchers()">
-
-          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
-            <label htmlFor="code">Code</label>
-            <input type="text" class="form-control" name="code"
-                   [(ngModel)]="code" required/>
-            <div *ngIf="f.submitted && code.valid" class="help-block">Please enter a valid email address</div>
-          </div>
-
-          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
-            <label htmlFor="expiryDate">Expiry Date</label>
-            <input type="text" class="form-control" name="expiryDate"
-                   [(ngModel)]="expiryDate" required/>
-          </div>
-
-          <div class="form-check" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
-            <label class="form-check-label" htmlFor="global">Global </label>
-            <input type="checkbox" class="form-check-input" name="global"
-                   [(ngModel)]="global" required/>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-primary">Create</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+</div>
 
