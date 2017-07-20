@@ -29,7 +29,7 @@ export class HttpVoucherService extends VoucherService {
   }
 
   getAllVouchers(): Observable<Voucher[]> {
-    return this.restService.get(baseUrl + '/')
+    return this.restService.get(baseUrl)
       .build()
       .map(resp => resp.json())
       .catch(error => {

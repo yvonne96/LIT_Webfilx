@@ -14,6 +14,8 @@ import com.instil.webflix.security.model.Account;
 
 
 import java.util.Date;
+import java.util.List;
+
 import static java.util.stream.Collectors.*;
 
 import org.apache.commons.logging.Log;
@@ -36,5 +38,10 @@ public class DbVoucherService {
 		{
 			return false;
 		}
+	}
+	
+	public List<Voucher> getAllVouchers() {
+		List<Voucher> stream = voucherRepository.findAll();
+		return stream;
 	}
 }

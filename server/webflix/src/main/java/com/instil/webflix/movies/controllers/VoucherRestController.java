@@ -4,6 +4,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.instil.webflix.movies.data.MovieRepository;
 import com.instil.webflix.basket.data.VoucherRepository;
+import com.instil.webflix.movies.model.Genre;
 import com.instil.webflix.movies.model.Movie;
 import com.instil.webflix.basket.model.Voucher;
 import com.instil.webflix.movies.model.MovieList;
@@ -31,5 +34,9 @@ public class VoucherRestController {
 		return repository.findByName(name);
 	}
 	
+	@RequestMapping(method = GET, produces = "application/json")
+	public List<Voucher> allVouchers() {
+		return repository.findAll();
+	}
 	
 }

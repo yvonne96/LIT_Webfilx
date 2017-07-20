@@ -4,6 +4,8 @@ import {BasketSummary} from '../../model/basket-summary';
 import {Movie} from '../../model/movie';
 import {Router} from '@angular/router';
 import {VoucherService} from '../../service/voucher/voucher.service';
+import {Voucher} from '../../model/voucher';
+import {Observable} from "rxjs/Observable";
 
 @Component({
   moduleId: module.id,
@@ -17,11 +19,13 @@ export class BasketComponent {
   public inUse: boolean = false;
   public discount: String = '';
   public subtotal: number;
+  public vouchers: Voucher[];
 
   constructor(private basketService: BasketService,
               private router: Router,
               private voucherService: VoucherService) {
     this.summary = BasketSummary.empty();
+    this.fetchAllMovies();
     this.refreshSummary();
   }
 
@@ -50,6 +54,17 @@ export class BasketComponent {
         summary => this.summary = summary);
   }
 
+  fetchAllMovies(): void {
+    this.getAllVouchers(this.voucherService.getAllVouchers());
+  }
+
+  getAllVouchers(source: Observable<Voucher[]>) {
+    return source
+      .subscribe(vouchers => {
+        this.vouchers = vouchers;
+      }, error => this.router.navigate(['/login']));
+  }
+
   checkVoucher(name: string) {
     this.voucherService.getVoucherValid(name.toUpperCase())
       .subscribe(
@@ -62,7 +77,7 @@ export class BasketComponent {
             this.voucherMessage = 'This voucher rewards you with: ' + res.offer;
             this.inUse = true;
             this.discount = res.offer;
-            this.applyDiscountOne(12, 12);
+            this.parseDiscount(res.offer);
           }
         });
   }
@@ -95,7 +110,7 @@ export class BasketComponent {
   }
 
   applyDiscountThree(percentOff: number) {
-    //
+    this.subtotal = this.summary.total * ((100.0 - percentOff) / 100.0);
   }
 
 }
