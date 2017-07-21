@@ -7,6 +7,7 @@ import 'rxjs/add/operator/do';
 import {VoucherService} from './voucher.service';
 import {RestService} from '../api-client/rest.service';
 import {Voucher} from '../../model/voucher';
+import {map} from "rxjs/operator/map";
 
 const baseUrl = '/voucher';
 
@@ -37,6 +38,16 @@ export class HttpVoucherService extends VoucherService {
         return Observable.of([]);
       });
 
+  }
+
+  removeVoucher(voucher: Voucher): Observable<Boolean> {
+    return this.restService.delete(baseUrl + '/' + voucher.id)
+      .build()
+      .map(() => true)
+      .catch(error => {
+      console.log('unable to remove voucher');
+      return Observable.of(false);
+      });
   }
 }
 

@@ -1,4 +1,4 @@
-package com.instil.webflix.movies.controllers;
+package com.instil.webflix.voucher.controllers;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -15,19 +15,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.instil.webflix.movies.data.MovieRepository;
-import com.instil.webflix.basket.data.VoucherRepository;
+import com.instil.webflix.voucher.data.VoucherRepository;
 import com.instil.webflix.movies.model.Genre;
 import com.instil.webflix.movies.model.Movie;
-import com.instil.webflix.basket.model.Voucher;
+import com.instil.webflix.voucher.model.Voucher;
 import com.instil.webflix.movies.model.MovieList;
 import com.instil.webflix.security.model.Account;
 import com.instil.webflix.security.service.AccountService;
+import com.instil.webflix.voucher.service.VoucherService;
 
 @RestController
 @RequestMapping("/voucher")
 public class VoucherRestController {
 	@Autowired
 	private VoucherRepository repository;
+	
+//	@Autowired
+//	private VoucherService voucherService;
 	
 	@RequestMapping(method = GET, value="/{name}", produces = "application/json")
 	public Voucher voucherByName(@PathVariable("name") String name) {
@@ -37,6 +41,11 @@ public class VoucherRestController {
 	@RequestMapping(method = GET, produces = "application/json")
 	public List<Voucher> allVouchers() {
 		return repository.findAll();
+	}
+	
+	@RequestMapping(method = DELETE, value="/{voucherID}",  produces = "application/json")
+	public void removeVoucher(@PathVariable("voucherID") int ID){
+		repository.deleteById(ID);
 	}
 	
 }

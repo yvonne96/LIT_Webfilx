@@ -60,12 +60,22 @@ export class ManageVouchersComponent {
     this.receiveAllVouchers(this.voucherService.getAllVouchers());
   }
 
+  removeVoucher(voucher: Voucher){
+    this.voucherService.removeVoucher(voucher)
+      .subscribe(() => this.refreshVouchers());
+  }
+
   receiveAllVouchers(source: Observable<Voucher[]>) {
     source
       .subscribe(vouchers => {
         this.vouchers = vouchers;
         console.log(vouchers);
       }, error => alert('Error getting vouchers'));
+  }
+
+  refreshVouchers() {
+    this.voucherService.getAllVouchers()
+      .subscribe(vouchers => this.vouchers = vouchers);
   }
 }
 

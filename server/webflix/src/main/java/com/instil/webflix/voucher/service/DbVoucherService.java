@@ -2,9 +2,9 @@ package com.instil.webflix.voucher.service;
 
 import com.instil.webflix.basket.data.BasketItemRepository;
 import com.instil.webflix.basket.data.BasketRepository;
-import com.instil.webflix.basket.data.VoucherRepository;
+import com.instil.webflix.voucher.data.VoucherRepository;
 import com.instil.webflix.basket.model.BasketSummary;
-import com.instil.webflix.basket.model.Voucher;
+import com.instil.webflix.voucher.model.Voucher;
 import com.instil.webflix.movies.model.Basket;
 import com.instil.webflix.movies.model.BasketItem;
 import com.instil.webflix.movies.model.Movie;
@@ -23,13 +23,14 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-public class DbVoucherService {
+@Service
+public class DbVoucherService implements VoucherService {
 	
 	@Autowired
 	private VoucherRepository voucherRepository;
 	
 	
-	public Boolean getVoucherValid(String name) {
+	public boolean getVoucherValid(String name) {
 		Voucher voucher = voucherRepository.findByName(name);
 		if (!(voucher == null)) {
 			return true;
@@ -44,4 +45,10 @@ public class DbVoucherService {
 		List<Voucher> stream = voucherRepository.findAll();
 		return stream;
 	}
+	
+	public void clearVoucher(int ID){
+		voucherRepository.deleteById(ID);
+	}
+
+	
 }
