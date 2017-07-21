@@ -3,6 +3,9 @@
  */
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import {Voucher} from '../../../model/voucher';
+import {VoucherService} from '../../../service/voucher/voucher.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   moduleId: module.id,
@@ -14,18 +17,19 @@ export class ManageVouchersComponent {
   private toggledPercentOff: boolean = false;
   private toggledSpendXGetYOff: boolean = false;
   private menuType: String;
+  private vouchers: Voucher[];
 
-  constructor() {
-
+  constructor(private voucherService: VoucherService) {
+    this.fetchAllVouchers();
   }
+  // removeVoucher(voucher: Voucher): void {
+  //   this.VoucherService.removeVoucher(voucher)
+  //     .subscribe(() => this.refreshSummary());
+  // }
 
-    setValue(menuSelection : String){
+
+  chooseDiscountMenu(menuSelection: String) {
     this.menuType = menuSelection;
-    this.chooseDiscountMenu();
-  }
-
-  chooseDiscountMenu() {
-
     switch (this.menuType) {
       case 'buyXGetY':
         this.toggledPercentOff = false;
@@ -49,7 +53,21 @@ export class ManageVouchersComponent {
         this.toggledPercentOff = false;
         this.toggledBuyXGetYFree = false;
         this.toggledSpendXGetYOff = false; }
-  }}
+  }
+
+
+  fetchAllVouchers() {
+    this.receiveAllVouchers(this.voucherService.getAllVouchers());
+  }
+
+  receiveAllVouchers(source: Observable<Voucher[]>) {
+    source
+      .subscribe(vouchers => {
+        this.vouchers = vouchers;
+        console.log(vouchers);
+      }, error => alert('Error getting vouchers'));
+  }
+}
 
 
 

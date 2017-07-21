@@ -9,12 +9,11 @@
           <label htmlFor="code">Code</label>
           <input type="text" class="form-control" name="code"
                  [(ngModel)]="code" required/>
-          <div *ngIf="f.submitted && code.valid" class="help-block">Please enter a valid email address</div>
         </div>
 
         <div class="form-group">
           <label>Discount Type</label>
-          <select value="Select" [(ngModel)]="menuType" name="menuType" (change)="setValue(menuType)">
+          <select value="Select" [(ngModel)]="menuType" name="menuType" (change)="chooseDiscountMenu(menuType)">
             <option value="" selected>Select your option</option>
             <option value='buyXGetY' >Buy X Get Y Free</option>
             <option value="percentage" >Percentage Discount</option>
@@ -59,8 +58,7 @@
       <table class="table">
         <thead>
         <tr>
-          <th class="col-md-1">ID</th>
-          <th class="col-md-3">Code</th>
+          <th class="col-md-2">Code</th>
           <th class="col-md-3">Discount</th>
           <th class="col-md-3">Expires</th>
           <th class="col-md-2">Global</th>
@@ -68,17 +66,17 @@
         </tr>
         </thead>
         <tbody>
-        <!--
-        <tr *ngFor="let voucher of summary.vouchers">
-          <td>{{movie.title}}</td>
-          <td>${{movie.price}}</td>
+        <tr *ngFor="let voucher of vouchers">
+          <td>{{voucher.name}}</td>
+          <td>{{voucher.offer}}</td>
+          <td>{{voucher.expire | date}}</td>
+          <td>{{voucher.global}}</td>
           <td>
-            <button class="btn btn-danger" (click)="removeMovie(movie)">
+            <button class="btn btn-danger" (click)="removeVoucher(voucher)">
               <span class="glyphicon glyphicon-trash"></span>
             </button>
           </td>
         </tr>
-        -->
         </tbody>
       </table>
     </div>
