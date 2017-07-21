@@ -5,7 +5,7 @@ import {Movie} from '../../model/movie';
 import {Router} from '@angular/router';
 import {VoucherService} from '../../service/voucher/voucher.service';
 import {Voucher} from '../../model/voucher';
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   moduleId: module.id,
@@ -25,7 +25,7 @@ export class BasketComponent {
               private router: Router,
               private voucherService: VoucherService) {
     this.summary = BasketSummary.empty();
-    this.fetchAllMovies();
+    this.fetchAllVouchers();
     this.refreshSummary();
   }
 
@@ -54,15 +54,16 @@ export class BasketComponent {
         summary => this.summary = summary);
   }
 
-  fetchAllMovies(): void {
+  fetchAllVouchers(): void {
     this.getAllVouchers(this.voucherService.getAllVouchers());
   }
 
   getAllVouchers(source: Observable<Voucher[]>) {
-    return source
+    const voucherGetter = source
       .subscribe(vouchers => {
         this.vouchers = vouchers;
       }, error => this.router.navigate(['/login']));
+    return voucherGetter;
   }
 
   checkVoucher(name: string) {
