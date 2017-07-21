@@ -23,9 +23,9 @@
 
           <div *ngIf="toggledBuyXGetYFree">
             <label>Buy X:</label>
-            <input type="number" name="buyX" required>
+            <input min="0" type="number" name="buyX" required>
             <label>Get Y Free:</label>
-            <input type="number" name="getYFree" required>
+            <input min= "0" type="number" name="getYFree" required>
           </div>
 
           <div *ngIf="toggledPercentOff">
@@ -35,15 +35,15 @@
 
           <div *ngIf="toggledSpendXGetYOff">
             <label>Spend:</label>
-            <input type="number" name="spendX">
+            <input min="0" type="number" name="spendX">
             <label>Get Y Off:</label>
-            <input type="number" name="getYOff">
+            <input min="0" type="number" name="getYOff">
           </div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
           <label htmlFor="expiryDate">Expiry Date</label>
-          <input type="text" class="form-control" name="expiryDate"
+          <input type="date" class="form-control" name="expiryDate"
                  [(ngModel)]="expiryDate" required/>
         </div>
 
@@ -53,7 +53,7 @@
       </form>
     </div>
     </div>
-
+    <!-- MANAGE VOUCHERS-->
     <div class="jumbotron col-md-8">
       <h2>Manage Vouchers</h2>
       <table class="table">
