@@ -53,6 +53,7 @@ public class VoucherRestController {
 	
 	@RequestMapping(method = POST, value="/{voucherID}/{global}",  produces = "application/json")
 	public void toggleGlobal(@PathVariable("voucherID") int ID, @PathVariable("global") boolean global){
+		repository.setAllGlobalFalse();
 		repository.modifyById(ID, global);
 	}
 	

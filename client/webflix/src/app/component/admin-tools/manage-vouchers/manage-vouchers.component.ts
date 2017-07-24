@@ -54,9 +54,6 @@ export class ManageVouchersComponent {
         this.toggledBuyXGetYFree = false;
         this.toggledSpendXGetYOff = false; }
   }
-  uncheckRadio(voucher: Voucher) {
-    voucher.global = false;
-  }
 
   fetchAllVouchers() {
     this.receiveAllVouchers(this.voucherService.getAllVouchers());
@@ -71,17 +68,32 @@ export class ManageVouchersComponent {
     source
       .subscribe(vouchers => {
         this.vouchers = vouchers;
+        this.sortVouchersByID();
         console.log(vouchers);
       }, error => alert('Error getting vouchers'));
   }
 
   refreshVouchers() {
     this.voucherService.getAllVouchers()
-      .subscribe(vouchers => this.vouchers = vouchers);
+      .subscribe(vouchers => {
+        this.vouchers = vouchers;
+        this.sortVouchersByID();
+      });
   }
   toggleGlobalButton(voucher: Voucher) {
-    this.voucherService.toggleGlobalVoucher(voucher)
+    let global = true;
+    if (voucher.global) {
+      global = false;
+    }
+    this.voucherService.toggleGlobalVoucher(voucher, global)
       .subscribe(() => this.refreshVouchers());
+  }
+  sortVouchersByID() {
+    this.vouchers.sort((firstVoucher, nextVoucher) => {
+      if (firstVoucher.id < nextVoucher.id) {return -1; }
+      if (firstVoucher.id > nextVoucher.id) {return 1; }
+      return 0;
+    });
   }
 }
 

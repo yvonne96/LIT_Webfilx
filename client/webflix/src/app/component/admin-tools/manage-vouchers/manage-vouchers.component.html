@@ -61,8 +61,8 @@
           <th class="col-md-2">Code</th>
           <th class="col-md-3">Discount</th>
           <th class="col-md-3">Expires</th>
-          <th class="col-md-2">Global</th>
-          <th class="col-md-3">Remove</th>
+          <th class="col-md-2" style="text-align: center">Global</th>
+          <th class="col-md-3" style="text-align: center">Remove</th>
         </tr>
         </thead>
         <tbody>
@@ -70,8 +70,8 @@
           <td>{{voucher.name}}</td>
           <td>{{voucher.offer}}</td>
           <td>{{voucher.expire | date}}</td>
-          <td><div class="radio"><input type="radio" name="global-bttn" [checked]="voucher.global" (click)="toggleGlobalButton(voucher)"></div></td>
-          <td>
+          <td ><div class="radio" style="text-align: center"><input type="checkbox" name="global-bttn" [checked]="voucher.global" (click)="toggleGlobalButton(voucher)"></div></td>
+          <td  style="text-align: center">
             <button class="btn btn-danger" (click)="removeVoucher(voucher)">
               <span class="glyphicon glyphicon-trash"></span>
             </button>
