@@ -18,12 +18,15 @@ export class BasketComponent {
   public valid: boolean;
   public voucherMessage: string = '';
   public inUse: boolean = false;
-  public discount: String = '';
+  public discount: string = '';
   public subtotal: number;
   private voucherApplied: boolean;
+  public currentOffer: string;
   public vouchers: Voucher[];
-  public testMovies: Movie[];
-
+  private globals: Voucher[];
+  private globalVoucher: string = '';
+  private globalSet: boolean;
+  private used: number[];
 
 
   constructor(private basketService: BasketService,
@@ -32,6 +35,8 @@ export class BasketComponent {
     this.summary = BasketSummary.empty();
     this.fetchAllVouchers();
     this.refreshSummary();
+    this.fetchAllGlobalVouchers();
+    this.fetchUsedVouchers();
   }
 
   clearBasket(): void {
@@ -64,12 +69,26 @@ export class BasketComponent {
   private refreshSummary(): void {
     this.basketService.getBasketSummary()
       .subscribe(
-        summary => this.summary = summary);
+        summary => {
+          this.summary = summary;
+          this.subtotal = this.summary.total;
+        });
+  }
+
+  fetchUsedVouchers(): void {
+    this.getUsedVouchers(this.voucherService.getUsedVouchers());
+  }
+
+  getUsedVouchers(source: Observable<Voucher[]>) {
+    return source.subscribe(vouchers => {
+      this.used = vouchers;
+    }, error => this.router.navigate(['/login']));
   }
 
   fetchAllVouchers(): void {
     this.getAllVouchers(this.voucherService.getAllVouchers());
   }
+
 
   getAllVouchers(source: Observable<Voucher[]>) {
     const voucherGetter = source
@@ -79,7 +98,23 @@ export class BasketComponent {
     return voucherGetter;
   }
 
+  fetchAllGlobalVouchers(): void {
+    this.getAllGlobalVouchers(this.voucherService.getAllGlobalVouchers());
+  }
+
+  getAllGlobalVouchers(source: Observable<Voucher[]>) {
+    const voucherGetter = source
+      .subscribe(globals => {
+        console.log(globals);
+        this.globals = globals;
+        this.globalVoucher = globals[0].offer;
+        this.globalSet = true;
+      }, error => this.router.navigate(['/login']));
+    return voucherGetter;
+  }
+
   checkVoucher(name: string) {
+    if (!(name === '')) {
     this.voucherService.getVoucherValid(name.toUpperCase())
       .subscribe(
         (res) => {
@@ -88,13 +123,32 @@ export class BasketComponent {
             this.voucherMessage = name + ': is not a valid voucher';
             this.inUse = false;
           } else {
-            this.voucherMessage = 'This voucher rewards you with: ' + res.offer;
-            this.inUse = true;
-            this.discount = res.offer;
-            this.voucherApplied = true;
-            this.parseDiscount(res.offer);
+            for (let num of this.used) {
+              if (num === res.id) {
+                console.log('not valid');
+              } else {
+                console.log('valid');
+                this.voucherMessage = 'This voucher rewards you with: ' + res.offer;
+                this.inUse = true;
+                this.discount = res.offer;
+                this.parseDiscount(this.discount);
+                if (this.globals !== []) {
+                  this.globalSet = true;
+                }
+              }
+            }
           }
         });
+    } else {
+      console.log('no voucher entered');
+    }
+  }
+
+  private setGlobal() {
+    this.discount = this.globals[0].offer;
+    this.inUse = true;
+    this.parseDiscount(this.discount);
+    this.globalSet = false;
   }
 
   parseDiscount(offer: string) {
@@ -137,6 +191,11 @@ export class BasketComponent {
 
   applyDiscountThree(percentOff: number) {
     this.subtotal = this.summary.total * ((100.0 - percentOff) / 100.0);
+    return this.subtotal;
+  }
+
+  show() {
+    console.log(this.used);
   }
 
   removeVoucher(): void {

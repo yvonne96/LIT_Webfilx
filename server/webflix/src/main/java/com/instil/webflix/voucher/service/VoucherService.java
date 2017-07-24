@@ -1,9 +1,13 @@
 package com.instil.webflix.voucher.service;
 
-import com.instil.webflix.basket.model.Voucher;
+import java.util.List;
+
+import com.instil.webflix.voucher.model.Voucher;
 
 public interface VoucherService {
-	boolean getVoucherValid(Voucher voucher);
+	boolean getVoucherValid(String name);
 	
-	Iterable<Voucher> getAllVouchers();
+	List<Voucher> getAllVouchers();
+	
+	
 }
