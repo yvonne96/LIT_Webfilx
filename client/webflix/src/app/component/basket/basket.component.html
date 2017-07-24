@@ -22,10 +22,28 @@
     </table>
     <button class="btn btn-danger" (click)="clearBasket()">Clear</button>
   </div>
+
+
+
   <div class="col-md-4">
     <div class="jumbotron">
       <h3>Total Cost: {{summary.total | currency:'EUR':true:'1.2-2'}}</h3>
+
+      <h3>Discount: {{discount}}</h3>
+      <hr>
+      <h3>Subtotal: {{subtotal | currency:'EUR':true}}</h3>
+
       <button class="btn btn-success" (click)="checkout()">Purchase</button>
+    </div>
+
+
+
+    <div class="jumbotron">
+      <input type="text" class="form-control" #voucher>
+      <div class="help-block alert-success" *ngIf="voucherMessage">{{voucherMessage}}</div>
+      <br>
+      <button (click)="checkVoucher(voucher.value)" class="btn btn-primary">Verify Voucher</button>
     </div>
   </div>
 </div>
+

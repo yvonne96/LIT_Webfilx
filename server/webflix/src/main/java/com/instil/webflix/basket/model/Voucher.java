@@ -1,5 +1,7 @@
 package com.instil.webflix.basket.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,10 +13,10 @@ public class Voucher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private String offer;
+    private Boolean global;
+    private Date expire;
 
     public String getName() {
         return name;
@@ -38,5 +40,21 @@ public class Voucher {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    public Boolean getGlobal() {
+    	return global;
+    }
+    
+    public void setGlobal(Boolean global) {
+    	this.global = global;
+    }
+    
+    public Date getExpire() {
+    	return expire;
+    }
+    
+    public void setExpire(Date expire) {
+    	this.expire = expire;
     }
 }
