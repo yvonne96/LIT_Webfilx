@@ -40,6 +40,16 @@ export class HttpVoucherService extends VoucherService {
 
   }
 
+  createVoucher(code: string, discount: string, expiryDate: Date): Observable<Boolean> {
+    return this.restService.post(baseUrl + '/' + {code} + '/' + {discount} + '/' + {expiryDate})
+      .build()
+      .map(() => true)
+      .catch(error => {
+        console.log('unable to create voucher');
+        return Observable.of(false);
+      });
+  }
+
   removeVoucher(voucher: Voucher): Observable<Boolean> {
     return this.restService.delete(baseUrl + '/' + voucher.id)
       .build()

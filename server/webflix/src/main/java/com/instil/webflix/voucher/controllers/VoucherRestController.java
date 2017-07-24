@@ -5,6 +5,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.POST;
@@ -55,6 +56,11 @@ public class VoucherRestController {
 	public void toggleGlobal(@PathVariable("voucherID") int ID, @PathVariable("global") boolean global){
 		repository.setAllGlobalFalse();
 		repository.modifyById(ID, global);
+	}
+	
+	@RequestMapping(method = POST, value="/{code}/{discount}/{expiryDate}",  produces = "application/json")
+	public void createVoucher(@PathVariable("code") String code, @PathVariable("discount") String discount, @PathVariable("expiryDate") Date expiryDate){
+		repository.addVoucher(code, discount, expiryDate);
 	}
 	
 }

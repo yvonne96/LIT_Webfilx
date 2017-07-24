@@ -2,6 +2,7 @@ package com.instil.webflix.voucher.data;
 
 import com.instil.webflix.voucher.model.Voucher;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -30,4 +31,9 @@ public interface VoucherRepository extends JpaRepository<Voucher, Long> {
 	@Modifying
 	@Query(nativeQuery = true, value = "UPDATE voucher SET global = 'False'")
 	void setAllGlobalFalse();
+	
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true, value = "INSERT INTO voucher (name, offer,expire) VALUES (:code , :discount , :expiryDate)")
+	void addVoucher(@Param("code") String code, @Param("discount") String discount, @Param("expiryDate") Date expiryDate);
 }

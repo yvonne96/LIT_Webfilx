@@ -13,6 +13,9 @@ import {Observable} from 'rxjs/Observable';
   templateUrl: 'manage-vouchers.component.html'
 })
 export class ManageVouchersComponent {
+  private code: string;
+  private expiryDate: Date;
+  private discount: string;
   private toggledBuyXGetYFree: boolean = false;
   private toggledPercentOff: boolean = false;
   private toggledSpendXGetYOff: boolean = false;
@@ -22,11 +25,12 @@ export class ManageVouchersComponent {
   constructor(private voucherService: VoucherService) {
     this.fetchAllVouchers();
   }
-  // removeVoucher(voucher: Voucher): void {
-  //   this.VoucherService.removeVoucher(voucher)
-  //     .subscribe(() => this.refreshSummary());
-  // }
 
+  createVoucher() {
+    // SORT OUT DISCOUNT
+    this.voucherService.createVoucher(this.code, this.discount, this.expiryDate)
+      .subscribe(() => this.refreshVouchers());
+  }
 
   chooseDiscountMenu(menuSelection: String) {
     this.menuType = menuSelection;
@@ -68,7 +72,7 @@ export class ManageVouchersComponent {
     source
       .subscribe(vouchers => {
         this.vouchers = vouchers;
-        this.sortVouchersByID();
+        this.sortVouchersByGlobal();
         console.log(vouchers);
       }, error => alert('Error getting vouchers'));
   }
@@ -77,7 +81,7 @@ export class ManageVouchersComponent {
     this.voucherService.getAllVouchers()
       .subscribe(vouchers => {
         this.vouchers = vouchers;
-        this.sortVouchersByID();
+        this.sortVouchersByGlobal();
       });
   }
   toggleGlobalButton(voucher: Voucher) {
@@ -94,6 +98,26 @@ export class ManageVouchersComponent {
       if (firstVoucher.id > nextVoucher.id) {return 1; }
       return 0;
     });
+  }
+  sortVouchersByGlobal() {
+    this.vouchers.sort((firstVoucher, nextVoucher) => {
+      if (firstVoucher.global === true) {return -1; }
+      if (nextVoucher.global === true) {return 1; }
+      return 0;
+    });
+  }
+  getVoucherRowStyle(expired: boolean): String{
+    if (expired) {
+      return 'red';
+    }
+    return 'black';
+  }
+  checkVoucherExpired(voucher: Voucher): boolean {
+    let currentDate = new Date();
+    if (currentDate > voucher.expire) {
+      return true;
+    }
+    return false;
   }
 }
 

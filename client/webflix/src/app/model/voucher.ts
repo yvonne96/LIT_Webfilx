@@ -4,4 +4,5 @@ export class Voucher {
   offer: string;
   global: boolean;
   expire: Date;
+  constructor(name: string, offer: string, expiry: Date) {}
 }

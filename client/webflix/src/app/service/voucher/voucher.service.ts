@@ -8,4 +8,5 @@ export abstract class VoucherService {
 
   abstract removeVoucher(voucher: Voucher): Observable<boolean>;
   abstract toggleGlobalVoucher(voucher: Voucher, global: boolean): Observable<boolean>;
+  abstract createVoucher(code: string, discount: string, expiryDate: Date):  Observable<boolean>;
 }

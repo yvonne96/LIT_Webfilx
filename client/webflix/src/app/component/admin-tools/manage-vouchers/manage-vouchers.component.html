@@ -66,15 +66,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let voucher of vouchers">
+        <tr *ngFor="let voucher of vouchers" [style.color]="getVoucherRowStyle(checkVoucherExpired(voucher))">
           <td>{{voucher.name}}</td>
           <td>{{voucher.offer}}</td>
           <td>{{voucher.expire | date}}</td>
-          <td ><div class="radio" style="text-align: center"><input type="checkbox" name="global-bttn" [checked]="voucher.global" (click)="toggleGlobalButton(voucher)"></div></td>
+          <td ><div class="radio" style="text-align: center"><input type="checkbox" name="global-bttn"  [disabled]="checkVoucherExpired(voucher)"[checked]="voucher.global" (click)="toggleGlobalButton(voucher)"></div></td>
           <td  style="text-align: center">
             <button class="btn btn-danger" (click)="removeVoucher(voucher)">
               <span class="glyphicon glyphicon-trash"></span>
             </button>
+          </td>
+          <td *ngIf="checkVoucherExpired(voucher)" class="danger">
+              EXPIRED
           </td>
 
         </tr>
