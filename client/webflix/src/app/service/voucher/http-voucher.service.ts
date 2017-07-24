@@ -38,4 +38,24 @@ export class HttpVoucherService extends VoucherService {
       });
 
   }
+
+  getAllGlobalVouchers(): Observable<Voucher[]> {
+    return this.restService.get(baseUrl + '/global')
+      .build()
+      .map(resp => resp.json())
+      .catch(error => {
+        console.log('error retrieving globals');
+        return Observable.of([]);
+      });
+  }
+
+  getUsedVouchers(): Observable<Voucher[]> {
+    return this.restService.get(baseUrl + '/usedVouchers')
+      .build()
+      .map(resp => resp.json())
+      .catch(error => {
+        console.log('error retrieving used vouchers');
+        return Observable.of([]);
+      });
+  }
 }

@@ -2,9 +2,10 @@ package com.instil.webflix.voucher.service;
 
 import com.instil.webflix.basket.data.BasketItemRepository;
 import com.instil.webflix.basket.data.BasketRepository;
-import com.instil.webflix.basket.data.VoucherRepository;
+import com.instil.webflix.basket.data.BasketVoucherRepository;
+import com.instil.webflix.voucher.data.VoucherRepository;
 import com.instil.webflix.basket.model.BasketSummary;
-import com.instil.webflix.basket.model.Voucher;
+import com.instil.webflix.voucher.model.Voucher;
 import com.instil.webflix.movies.model.Basket;
 import com.instil.webflix.movies.model.BasketItem;
 import com.instil.webflix.movies.model.Movie;
@@ -22,14 +23,28 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.instil.webflix.security.service.AccountService;
+import com.instil.webflix.basket.service.BasketService;
 
-public class DbVoucherService {
+public class DbVoucherService implements VoucherService{
 	
 	@Autowired
 	private VoucherRepository voucherRepository;
 	
+	@Autowired
+	private BasketVoucherRepository usedRepository;
 	
-	public Boolean getVoucherValid(String name) {
+	@Autowired
+	private AccountService accountService;
+	
+	@Autowired
+	private BasketService basketService;
+	
+	@Autowired
+	private BasketRepository basketRepository;
+	
+	
+	public boolean getVoucherValid(String name) {
 		Voucher voucher = voucherRepository.findByName(name);
 		if (!(voucher == null)) {
 			return true;
@@ -44,4 +59,11 @@ public class DbVoucherService {
 		List<Voucher> stream = voucherRepository.findAll();
 		return stream;
 	}
+	
+	public List<Voucher> getAllGlobalVouchers() {
+		List<Voucher> stream = voucherRepository.findByGlobalTrue();
+		return stream;
+	}
+	
+
 }
