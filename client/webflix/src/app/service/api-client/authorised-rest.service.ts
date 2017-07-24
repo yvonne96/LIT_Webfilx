@@ -35,6 +35,10 @@ export class AuthorisedRestService extends RestService {
     return this.createBuilder(path, RequestMethod.Delete, authenticate);
   }
 
+  put(path: string, authenticate = true) {
+    return this.createBuilder(path, RequestMethod.Put, authenticate);
+  }
+
   private createBuilder(path: string, method: RequestMethod, authenticate: boolean): RequestBuilder {
     let builder = new ApiRequestBuilder(this.http, this.baseUrl)
       .setMethod(method)

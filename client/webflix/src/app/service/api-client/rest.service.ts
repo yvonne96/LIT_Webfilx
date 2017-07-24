@@ -5,6 +5,7 @@ export abstract class RestService {
   public abstract get(url: String, authenticate?: boolean): RequestBuilder;
   public abstract post(url: String, authenticate?: boolean): RequestBuilder;
   public abstract delete(url: String, authenticate?: boolean): RequestBuilder;
+  public abstract put(url: String, authenticate?: boolean): RequestBuilder;
 }
 
 export abstract class RequestBuilder {

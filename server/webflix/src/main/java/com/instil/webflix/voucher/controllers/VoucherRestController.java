@@ -3,8 +3,11 @@ package com.instil.webflix.voucher.controllers;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.List;
+
+import javax.ws.rs.POST;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,6 +49,11 @@ public class VoucherRestController {
 	@RequestMapping(method = DELETE, value="/{voucherID}",  produces = "application/json")
 	public void removeVoucher(@PathVariable("voucherID") int ID){
 		repository.deleteById(ID);
+	}
+	
+	@RequestMapping(method = POST, value="/{voucherID}/{global}",  produces = "application/json")
+	public void toggleGlobal(@PathVariable("voucherID") int ID, @PathVariable("global") boolean global){
+		repository.modifyById(ID, global);
 	}
 	
 }

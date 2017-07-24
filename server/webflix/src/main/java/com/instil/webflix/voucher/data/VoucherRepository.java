@@ -20,4 +20,9 @@ public interface VoucherRepository extends JpaRepository<Voucher, Long> {
 	@Modifying
 	@Query(nativeQuery = true, value = "DELETE FROM voucher v WHERE v.id = :id")
 	void deleteById(@Param("id") int id);
+	
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true, value = "UPDATE voucher SET voucher.global = :global WHERE voucher.id = :id")
+	void modifyById(@Param("id") int id, @Param("global") boolean global);
 }

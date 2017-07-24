@@ -70,7 +70,7 @@
           <td>{{voucher.name}}</td>
           <td>{{voucher.offer}}</td>
           <td>{{voucher.expire | date}}</td>
-          <td>{{voucher.global}}</td>
+          <td><div class="radio"><input type="radio" name="global-bttn" [checked]="voucher.global" (click)="toggleGlobalButton(voucher)"></div></td>
           <td>
             <button class="btn btn-danger" (click)="removeVoucher(voucher)">
               <span class="glyphicon glyphicon-trash"></span>

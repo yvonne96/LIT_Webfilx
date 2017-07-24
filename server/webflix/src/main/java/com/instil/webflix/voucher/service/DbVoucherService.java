@@ -49,6 +49,7 @@ public class DbVoucherService implements VoucherService {
 	public void clearVoucher(int ID){
 		voucherRepository.deleteById(ID);
 	}
+	
 
 	
 }

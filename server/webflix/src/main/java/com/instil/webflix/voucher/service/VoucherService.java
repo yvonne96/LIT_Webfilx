@@ -7,4 +7,5 @@ public interface VoucherService {
 	
 	Iterable<Voucher> getAllVouchers();
 	void clearVoucher(int ID);
+	
 }

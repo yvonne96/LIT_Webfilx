@@ -54,7 +54,9 @@ export class ManageVouchersComponent {
         this.toggledBuyXGetYFree = false;
         this.toggledSpendXGetYOff = false; }
   }
-
+  uncheckRadio(voucher: Voucher) {
+    voucher.global = false;
+  }
 
   fetchAllVouchers() {
     this.receiveAllVouchers(this.voucherService.getAllVouchers());
@@ -76,6 +78,10 @@ export class ManageVouchersComponent {
   refreshVouchers() {
     this.voucherService.getAllVouchers()
       .subscribe(vouchers => this.vouchers = vouchers);
+  }
+  toggleGlobalButton(voucher: Voucher) {
+    this.voucherService.toggleGlobalVoucher(voucher)
+      .subscribe(() => this.refreshVouchers());
   }
 }
 

@@ -49,5 +49,15 @@ export class HttpVoucherService extends VoucherService {
       return Observable.of(false);
       });
   }
+  toggleGlobalVoucher(voucher: Voucher): Observable<Boolean> {
+    // console.log(voucher.global);
+    return this.restService.post(baseUrl + '/' + voucher.id  + '/' + true)
+      .build()
+      .map(() => true)
+      .catch(error => {
+        console.log('unable to change global');
+        return Observable.of(false);
+      });
+  }
 }
 
