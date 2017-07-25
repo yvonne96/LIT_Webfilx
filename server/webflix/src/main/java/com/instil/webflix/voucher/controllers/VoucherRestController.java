@@ -1,6 +1,7 @@
 package com.instil.webflix.voucher.controllers;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import com.instil.webflix.security.service.AccountService;
 import com.instil.webflix.basket.data.BasketVoucherRepository;
 
 
+
 @RestController
 @RequestMapping("/voucher")
 public class VoucherRestController {
@@ -24,6 +26,9 @@ public class VoucherRestController {
 	
 	@Autowired
 	private AccountService accountService;	
+	
+	@Autowired
+	private VoucherRepository voucherRepository;
 	
 	@Autowired
 	private BasketVoucherRepository basketVoucherRepository;
@@ -50,4 +55,13 @@ public class VoucherRestController {
 		Account current = accountService.getCurrent();
 		return basketVoucherRepository.getUsedVouchers(current.getId());
 	}
+	
+	@RequestMapping(method = POST, value = "/usedVouchers/{voucherId}",  produces = "application/json")
+    public void addUsedVouchers(@PathVariable("voucherId") Long voucherId) {
+        Account current = accountService.getCurrent();
+        Voucher voucher = voucherRepository.findById(voucherId);
+        basketVoucherRepository.addUsedVouchers(current.getId(), voucher.getId());
+    }
+	
+	
 }

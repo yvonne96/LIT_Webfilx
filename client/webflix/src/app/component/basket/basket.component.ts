@@ -29,6 +29,8 @@ export class BasketComponent {
   private used: number[];
   private basketMovies: Movie[];
   private checkIfApplied: boolean;
+  private inUseVoucherId: number;
+  private apply: boolean = true;
 
 
   constructor(private basketService: BasketService,
@@ -61,12 +63,25 @@ export class BasketComponent {
 
   checkout(): void {
     if (confirm('Are you sure you want to purchase?')) {
+      this.addUsedVoucher(this.inUseVoucherId);
       this.basketService.checkout()
         .subscribe(
           success => this.router.navigate(['/dashboard']),
           error => console.log('Error checking out - ' + error));
     }
   }
+
+  private setGlobal() {
+    if (this.used.indexOf(this.globals[0].id) > -1) {
+      console.log('Global has already been used');
+    } else {
+      this.discount = this.globals[0].offer;
+      this.inUse = true;
+      this.parseDiscount(this.discount);
+      this.globalSet = false;
+    }
+  }
+
 
   private refreshSummary(): void {
     this.basketService.getBasketSummary()
@@ -81,7 +96,7 @@ export class BasketComponent {
     this.getUsedVouchers(this.voucherService.getUsedVouchers());
   }
 
-  getUsedVouchers(source: Observable<Voucher[]>) {
+  getUsedVouchers(source: Observable<number[]>) {
     return source.subscribe(vouchers => {
       this.used = vouchers;
     }, error => this.router.navigate(['/login']));
@@ -122,28 +137,26 @@ export class BasketComponent {
         (res) => {
           console.log(res);
           if (res === false) {
-            this.voucherMessage = name + ': is not a valid voucher';
+            this.voucherMessage = name + ': Is not a valid voucher';
             this.inUse = false;
           } else {
-            for (let num of this.used) {
-              if (num === res.id) {
-                console.log('not valid');
-              } else {
-                if (this.checkIfApplied === false) {
-                  console.log('valid');
-                  this.voucherMessage = 'This voucher rewards you with: ' + res.offer;
-                  this.inUse = true;
-                  this.discount = res.offer;
-                  this.voucherApplied = true;
-                  this.checkIfApplied = true;
-                  this.parseDiscount(this.discount);
-                  if (this.globals !== []) {
-                    this.globalSet = true;
-                  }
-                } else {
-                  this.checkIfDiscountApplied();
-                }
+            console.log(this.used);
+            if (this.used.indexOf(res.id) > -1) {
+              this.apply = false;
+            } else {
+              this.apply = true;
+            }
+            if (this.apply) {
+              this.voucherMessage = 'This voucher rewards you with: ' + res.offer;
+              this.inUse = true;
+              this.inUseVoucherId = res.id;
+              this.discount = res.offer;
+              this.parseDiscount(this.discount);
+              if (this.globals !== []) {
+                this.globalSet = true;
               }
+            } else {
+              this.voucherMessage = 'Already used this voucher';
             }
           }
         });
@@ -151,7 +164,7 @@ export class BasketComponent {
       console.log('no voucher entered');
     }
   }
-
+  
   private setGlobal() {
     if(this.checkIfApplied === false) {
       this.discount = this.globals[0].offer;
@@ -209,8 +222,9 @@ export class BasketComponent {
     return this.subtotal;
   }
 
-  show() {
-    console.log(this.used);
+  addUsedVoucher(usedVoucherId: number) {
+     return this.voucherService.addUsedVoucher(this.inUseVoucherId)
+       .subscribe();
   }
 
   removeVoucher(): void {

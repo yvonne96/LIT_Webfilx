@@ -49,13 +49,23 @@ export class HttpVoucherService extends VoucherService {
       });
   }
 
-  getUsedVouchers(): Observable<Voucher[]> {
+  getUsedVouchers(): Observable<number[]> {
     return this.restService.get(baseUrl + '/usedVouchers')
       .build()
       .map(resp => resp.json())
       .catch(error => {
         console.log('error retrieving used vouchers');
         return Observable.of([]);
+      });
+  }
+
+  addUsedVoucher(voucherId: number): Observable<boolean> {
+    return this.restService.post(baseUrl + '/usedVouchers/' + voucherId)
+      .build()
+      .map(resp => true)
+      .catch(error => {
+        console.log('couldnt add voucher to used');
+        return Observable.of(false);
       });
   }
 }

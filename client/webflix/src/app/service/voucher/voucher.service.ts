@@ -8,6 +8,8 @@ export abstract class VoucherService {
 
   abstract getAllGlobalVouchers(): Observable<Voucher[]>;
 
-  abstract getUsedVouchers(): Observable<Voucher[]>;
+  abstract getUsedVouchers(): Observable<number[]>;
+
+  abstract addUsedVoucher(voucherId: number): Observable<boolean>;
 }
 
