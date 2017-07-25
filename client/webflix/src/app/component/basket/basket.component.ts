@@ -24,9 +24,10 @@ export class BasketComponent {
   public currentOffer: string;
   public vouchers: Voucher[];
   private globals: Voucher[];
-  private globalVoucher: string = '';
+  private globalVoucher: String = '';
   private globalSet: boolean;
   private used: number[];
+  private testMovies: Movie[];
 
 
   constructor(private basketService: BasketService,
@@ -43,9 +44,8 @@ export class BasketComponent {
     this.basketService.clearBasket()
       .subscribe(() => this.refreshSummary());
 
-    this.removeVoucher();
-    this.voucherMessage = 'Movies removed';
     this.subtotal = 0;
+    this.removeVoucher();
   }
 
   removeMovie(movie: Movie): void {
@@ -131,6 +131,7 @@ export class BasketComponent {
                 this.voucherMessage = 'This voucher rewards you with: ' + res.offer;
                 this.inUse = true;
                 this.discount = res.offer;
+                this.voucherApplied = true;
                 this.parseDiscount(this.discount);
                 if (this.globals !== []) {
                   this.globalSet = true;
@@ -170,7 +171,7 @@ export class BasketComponent {
   }
 
   applyDiscountOne(amountToBuy: number, amountFree: number) {
-    console.log(this.summary);
+   // console.log(this.summary);
     this.subtotal = this.summary.total;
     this.testMovies = this.summary.movies;
     if (this.testMovies.length === 1 || this.testMovies.length < 1) {
@@ -181,6 +182,7 @@ export class BasketComponent {
         this.subtotal = this.summary.total - this.summary.movies[1].price;
       } else {
         this.subtotal = this.summary.total - this.summary.movies[0].price;
+        return this.subtotal;
       }
     }
   }
