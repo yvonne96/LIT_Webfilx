@@ -21,7 +21,6 @@ export class BasketComponent {
   public discount: string = '';
   public subtotal: number;
   private voucherApplied: boolean;
-  public currentOffer: string;
   public vouchers: Voucher[];
   private globals: Voucher[];
   private globalVoucher: String = '';
@@ -148,12 +147,13 @@ export class BasketComponent {
             }
             if (this.apply) {
               if (!this.checkIfDiscountApplied()) {
+                this.checkIfApplied = true;
                 this.voucherMessage = 'This voucher rewards you with: ' + res.offer;
                 this.inUse = true;
                 this.inUseVoucherId = res.id;
                 this.discount = res.offer;
                 this.parseDiscount(this.discount);
-                this.checkIfApplied = true;
+                console.log(this.checkIfApplied);
                 if (this.globals !== []) {
                   this.globalSet = true;
                 } else {
@@ -169,11 +169,13 @@ export class BasketComponent {
   }
 
   private setGlobal() {
+    if (!this.checkIfDiscountApplied()) {
       this.discount = this.globals[0].offer;
       this.inUse = true;
       this.parseDiscount(this.discount);
       this.globalSet = false;
       this.checkIfApplied = true;
+    }
   }
 
   parseDiscount(offer: string) {
@@ -195,13 +197,13 @@ export class BasketComponent {
   }
 
   applyDiscountOne(amountToBuy: number, amountFree: number) {
-   // console.log(this.summary);
     this.subtotal = this.summary.total;
     this.basketMovies = this.summary.movies;
     if (this.basketMovies.length === 1 || this.basketMovies.length < 1) {
       this.removeVoucher();
+      this.checkIfApplied = false;
       this.voucherMessage = 'Not enough movies in basket';
-    } else if (this.basketMovies.length > 1) {
+    } else {
       if (this.summary.movies[0].price > this.summary.movies[1].price) {
         this.subtotal = this.summary.total - this.summary.movies[1].price;
       } else {
@@ -216,8 +218,15 @@ export class BasketComponent {
   }
 
   applyDiscountThree(percentOff: number) {
-    this.subtotal = this.summary.total * ((100.0 - percentOff) / 100.0);
-    return this.subtotal;
+    this.basketMovies = this.summary.movies;
+    if (this.basketMovies.length < 1) {
+      this.removeVoucher();
+      this.checkIfApplied = false;
+      this.voucherMessage = 'Not enough movies in basket';
+    } else {
+      this.subtotal = this.summary.total * ((100.0 - percentOff) / 100.0);
+      return this.subtotal;
+    }
   }
 
   addUsedVoucher(usedVoucherId: number) {
@@ -244,6 +253,5 @@ export class BasketComponent {
       }
     }
   }
-
 
 }
