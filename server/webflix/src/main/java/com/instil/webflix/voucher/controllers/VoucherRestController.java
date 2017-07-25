@@ -60,7 +60,9 @@ public class VoucherRestController {
 	
 	@RequestMapping(method = POST, value="/{code}/{discount}/{expiryDate}",  produces = "application/json")
 	public void createVoucher(@PathVariable("code") String code, @PathVariable("discount") String discount, @PathVariable("expiryDate") Date expiryDate){
-		repository.addVoucher(code, discount, expiryDate);
+		String newDiscount = discount.replace("i", " ");
+		newDiscount = newDiscount.replace("p","%");
+		repository.addVoucher(code, newDiscount, expiryDate);
 	}
 	
 }

@@ -41,7 +41,11 @@ export class HttpVoucherService extends VoucherService {
   }
 
   createVoucher(code: string, discount: string, expiryDate: Date): Observable<Boolean> {
-    return this.restService.post(baseUrl + '/' + {code} + '/' + {discount} + '/' + {expiryDate})
+    console.log(baseUrl + '/' + code + '/' + discount + '/' + expiryDate);
+    let expiryDateNew = new Date(expiryDate);
+    // let newdiscount = String(discount);
+    return this.restService.post(baseUrl + '/' + code + '/' + discount + '/' + expiryDateNew)
+      // .addHeader('Access-Control-Allow-Origin', '*')
       .build()
       .map(() => true)
       .catch(error => {

@@ -15,21 +15,35 @@ import {Observable} from 'rxjs/Observable';
 export class ManageVouchersComponent {
   private code: string;
   private expiryDate: Date;
-  private discount: string;
   private toggledBuyXGetYFree: boolean = false;
   private toggledPercentOff: boolean = false;
   private toggledSpendXGetYOff: boolean = false;
+  private discountX: string;
+  private discountY: string;
+  private discount: string;
   private menuType: String;
   private vouchers: Voucher[];
 
   constructor(private voucherService: VoucherService) {
     this.fetchAllVouchers();
   }
+  refreshVoucherMenuTypes() {
+    this.toggledBuyXGetYFree = false;
+    this.toggledPercentOff = false;
+    this.toggledSpendXGetYOff = false;
+  }
 
+  refreshCreateVoucherForm() {
+    let resetForm = <HTMLFormElement>document.getElementById('createVouchers');
+    this.refreshVoucherMenuTypes();
+    resetForm.reset();
+  }
   createVoucher() {
-    // SORT OUT DISCOUNT
-    this.voucherService.createVoucher(this.code, this.discount, this.expiryDate)
-      .subscribe(() => this.refreshVouchers());
+    this.intializeDiscount();
+    console.log('manage-voucherts', this.discount, this.discountX, this.discountY);
+    this.voucherService.createVoucher(this.code, this.discount , this.expiryDate)
+        .subscribe(() => this.refreshVouchers());
+    this.refreshCreateVoucherForm();
   }
 
   chooseDiscountMenu(menuSelection: String) {
@@ -58,6 +72,24 @@ export class ManageVouchersComponent {
         this.toggledBuyXGetYFree = false;
         this.toggledSpendXGetYOff = false; }
   }
+  intializeDiscount(){
+    switch (this.menuType) {
+      case 'buyXGetY':
+        this.discount = 'BUYi' + this.discountX + 'iGETi' + this.discountY + 'iFREE';
+        break;
+
+      case 'percentage':
+        this.discount = this.discountX + 'piOFF';
+        break;
+
+      case 'spendXGetY':
+        this.discount = 'SPENDi' + this.discountX + 'iGETi' + this.discountY + 'iOFF';
+        break;
+
+      default:
+        this.discount = 'MONEY MONEY MONEY (da dum) MUST BE FUNNY (da dum) IN A RICH MANS WORLD!!';
+    }
+  }
 
   fetchAllVouchers() {
     this.receiveAllVouchers(this.voucherService.getAllVouchers());
@@ -72,6 +104,7 @@ export class ManageVouchersComponent {
     source
       .subscribe(vouchers => {
         this.vouchers = vouchers;
+        this.sortVouchersByDate();
         this.sortVouchersByGlobal();
         console.log(vouchers);
       }, error => alert('Error getting vouchers'));
@@ -81,6 +114,7 @@ export class ManageVouchersComponent {
     this.voucherService.getAllVouchers()
       .subscribe(vouchers => {
         this.vouchers = vouchers;
+        this.sortVouchersByDate();
         this.sortVouchersByGlobal();
       });
   }
@@ -99,6 +133,15 @@ export class ManageVouchersComponent {
       return 0;
     });
   }
+
+  sortVouchersByDate() {
+    this.vouchers.sort((firstVoucher, nextVoucher) => {
+      if (firstVoucher.expire < nextVoucher.expire) {return 1; }
+      if (firstVoucher.expire > nextVoucher.expire) {return -1; }
+      return 0;
+    });
+  }
+
   sortVouchersByGlobal() {
     this.vouchers.sort((firstVoucher, nextVoucher) => {
       if (firstVoucher.global === true) {return -1; }

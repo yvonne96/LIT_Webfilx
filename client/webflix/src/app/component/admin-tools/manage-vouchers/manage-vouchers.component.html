@@ -3,7 +3,7 @@
     <div class="jumbotron">
       <!-- IMPLEMENT CREATEVOUCHERS()-->
       <h3>Create Voucher</h3>
-      <form name="createVouchers" #f="ngForm" (ngSubmit)="createVouchers()">
+      <form name="createVouchers" id="createVouchers" #f="ngForm" (ngSubmit)="createVoucher()">
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
           <label htmlFor="code">Code</label>
@@ -13,7 +13,7 @@
 
         <div class="form-group">
           <label>Discount Type</label>
-          <select value="Select" [(ngModel)]="menuType" name="menuType" (change)="chooseDiscountMenu(menuType)">
+          <select value="Select" [(ngModel)]="menuType" name="menuType" (change)="chooseDiscountMenu(menuType)" class="form-control">
             <option value="" selected>Select your option</option>
             <option value='buyXGetY' >Buy X Get Y Free</option>
             <option value="percentage" >Percentage Discount</option>
@@ -22,27 +22,27 @@
 
           <div *ngIf="toggledBuyXGetYFree">
             <label>Buy X:</label>
-            <input min="0" type="number" name="buyX" required>
+            <input min="0" type="number" name="discountX" [(ngModel)]="discountX" required>
             <label>Get Y Free:</label>
-            <input min= "0" type="number" name="getYFree" required>
+            <input min= "0" type="number" name="discountY" [(ngModel)]="discountY" required>
           </div>
 
           <div *ngIf="toggledPercentOff">
             <label>Percentage Discount:</label>
-            <input min="0" max="100" type="number" name="discPercent" required>
+            <input min="0" max="100" type="number" name="discountX" [(ngModel)]="discountX" required>
           </div>
 
           <div *ngIf="toggledSpendXGetYOff">
             <label>Spend:</label>
-            <input min="0" type="number" name="spendX">
+            <input min="0" type="number" name="discountX" [(ngModel)]="discountX" required>
             <label>Get Y Off:</label>
-            <input min="0" type="number" name="getYOff">
+            <input min="0" type="number" name="discountY" [(ngModel)]="discountY" required>
           </div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
           <label htmlFor="expiryDate">Expiry Date</label>
-          <input type="date" class="form-control" name="expiryDate"
+          <input type="date" name="expiryDate" class="form-control"
                  [(ngModel)]="expiryDate" required/>
         </div>
 
