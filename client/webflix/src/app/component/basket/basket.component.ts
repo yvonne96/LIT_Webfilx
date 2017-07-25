@@ -147,16 +147,19 @@ export class BasketComponent {
               this.apply = true;
             }
             if (this.apply) {
-              this.voucherMessage = 'This voucher rewards you with: ' + res.offer;
-              this.inUse = true;
-              this.inUseVoucherId = res.id;
-              this.discount = res.offer;
-              this.parseDiscount(this.discount);
-              if (this.globals !== []) {
-                this.globalSet = true;
+              if (!this.checkIfDiscountApplied()) {
+                this.voucherMessage = 'This voucher rewards you with: ' + res.offer;
+                this.inUse = true;
+                this.inUseVoucherId = res.id;
+                this.discount = res.offer;
+                this.parseDiscount(this.discount);
+                this.checkIfApplied = true;
+                if (this.globals !== []) {
+                  this.globalSet = true;
+                } else {
+                this.voucherMessage = 'Already used this voucher';
+                }
               }
-            } else {
-              this.voucherMessage = 'Already used this voucher';
             }
           }
         });
@@ -164,18 +167,13 @@ export class BasketComponent {
       console.log('no voucher entered');
     }
   }
-  
+
   private setGlobal() {
-    if(this.checkIfApplied === false) {
       this.discount = this.globals[0].offer;
       this.inUse = true;
       this.parseDiscount(this.discount);
       this.globalSet = false;
       this.checkIfApplied = true;
-    } else {
-      this.checkIfDiscountApplied();
-    }
-
   }
 
   parseDiscount(offer: string) {
@@ -236,9 +234,14 @@ export class BasketComponent {
     this.voucherApplied = false;
   }
 
-  checkIfDiscountApplied(): void {
-    if (confirm('A voucher is already applied. If you change the voucher it may have an effect on your total cost. Do you wish to proceed?')) {
-      this.removeVoucher();
+  checkIfDiscountApplied(): boolean {
+    if (this.checkIfApplied === true) {
+      if (confirm('A voucher is already applied. Do you wish to proceed?')) {
+        this.removeVoucher();
+        return false;
+      } else {
+        return true;
+      }
     }
   }
 
