@@ -1,6 +1,8 @@
 package com.instil.webflix.movies.model;
 
 import javax.persistence.*;
+
+import com.instil.webflix.security.model.Account;
 import com.instil.webflix.voucher.model.Voucher;
 
 @Entity
@@ -10,8 +12,8 @@ public class BasketVoucher {
 	private Long id;
 
 	@ManyToOne()
-	@JoinColumn(name="basket_id")
-	private Basket basket;
+	@JoinColumn(name="account_id")
+	private Account account;
 
 	@ManyToOne()
 	@JoinColumn(name="voucher_id")
@@ -19,8 +21,8 @@ public class BasketVoucher {
 
 	public BasketVoucher() {}
 
-	public BasketVoucher(Basket basket, Voucher voucher) {
-		this.basket = basket;
+	public BasketVoucher(Account account, Voucher voucher) {
+		this.account = account;
 		this.voucher = voucher;
 	}
 
@@ -32,12 +34,12 @@ public class BasketVoucher {
 		this.id = id;
 	}
 
-	public Basket getBasket() {
-		return basket;
+	public Account getAccount() {
+		return account;
 	}
 
-	public void setBasket(Basket basket) {
-		this.basket = basket;
+	public void setBasket(Account account) {
+		this.account = account;
 	}
 
 	public Voucher getVoucher() {
@@ -56,7 +58,7 @@ public class BasketVoucher {
 		BasketVoucher that = (BasketVoucher) o;
 
 		if (id != null ? !id.equals(that.id) : that.id != null) return false;
-		if (basket != null ? !basket.equals(that.basket) : that.basket != null) return false;
+		if (account != null ? !account.equals(that.account) : that.account != null) return false;
 		return voucher != null ? voucher.equals(that.voucher) : that.voucher == null;
 
 	}
@@ -64,7 +66,7 @@ public class BasketVoucher {
 	@Override
 	public int hashCode() {
 		int result = id != null ? id.hashCode() : 0;
-		result = 31 * result + (basket != null ? basket.hashCode() : 0);
+		result = 31 * result + (account != null ? account.hashCode() : 0);
 		result = 31 * result + (voucher != null ? voucher.hashCode() : 0);
 		return result;
 	}
