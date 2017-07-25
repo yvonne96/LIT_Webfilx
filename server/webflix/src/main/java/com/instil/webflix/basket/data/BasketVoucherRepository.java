@@ -1,9 +1,7 @@
 package com.instil.webflix.basket.data;
 
-import com.instil.webflix.movies.model.Basket;
 import com.instil.webflix.movies.model.BasketVoucher;
 import com.instil.webflix.security.model.Account;
-import com.instil.webflix.voucher.model.Voucher;
 
 import java.util.List;
 
