@@ -17,7 +17,6 @@ import com.instil.webflix.security.service.AccountService;
 import com.instil.webflix.basket.data.BasketVoucherRepository;
 
 
-
 @RestController
 @RequestMapping("/voucher")
 public class VoucherRestController {
@@ -32,8 +31,6 @@ public class VoucherRestController {
 	
 	@Autowired
 	private BasketVoucherRepository basketVoucherRepository;
-	
-	
 	
 	@RequestMapping(method = GET, value="/{name}", produces = "application/json")
 	public Voucher voucherByName(@PathVariable("name") String name) {

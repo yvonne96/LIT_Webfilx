@@ -7,8 +7,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-
 public class DbVoucherService implements VoucherService{
 	
 	@Autowired
@@ -35,6 +33,5 @@ public class DbVoucherService implements VoucherService{
 		List<Voucher> stream = voucherRepository.findByGlobalTrue();
 		return stream;
 	}
-	
 
 }

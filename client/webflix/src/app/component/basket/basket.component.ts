@@ -26,11 +26,10 @@ export class BasketComponent {
   private globalVoucher: String = '';
   private globalSet: boolean;
   private used: number[];
-  private basketMovies: Movie[];
   private checkIfApplied: boolean;
   private inUseVoucherId: number;
   private apply: boolean = true;
-  private gloabalInUSe : boolean;
+
 
 
   constructor(private basketService: BasketService,
@@ -73,6 +72,10 @@ export class BasketComponent {
           success => this.router.navigate(['/dashboard']),
           error => console.log('Error checking out - ' + error));
     }
+  }
+
+  logDate() {
+    return Date.now();
   }
 
   private setGlobal() {
@@ -140,8 +143,8 @@ export class BasketComponent {
       .subscribe(
         (res) => {
           console.log(res);
-          if (res === false) {
-            this.voucherMessage = name + ': Is not a valid voucher';
+          if (res === false || res.expire <= this.logDate()) {
+            this.voucherMessage = name + ': Is not a valid voucher or has expired';
             this.inUse = false;
           } else {
             console.log(this.used);
@@ -202,32 +205,26 @@ export class BasketComponent {
   }
 
   applyDiscountOne(amountToBuy: number, amountFree: number) {
-    this.subtotal = this.summary.total;
-    this.basketMovies = this.summary.movies;
-    if (this.basketMovies.length === 1 || this.basketMovies.length < 1) {
-      this.removeVoucher();
-      this.checkIfApplied = false;
-      this.voucherMessage = 'Not enough movies in basket';
+    if (this.summary.movies.length < amountToBuy + amountFree) {
+      console.log('Not enough in basket to apply');
     } else {
-      if (this.summary.movies[0].price > this.summary.movies[1].price) {
-        this.subtotal = this.summary.total - this.summary.movies[1].price;
-      } else {
-        this.subtotal = this.summary.total - this.summary.movies[0].price;
-        return this.subtotal;
-      }
+      this.subtotal = this.summary.total - this.summary.movies[1].price;
+      return this.subtotal;
     }
   }
 
   applyDiscountTwo(amountToSpend: number, amountOff: number) {
-    //
+    if (this.summary.total < amountToSpend) {
+      console.log('You are not spending enough');
+    } else {
+      this.subtotal = this.summary.total - amountOff;
+      return this.subtotal;
+    }
   }
 
   applyDiscountThree(percentOff: number) {
-    this.basketMovies = this.summary.movies;
-    if (this.basketMovies.length < 1) {
-      this.removeVoucher();
-      this.checkIfApplied = false;
-      this.voucherMessage = 'Not enough movies in basket';
+    if (this.summary.total === 0.00) {
+      console.log('Not enough movies in basket to apply voucher');
     } else {
       this.subtotal = this.summary.total * ((100.0 - percentOff) / 100.0);
       return this.subtotal;
