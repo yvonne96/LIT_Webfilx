@@ -23,10 +23,7 @@
     <button class="btn btn-danger" (click)="clearBasket()">Clear</button>
   </div>
 
-
-  <button (click)="show()">Get used</button>
-
-
+  
   <div class="col-md-4">
     <div class="jumbotron">
       <div *ngIf="globalSet" class="alert alert-success" role="alert"><strong>Heads up!</strong> There is a discount voucher available! <a (click)="setGlobal()" class="alert-link">Claim here!</a> </div>
@@ -34,12 +31,8 @@
       <h3>Discount: {{discount}}</h3>
       <hr>
       <h3>Total: {{subtotal | currency:'EUR':true}}</h3>
-
-
-
       <button class="btn btn-success" (click)="checkout()">Purchase</button>
     </div>
-
     <div class="jumbotron">
       <input type="text" class="form-control" #voucher>
       <div class="help-block alert-success" *ngIf="voucherMessage">{{voucherMessage}}</div>

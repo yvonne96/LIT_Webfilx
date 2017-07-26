@@ -58,6 +58,10 @@ export class BasketComponent {
     }
   }
 
+  logDate() {
+    return Date.now();
+  }
+
   private setGlobal() {
     if (this.used.indexOf(this.globals[0].id) > -1) {
       console.log('Global has already been used');
@@ -123,8 +127,8 @@ export class BasketComponent {
       .subscribe(
         (res) => {
           console.log(res);
-          if (res === false) {
-            this.voucherMessage = name + ': Is not a valid voucher';
+          if (res === false || res.expire <= this.logDate()) {
+            this.voucherMessage = name + ': Is not a valid voucher or has expired';
             this.inUse = false;
           } else {
             console.log(this.used);

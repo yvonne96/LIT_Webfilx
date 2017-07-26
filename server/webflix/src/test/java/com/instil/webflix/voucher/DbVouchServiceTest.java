@@ -2,54 +2,29 @@ package com.instil.webflix.voucher;
 
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.iterableWithSize;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.instil.webflix.voucher.data.VoucherRepository;
 import com.instil.webflix.voucher.service.DbVoucherService;
-import com.instil.webflix.movies.model.Basket;
-import com.instil.webflix.movies.model.BasketItem;
-import com.instil.webflix.movies.model.Movie;
-import com.instil.webflix.security.model.Account;
 import com.instil.webflix.voucher.model.Voucher;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DbVouchServiceTest {
     @Mock
     private VoucherRepository voucherRepository;
-
-    @Mock
-    private Account account;
-
-    @Mock
-    private Basket basket;
-
-    @Mock
-    private Movie movie;
     
     @Mock
     private Voucher voucher;
@@ -95,10 +70,20 @@ public class DbVouchServiceTest {
     }
 
     @Test
-    public void shouldNotThrowExceptionIfClearingBasketIfNoneExists() {
+    public void shouldReturnAListOfSizeFourWhenFindByGlobalIsCalled() {
         when(voucherRepository.findByGlobalTrue()).thenReturn(withListSizeOf(4));
         assertThat(voucherRepository.findByGlobalTrue().size(), is(equalTo(4)));
-    }	
+    }
+    
+    @Test
+    public void shouldReturnTrueIfTheCorrectNumberOfVouchersIsReturned() {
+    	Voucher sampleVoucher = new Voucher();
+    	ArrayList<Voucher> vouchers2 = new ArrayList<Voucher>();
+    	vouchers2.add(sampleVoucher);
+    	System.out.println(vouchers2);
+    	when(voucherRepository.findAll()).thenReturn(vouchers2);
+    	assertEquals(voucherRepository.findAll().size(), 1);
+    }
 
     private List<Voucher> withListSizeOf(int globalCount) {
         return IntStream.range(0, globalCount)
