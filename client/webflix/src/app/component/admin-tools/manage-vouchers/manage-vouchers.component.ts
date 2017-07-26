@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {Voucher} from '../../../model/voucher';
 import {VoucherService} from '../../../service/voucher/voucher.service';
 import {Observable} from 'rxjs/Observable';
+import {error} from "selenium-webdriver";
 
 @Component({
   moduleId: module.id,
@@ -22,28 +23,37 @@ export class ManageVouchersComponent {
   private discountY: string;
   private discount: string;
   private menuType: String;
+  private errorMessage: String;
   private vouchers: Voucher[];
+  private today: string;
 
   constructor(private voucherService: VoucherService) {
-    this.fetchAllVouchers();
-  }
-  refreshVoucherMenuTypes() {
-    this.toggledBuyXGetYFree = false;
-    this.toggledPercentOff = false;
-    this.toggledSpendXGetYOff = false;
+    this.receiveAllVouchers(this.voucherService.getAllVouchers());
+    this.today = new Date().toJSON().split('T')[0];
   }
 
   refreshCreateVoucherForm() {
     let resetForm = <HTMLFormElement>document.getElementById('createVouchers');
-    this.refreshVoucherMenuTypes();
+    this.toggledBuyXGetYFree = false;
+    this.toggledPercentOff = false;
+    this.toggledSpendXGetYOff = false;
+    this.errorMessage = '';
     resetForm.reset();
   }
+
   createVoucher() {
     this.intializeDiscount();
-    console.log('manage-voucherts', this.discount, this.discountX, this.discountY);
-    this.voucherService.createVoucher(this.code, this.discount , this.expiryDate)
-        .subscribe(() => this.refreshVouchers());
-    this.refreshCreateVoucherForm();
+    this.voucherService.createVoucher(this.code.toUpperCase(), this.discount , this.expiryDate)
+        .subscribe(
+          () => {this.refreshVouchers();
+                this.refreshCreateVoucherForm();
+            },
+          error => {this.setCreateFailureMessage(); }
+        );
+  }
+
+  setCreateFailureMessage() {
+    this.errorMessage = 'Create voucher failed. Make sure code is not a duplicate. Please try again';
   }
 
   chooseDiscountMenu(menuSelection: String) {
@@ -72,7 +82,8 @@ export class ManageVouchersComponent {
         this.toggledBuyXGetYFree = false;
         this.toggledSpendXGetYOff = false; }
   }
-  intializeDiscount(){
+
+  intializeDiscount() {
     switch (this.menuType) {
       case 'buyXGetY':
         this.discount = 'BUYi' + this.discountX + 'iGETi' + this.discountY + 'iFREE';
@@ -89,10 +100,6 @@ export class ManageVouchersComponent {
       default:
         this.discount = 'MONEY MONEY MONEY (da dum) MUST BE FUNNY (da dum) IN A RICH MANS WORLD!!';
     }
-  }
-
-  fetchAllVouchers() {
-    this.receiveAllVouchers(this.voucherService.getAllVouchers());
   }
 
   removeVoucher(voucher: Voucher){
@@ -118,6 +125,7 @@ export class ManageVouchersComponent {
         this.sortVouchersByGlobal();
       });
   }
+
   toggleGlobalButton(voucher: Voucher) {
     let global = true;
     if (voucher.global) {
@@ -126,6 +134,7 @@ export class ManageVouchersComponent {
     this.voucherService.toggleGlobalVoucher(voucher, global)
       .subscribe(() => this.refreshVouchers());
   }
+
   sortVouchersByID() {
     this.vouchers.sort((firstVoucher, nextVoucher) => {
       if (firstVoucher.id < nextVoucher.id) {return -1; }

@@ -4,7 +4,7 @@
       <!-- IMPLEMENT CREATEVOUCHERS()-->
       <h3>Create Voucher</h3>
       <form name="createVouchers" id="createVouchers" #f="ngForm" (ngSubmit)="createVoucher()">
-
+        <div id="failure-alert" *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
           <label htmlFor="code">Code</label>
           <input type="text" class="form-control" name="code"
@@ -42,7 +42,7 @@
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
           <label htmlFor="expiryDate">Expiry Date</label>
-          <input type="date" name="expiryDate" class="form-control"
+          <input type="date" [min]="today" name="expiryDate" class="form-control"
                  [(ngModel)]="expiryDate" required/>
         </div>
 
