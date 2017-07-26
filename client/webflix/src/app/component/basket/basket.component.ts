@@ -171,17 +171,31 @@ export class BasketComponent {
   }
 
   applyDiscountOne(amountToBuy: number, amountFree: number) {
-    this.subtotal = this.summary.total - this.summary.movies[1].price;
-    return this.subtotal;
+    if (this.summary.movies.length < amountToBuy + amountFree) {
+      console.log('Not enough in basket to apply');
+    } else {
+      this.subtotal = this.summary.total - this.summary.movies[1].price;
+      return this.subtotal;
+    }
   }
 
   applyDiscountTwo(amountToSpend: number, amountOff: number) {
-    //
+    if (this.summary.total < amountToSpend) {
+      console.log('You are not spending enough');
+    } else {
+      this.subtotal = this.summary.total - amountOff;
+      return this.subtotal;
+    }
   }
 
   applyDiscountThree(percentOff: number) {
-    this.subtotal = this.summary.total * ((100.0 - percentOff) / 100.0);
-    return this.subtotal;
+    if (this.summary.total === 0.00) {
+      console.log('Not enough movies in basket to apply voucher');
+    } else {
+      this.subtotal = this.summary.total * ((100.0 - percentOff) / 100.0);
+      return this.subtotal;
+    }
+
   }
 
   addUsedVoucher(usedVoucherId: number) {
