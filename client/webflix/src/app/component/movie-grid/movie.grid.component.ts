@@ -27,7 +27,6 @@ export class MovieGridComponent {
   onAddMovieToBasket = new EventEmitter<Movie>();
   info: string = '';
   image: string = '';
-  listening: any;
   isSet: boolean = false;
   public summary: BasketSummary;
   public myMovies: Movie[];

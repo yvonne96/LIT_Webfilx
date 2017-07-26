@@ -30,6 +30,7 @@ export class BasketComponent {
   private checkIfApplied: boolean;
   private inUseVoucherId: number;
   private apply: boolean = true;
+  private gloabalInUSe : boolean;
 
 
   constructor(private basketService: BasketService,
@@ -55,9 +56,13 @@ export class BasketComponent {
     this.basketService.removeMovie(movie)
       .subscribe(() => this.refreshSummary());
 
+    this.checkIfApplied = false;
+    this.setGlobal();
     if (this.subtotal > this.summary.total) {
       this.subtotal = this.summary.total;
     }
+    this.removeVoucher();
+    this.globalSet = true;
   }
 
   checkout(): void {
@@ -164,7 +169,7 @@ export class BasketComponent {
           }
         });
     } else {
-      console.log('no voucher entered');
+      this.voucherMessage = 'No voucher code entered';
     }
   }
 
@@ -245,7 +250,7 @@ export class BasketComponent {
 
   checkIfDiscountApplied(): boolean {
     if (this.checkIfApplied === true) {
-      if (confirm('A voucher is already applied. Do you wish to proceed?')) {
+      if (confirm('A voucher is already applied. Changing the voucher may change the the cost. Do you wish to proceed?')) {
         this.removeVoucher();
         return false;
       } else {

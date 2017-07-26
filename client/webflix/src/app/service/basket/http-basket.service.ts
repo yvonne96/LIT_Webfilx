@@ -56,7 +56,6 @@ export class HttpBasketService extends BasketService {
   }
 
   clearBasket(): Observable<boolean> {
-    debugger;
     return this.restService.delete(baseUrl + '/')
       .build()
       .map(() => true)
@@ -86,7 +85,6 @@ export class HttpBasketService extends BasketService {
   }
 
   private refreshItemCount() {
-    debugger;
     this.getBasketItemCount()
       .subscribe(value => this.basketCountSubject.next(value));
   }
