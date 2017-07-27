@@ -66,7 +66,9 @@ export class BasketComponent {
     if (this.used.indexOf(this.globals[0].id) > -1) {
       console.log('Global has already been used');
     } else {
+      console.log(this.globals[0].id);
       this.discount = this.globals[0].offer;
+      this.inUseVoucherId = this.globals[0].id;
       this.inUse = true;
       this.parseDiscount(this.discount);
       this.globalSet = false;

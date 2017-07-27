@@ -35,7 +35,6 @@ public class DbVouchServiceTest {
     @Test
     public void shouldReturnFalseAsNoVoucherWithNameTestExists() {
         when(voucherRepository.findByName("test")).thenReturn(null);
-
         assertThat(target.getVoucherValid("test"), is(equalTo(false)));
     }
     
