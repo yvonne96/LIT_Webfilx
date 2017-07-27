@@ -25,6 +25,7 @@
   <div class="col-md-4">
     <div class="jumbotron">
       <div *ngIf="globalSet" class="alert alert-success" role="alert"><strong>Heads up!</strong> There is a discount voucher available! <a (click)="setGlobal()" class="alert-link">Claim here!</a> </div>
+      <div class="help-block alert-success" *ngIf="globalMessage">{{globalMessage}}</div>
       <h3>Subtotal: {{ summary.total| currency:'EUR':true:'1.2-2'}}</h3>
       <h3>Discount: {{discount}}</h3>
       <hr>
