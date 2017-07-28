@@ -10,8 +10,8 @@
       </thead>
       <tbody>
       <tr *ngFor="let movie of summary.movies">
-        <td>{{movie.title }}</td>
-        <td>{{movie.price | currency: 'EUR' : true: '1.2-2'}}</td>
+        <td>{{movie.title}}</td>
+        <td>{{movie.price | currency:'EUR':true:'1.2-2'}}</td>
         <td>
           <button class="btn btn-danger" (click)="removeMovie(movie)">
             <span class="glyphicon glyphicon-trash"></span>
@@ -26,22 +26,20 @@
     <div class="jumbotron">
       <div *ngIf="globalSet" class="alert alert-success" role="alert"><strong>Heads up!</strong> There is a discount voucher available! <a (click)="setGlobal()" class="alert-link">Claim here!</a> </div>
       <div class="help-block alert-success" *ngIf="globalMessage">{{globalMessage}}</div>
-      <h3>Subtotal: {{ summary.total| currency:'EUR':true:'1.2-2'}}</h3>
+      <h3>Subtotal: {{summary.total | currency:'EUR':true:'1.2-2'}}</h3>
       <h3>Discount: {{discount}}</h3>
       <hr>
-      <h3> Total Cost: {{subtotal| currency:'EUR':true}}</h3>
-      <button class="btn btn-primary" (click)="checkout()">Purchase</button>
-      <button *ngIf="voucherApplied" class="btn btn-danger" (click)="removeVoucher()">Remove Voucher</button>
+      <h3>Total: {{subtotal | currency:'EUR':true}}</h3>
+      <button class="btn btn-success" (click)="checkout()">Purchase</button>
     </div>
     <div class="jumbotron">
-      <h3 class='search-title'>Voucher</h3>
+      <h3 class="voucher-Title">Voucher</h3>
       <hr>
       <input type="text" class="form-control" #voucher>
       <div class="help-block alert-success" *ngIf="voucherMessage">{{voucherMessage}}</div>
       <br>
-      <button (click)="checkVoucher(voucher.value)" class="btn btn-primary">Apply Voucher</button>
+      <button (click)="checkVoucher(voucher.value)" class="btn btn-primary">Verify Voucher</button>
     </div>
   </div>
 </div>
-
 
