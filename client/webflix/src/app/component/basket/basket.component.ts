@@ -42,7 +42,6 @@ export class BasketComponent {
     this.refreshSummary();
     this.fetchAllGlobalVouchers();
     this.fetchUsedVouchers();
-    this.checkIfApplied = false;
   }
 
   clearBasket(): void {
@@ -57,12 +56,11 @@ export class BasketComponent {
     this.basketService.removeMovie(movie)
       .subscribe(() => this.refreshSummary());
 
-    this.checkIfApplied = false;
-    this.setGlobal();
     if (this.subtotal > this.summary.total) {
       this.subtotal = this.summary.total;
     }
     this.removeVoucher();
+    this.globalSet = true;
     this.voucherMessage = '';
   }
 
@@ -85,12 +83,14 @@ export class BasketComponent {
       this.globalSet = false;
       this.globalMessage = 'Global voucher has already been used.';
     } else {
-      this.inUseVoucherId = this.globals[0].id;
-      this.discount = this.globals[0].offer;
-      this.inUse = true;
-      this.parseDiscount(this.discount);
-      this.globalSet = false;
-      this.checkIfApplied = true;
+      if (!this.checkIfDiscountApplied()) {
+        this.inUseVoucherId = this.globals[0].id;
+        this.discount = this.globals[0].offer;
+        this.inUse = true;
+        this.parseDiscount(this.discount);
+        this.globalSet = false;
+        this.checkIfApplied = true;
+      }
     }
   }
 
