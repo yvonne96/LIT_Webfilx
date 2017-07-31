@@ -146,7 +146,7 @@ public class DbVoucherService implements VoucherService {
 				return false;
 			}
 			else if(Integer.parseInt(discountComponents[3]) < 1){
-				logger.info(errorMsgStart + "Spend X Get Y Off, Y is less than 0");
+				logger.info(errorMsgStart + "Spend X Get Y Off, Y is less than 1");
 				return false;
 			}
 			break;
