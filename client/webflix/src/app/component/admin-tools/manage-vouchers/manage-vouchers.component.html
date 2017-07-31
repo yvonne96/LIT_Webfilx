@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="isAdmin">
   <div class="col-md-4">
     <div class="jumbotron">
       <!-- IMPLEMENT CREATEVOUCHERS()-->
@@ -84,4 +84,7 @@
       </table>
     </div>
 </div>
-
+<div *ngIf="isAdmin == false" style="color: white; font-size: 100px; text-align: center;">
+  <p>You dont have access to this page!</p>
+  <p><img src="app/component/admin-tools/angryBoss.jpg" height = "500" width="800" align="middle"></p>
+</div>
