@@ -27,7 +27,8 @@ export class ManageVouchersComponent {
   private menuType: String;
   private errorMessage: String;
   private vouchers: Voucher[];
-  private today: string;
+  private dateTomorrow: Date;
+  private tomorrow: string;
   private isAdmin: boolean;
   private sortDateOn: boolean = true;
   private sortCodeOn: boolean = false;
@@ -41,7 +42,9 @@ export class ManageVouchersComponent {
     this.receiveAllVouchers(this.voucherService.getAllVouchers());
     authenticationService.isAdmin
       .subscribe(x => this.isAdmin = x);
-    this.today = new Date().toJSON().split('T')[0];
+    this.dateTomorrow = new Date();
+    this.dateTomorrow.setDate(this.dateTomorrow.getDate() + 1);
+    this.tomorrow = this.dateTomorrow.toJSON().split('T')[0];
     this.refreshVouchers();
   }
 
