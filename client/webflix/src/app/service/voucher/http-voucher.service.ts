@@ -47,7 +47,11 @@ export class HttpVoucherService extends VoucherService {
     return this.restService.post(baseUrl + '/' + code + '/' + discount + '/' + expiryDateNew)
       // .addHeader('Access-Control-Allow-Origin', '*')
       .build()
-      .map(() => true);
+      .map(() => true)
+      .catch(error => {
+        console.log('unable to create voucher');
+        return Observable.of(false);
+      });
   }
 
   removeVoucher(voucher: Voucher): Observable<Boolean> {

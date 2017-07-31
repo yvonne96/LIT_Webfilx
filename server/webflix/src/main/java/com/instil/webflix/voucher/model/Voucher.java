@@ -20,8 +20,18 @@ public class Voucher {
     private String offer;
     private Boolean global;
     private Date expire;
+    
+    public Voucher(){}
 
-    public String getName() {
+    public Voucher(Long id, String name, String offer, Boolean global, Date expire) {
+		this.id = id;
+		this.name = name;
+		this.offer = offer;
+		this.global = global;
+		this.expire = expire;
+	}
+
+	public String getName() {
         return name;
     }
 

@@ -34,22 +34,29 @@ public class VoucherRestController {
 	@Autowired
 	private VoucherRepository repository;
 	
-//	@Autowired
-//	private VoucherService voucherService;
+	@Autowired
+	private VoucherService voucherService;
 	
 	@RequestMapping(method = GET, value="/{name}", produces = "application/json")
 	public Voucher voucherByName(@PathVariable("name") String name) {
+		voucherService.checkForExpiredGlobal();
 		return repository.findByName(name);
 	}
 	
 	@RequestMapping(method = GET, produces = "application/json")
 	public List<Voucher> allVouchers() {
+		voucherService.checkForExpiredGlobal();
 		return repository.findAll();
+	}
+	
+	@RequestMapping(method = GET, value="/global", produces = "application/json")
+	public Voucher allGlobalVouchers() {
+		return repository.findByGlobalTrue();
 	}
 	
 	@RequestMapping(method = DELETE, value="/{voucherID}",  produces = "application/json")
 	public void removeVoucher(@PathVariable("voucherID") int ID){
-		repository.deleteById(ID);
+		repository.deleteById(ID);	
 	}
 	
 	@RequestMapping(method = POST, value="/{voucherID}/{global}",  produces = "application/json")
@@ -62,7 +69,7 @@ public class VoucherRestController {
 	public void createVoucher(@PathVariable("code") String code, @PathVariable("discount") String discount, @PathVariable("expiryDate") Date expiryDate){
 		String newDiscount = discount.replace("i", " ");
 		newDiscount = newDiscount.replace("p","%");
-		repository.addVoucher(code, newDiscount, expiryDate);
+		voucherService.createVoucher(code, newDiscount, expiryDate);
 	}
 	
 }

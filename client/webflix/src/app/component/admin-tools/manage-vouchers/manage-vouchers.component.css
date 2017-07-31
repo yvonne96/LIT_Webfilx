@@ -1,0 +1,21 @@
+.ManageVoucherHeadingbutton{
+  background-color: #337ab7; /* Green */
+  border: none;
+  color: white;
+  font-weight: normal;
+  padding: 10px 38px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+                        }
+.ManageVoucherHeadingbutton:hover{
+  background-color: #286090;
+}
+
+.ManageVoucherHeadingbutton:focus {
+  background-color: hotpink;
+  border: hotpink;
+}
+

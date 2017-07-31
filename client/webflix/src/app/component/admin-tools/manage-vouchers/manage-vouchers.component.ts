@@ -7,10 +7,12 @@ import {Voucher} from '../../../model/voucher';
 import {VoucherService} from '../../../service/voucher/voucher.service';
 import {Observable} from 'rxjs/Observable';
 import {error} from "selenium-webdriver";
+import {AuthenticationService} from '../../../service/authentication/authentication.service';
 
 @Component({
   moduleId: module.id,
   selector: 'manage-vouchers',
+  styleUrls: ['manage-vouchers.component.css'],
   templateUrl: 'manage-vouchers.component.html'
 })
 export class ManageVouchersComponent {
@@ -26,11 +28,23 @@ export class ManageVouchersComponent {
   private errorMessage: String;
   private vouchers: Voucher[];
   private today: string;
+  private isAdmin: boolean;
+  private sortDateOn: boolean = true;
+  private sortCodeOn: boolean = false;
+  private sortGlobalOn: boolean = false;
+  private sortDiscountOn: boolean = false;
 
-  constructor(private voucherService: VoucherService) {
+
+
+  constructor(private voucherService: VoucherService, private router: Router,
+              private authenticationService: AuthenticationService) {
     this.receiveAllVouchers(this.voucherService.getAllVouchers());
+    authenticationService.isAdmin
+      .subscribe(x => this.isAdmin = x);
     this.today = new Date().toJSON().split('T')[0];
+    this.refreshVouchers();
   }
+
 
   refreshCreateVoucherForm() {
     let resetForm = <HTMLFormElement>document.getElementById('createVouchers');
@@ -43,6 +57,7 @@ export class ManageVouchersComponent {
 
   createVoucher() {
     this.intializeDiscount();
+
     this.voucherService.createVoucher(this.code.toUpperCase(), this.discount , this.expiryDate)
         .subscribe(
           () => {this.refreshVouchers();
@@ -102,7 +117,7 @@ export class ManageVouchersComponent {
     }
   }
 
-  removeVoucher(voucher: Voucher){
+  removeVoucher(voucher: Voucher) {
     this.voucherService.removeVoucher(voucher)
       .subscribe(() => this.refreshVouchers());
   }
@@ -111,8 +126,7 @@ export class ManageVouchersComponent {
     source
       .subscribe(vouchers => {
         this.vouchers = vouchers;
-        this.sortVouchersByDate();
-        this.sortVouchersByGlobal();
+        this.intializeSort();
         console.log(vouchers);
       }, error => alert('Error getting vouchers'));
   }
@@ -121,10 +135,77 @@ export class ManageVouchersComponent {
     this.voucherService.getAllVouchers()
       .subscribe(vouchers => {
         this.vouchers = vouchers;
-        this.sortVouchersByDate();
-        this.sortVouchersByGlobal();
+        this.intializeSort();
       });
   }
+
+
+  intializeSort() {
+    if (this.sortDateOn) {
+      this.chooseSortMethod('DATE');
+    }
+    if (this.sortCodeOn) {
+      this.chooseSortMethod('CODE');
+    }
+    if (this.sortGlobalOn) {
+      this.chooseSortMethod('GLOBAL');
+    }
+    if (this.sortDiscountOn) {
+      this.chooseSortMethod('DISCOUNT');
+    }
+  }
+
+  chooseSortMethod(sortMethod: string) {
+    switch (sortMethod) {
+      case 'CODE':
+        this.sortGlobalOn = false;
+        this.sortDateOn = false;
+        this.sortCodeOn = true;
+        this.sortDiscountOn = false;
+        this.vouchers.sort((firstVoucher, nextVoucher) => {
+          if (firstVoucher.name < nextVoucher.name) {return -1; }
+          if (firstVoucher.name > nextVoucher.name) {return 1; }
+          return 0;
+        });
+        break;
+
+      case 'DISCOUNT':
+        this.sortGlobalOn = false;
+        this.sortDateOn = false;
+        this.sortCodeOn = false;
+        this.sortDiscountOn = true;
+        this.vouchers.sort((firstVoucher, nextVoucher) => {
+          if (firstVoucher.offer < nextVoucher.offer) {return -1; }
+          if (firstVoucher.offer > nextVoucher.offer) {return 1; }
+          return 0;
+        });
+        break;
+
+      case 'GLOBAL':
+        this.sortGlobalOn = true;
+        this.sortDateOn = false;
+        this.sortCodeOn = false;
+        this.sortDiscountOn = false;
+        this.vouchers.sort((firstVoucher, nextVoucher) => {
+          if (firstVoucher.global === true) {return -1; }
+          if (nextVoucher.global === true) {return 1; }
+          return 0;
+        });
+        break;
+
+      default:
+        this.sortGlobalOn = false;
+        this.sortDateOn = true;
+        this.sortCodeOn = false;
+        this.sortDiscountOn = false;
+        this.vouchers.sort((firstVoucher, nextVoucher) => {
+          if (firstVoucher.expire < nextVoucher.expire) {return 1; }
+          if (firstVoucher.expire > nextVoucher.expire) {return -1; }
+          return 0;
+        });
+    }
+  }
+
 
   toggleGlobalButton(voucher: Voucher) {
     let global = true;
