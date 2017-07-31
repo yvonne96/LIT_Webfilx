@@ -1,0 +1,7 @@
+body {
+  text-align: center;
+}
+#page-wrap {
+  max-width: 500px;
+  margin: auto;
+}

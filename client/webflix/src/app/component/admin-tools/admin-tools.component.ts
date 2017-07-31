@@ -5,7 +5,8 @@ import {Router} from '@angular/router';
 @Component({
   moduleId: module.id,
   selector: 'admin-tools',
-  templateUrl: 'admin-tools.component.html'
+  templateUrl: 'admin-tools.component.html',
+  styleUrls: ['admin-tools.component.css'],
 })
 export class AdminToolsComponent {
   private isAdmin: boolean;

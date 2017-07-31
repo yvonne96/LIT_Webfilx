@@ -1,6 +1,7 @@
-<div class="jumbotron" *ngIf="isAdmin">
-  <h1>Admin Tools</h1>
-  <p><img src="app/component/admin-tools/boss.jpg" height = "200" width="400"></p>
+<div class="jumbotron" id="page-wrap" *ngIf="isAdmin">
+  <h1 style="text-align: center">Admin Tools</h1>
+  <p style="text-align: center"><img src="app/component/admin-tools/boss.jpg" height = "200" width="400"></p>
+  <div style="text-align: center">
   <button class="btn btn-info navbar-btn" routerLink="./manage-movies" routerLinkActive="active">
     <span>Manage Movies</span>
   </button>
@@ -8,6 +9,7 @@
   <button class="btn btn-info navbar-btn" routerLink="./manage-vouchers" routerLinkActive="active">
     <span>Manage Vouchers</span>
   </button>
+</div>
 </div>
 <div *ngIf="isAdmin == false" style="color: white; font-size: 100px; text-align: center;">
   <p>You dont have access to this page!</p>
