@@ -42,7 +42,7 @@
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
           <label htmlFor="expiryDate">Expiry Date</label>
-          <input type="date" [min]="today" name="expiryDate" class="form-control"
+          <input type="date" [min]="tomorrow" name="expiryDate" class="form-control"
                  [(ngModel)]="expiryDate" required/>
         </div>
 
