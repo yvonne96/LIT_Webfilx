@@ -30,13 +30,15 @@
       <h3>Discount: {{discount}}</h3>
       <hr>
       <h3>Total: {{subtotal | currency:'EUR':true}}</h3>
-      <button class="btn btn-success" (click)="checkout()">Purchase</button>
+      <button class="btn btn-primary" (click)="checkout()">Purchase</button>
+      <button class="btn btn-danger" *ngIf="voucherApplied" (click)="removeVoucher()">Remove Voucher</button>
+      <div class="warningMessageBlockTwo " *ngIf="warningMessage">{{warningMessage}}</div>
     </div>
     <div class="jumbotron">
       <h3 class="voucher-Title">Voucher</h3>
       <hr>
       <input type="text" class="form-control" #voucher>
-      <div class="help-block alert-success" *ngIf="voucherMessage">{{voucherMessage}}</div>
+      <div class="voucherSuccess" *ngIf="voucherMessage">{{voucherMessage}}</div>
       <br>
       <button (click)="checkVoucher(voucher.value)" class="btn btn-primary">Verify Voucher</button>
     </div>

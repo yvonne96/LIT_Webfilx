@@ -29,8 +29,8 @@ export class BasketComponent {
   private used: number[];
   private checkIfApplied: boolean;
   private inUseVoucherId: number;
-  private apply: boolean = true;
   public basketMovies: Movie[];
+  private warningMessage: string = '';
 
 
 
@@ -50,6 +50,8 @@ export class BasketComponent {
 
     this.subtotal = 0;
     this.removeVoucher();
+    this.voucherMessage = '';
+    this.warningMessage = '';
   }
 
   removeMovie(movie: Movie): void {
@@ -84,12 +86,14 @@ export class BasketComponent {
       this.globalMessage = 'Global voucher has already been used.';
     } else {
       if (!this.checkIfDiscountApplied()) {
+        this.warningMessage = '';
         this.inUseVoucherId = this.globals[0].id;
         this.discount = this.globals[0].offer;
         this.inUse = true;
         this.parseDiscount(this.discount);
         this.globalSet = false;
         this.checkIfApplied = true;
+        this.voucherApplied = true;
       }
     }
   }
@@ -149,30 +153,15 @@ export class BasketComponent {
         (res) => {
           console.log(res);
           if (res === false || res.expire <= this.logDate()) {
-            this.voucherMessage = name + ': Is not a valid voucher. Please check expiry date and voucher code.';
+            this.warningMessage = name + ': Is not a valid voucher. Please check expiry date and voucher code.';
+            this.voucherMessage = '';
             this.inUse = false;
           } else {
             console.log(this.used);
             if (this.used.indexOf(res.id) > -1) {
-              this.voucherMessage = 'Voucher has already been used.';
-              this.apply = false;
+              this.warningMessage = 'Voucher has already been used.';
             } else {
-              this.apply = true;
-            }
-            if (this.apply) {
-              if (!this.checkIfDiscountApplied()) {
-                this.checkIfApplied = true;
-                this.voucherMessage = 'This voucher rewards you with: ' + res.offer;
-                this.inUse = true;
-                this.inUseVoucherId = res.id;
-                this.discount = res.offer;
-                this.parseDiscount(this.discount);
-                if (this.globals !== []) {
-                  this.globalSet = true;
-                } else {
-                this.voucherMessage = 'Already used this voucher';
-                }
-              }
+              this.applyVoucher(res);
             }
           }
         });
@@ -203,7 +192,8 @@ export class BasketComponent {
     this.basketMovies = this.summary.movies;
     if (this.basketMovies.length < 2 ) {
       this.removeVoucher();
-      this.voucherMessage = 'Not enough movies in basket to apply voucher.';
+      this.voucherMessage = '';
+      this.warningMessage = 'Not enough movies in basket to apply voucher.';
     } else if (this.basketMovies.length === 2) {
       if (this.summary.movies[0].price > this.summary.movies[1].price) {
         this.subtotal = this.summary.total - this.summary.movies[1].price;
@@ -213,15 +203,14 @@ export class BasketComponent {
       return this.subtotal;
     } else {
       this.removeVoucher();
-      this.voucherMessage = 'Too many movies in basket.';
+      this.warningMessage = 'Too many movies in basket.';
     }
   }
 
   applyDiscountTwo(amountToSpend: number, amountOff: number) {
     if (this.summary.total < amountToSpend) {
       this.removeVoucher();
-      this.voucherMessage = 'You are not spending enough.';
-      console.log('You are not spending enough');
+      this.warningMessage = 'You are not spending enough.';
     } else {
       this.subtotal = this.summary.total - amountOff;
       return this.subtotal;
@@ -230,8 +219,7 @@ export class BasketComponent {
 
   applyDiscountThree(percentOff: number) {
     if (this.summary.total === 0.00) {
-      this.voucherMessage = 'Not enough movies in basket to apply voucher.';
-      console.log('Not enough movies in basket to apply voucher');
+      this.warningMessage = 'Not enough movies in basket to apply voucher.';
     } else {
       this.subtotal = this.summary.total * ((100.0 - percentOff) / 100.0);
       return this.subtotal;
@@ -243,13 +231,29 @@ export class BasketComponent {
        .subscribe();
   }
 
+  private applyVoucher(res: Object): void {
+    console.log(res);
+    if (!this.checkIfDiscountApplied()) {
+      this.checkIfApplied = true;
+      this.warningMessage = '';
+      this.voucherMessage = 'This voucher rewards you with: ' + res.offer;
+      this.inUse = true;
+      this.inUseVoucherId = res.id;
+      this.discount = res.offer;
+      this.voucherApplied = true;
+      this.parseDiscount(this.discount);
+    }
+  }
+
   removeVoucher(): void {
     this.discount = '';
     this.subtotal = this.summary.total;
     this.inUse = false;
     this.checkIfApplied = false;
-    this.voucherMessage = 'Voucher removed please re-enter voucher code';
+    this.warningMessage = 'Voucher removed please re-enter voucher code';
     this.voucherApplied = false;
+    this.voucherMessage = '';
+    this.globalSet = true;
   }
 
   checkIfDiscountApplied(): boolean {
