@@ -6,8 +6,9 @@ import {Router} from '@angular/router';
 import {Voucher} from '../../../model/voucher';
 import {VoucherService} from '../../../service/voucher/voucher.service';
 import {Observable} from 'rxjs/Observable';
-import {error} from "selenium-webdriver";
 import {AuthenticationService} from '../../../service/authentication/authentication.service';
+import {MovieService} from '../../../service/movie/movie.service';
+import {Movie} from '../../../model/movie';
 
 @Component({
   moduleId: module.id,
@@ -27,6 +28,7 @@ export class ManageVouchersComponent {
   private menuType: String;
   private errorMessage: String;
   private vouchers: Voucher[];
+  private movies: Movie[];
   private today: string;
   private isAdmin: boolean;
   private sortDateOn: boolean = true;
@@ -37,8 +39,10 @@ export class ManageVouchersComponent {
 
 
   constructor(private voucherService: VoucherService, private router: Router,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private movieService: MovieService) {
     this.receiveAllVouchers(this.voucherService.getAllVouchers());
+    this.receiveAllMovies(this.movieService.fetchAllMovies());
     authenticationService.isAdmin
       .subscribe(x => this.isAdmin = x);
     this.today = new Date().toJSON().split('T')[0];
@@ -56,15 +60,75 @@ export class ManageVouchersComponent {
   }
 
   createVoucher() {
-    this.intializeDiscount();
-
-    this.voucherService.createVoucher(this.code.toUpperCase(), this.discount , this.expiryDate)
+    if (this.validVoucherParams()) {
+      this.intializeDiscount();
+      this.voucherService.createVoucher(this.code.toUpperCase(), this.discount, this.expiryDate)
         .subscribe(
-          () => {this.refreshVouchers();
-                this.refreshCreateVoucherForm();
-            },
-          error => {this.setCreateFailureMessage(); }
+          () => {
+            this.refreshVouchers();
+            this.refreshCreateVoucherForm();
+          },
+          error => {
+            this.setCreateFailureMessage();
+          }
         );
+    }
+  }
+
+  validVoucherParams(): boolean {
+    if (!this.codeNotUsed()) {
+      this.errorMessage = 'Error - the code you supplied is already in use';
+      return false;
+    }
+
+    switch (this.menuType) {
+      case 'buyXGetY':
+        if (!this.validBuyXGetYParams()) {
+          return false;
+        }
+        break;
+      case 'spendXGetY':
+        if (!this.validSpendXGetYParams()) {
+          return false;
+        }
+        break;
+    }
+    return true;
+  }
+
+  validBuyXGetYParams(): boolean {
+    if (Number(this.discountX) > this.movies.length || Number(this.discountX) < 1) {
+      this.errorMessage = 'Error - Buy X Get Y Free, X is either larger than total movies stored or less than 1';
+      return false;
+    } else if (Number(this.discountY) > this.movies.length || Number(this.discountY) < 1) {
+      this.errorMessage = 'Error - Buy X Get Y Free, Y is either larger than total movies stored or less than 1';
+      return false;
+    }
+    return true;
+  }
+
+  validSpendXGetYParams(): boolean {
+    if (Number(this.discountX) < 1) {
+      this.errorMessage = 'Error - Spend X Get Y Off, X is less than 1';
+      return false;
+    } else if (Number(this.discountX) < Number(this.discountY)) {
+      this.errorMessage = 'Error - Spend X Get Y Off, X is less than Y';
+      return false;
+    } else if (Number(this.discountY) < 1) {
+      this.errorMessage = 'Error - Spend X Get Y Off, Y is less than 1';
+      return false;
+    }
+    return true;
+  }
+
+  codeNotUsed(): boolean {
+    for (let v of this.vouchers){
+      if (v.name.toUpperCase() === this.code.toUpperCase()) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   setCreateFailureMessage() {
@@ -129,6 +193,13 @@ export class ManageVouchersComponent {
         this.intializeSort();
         console.log(vouchers);
       }, error => alert('Error getting vouchers'));
+  }
+
+  receiveAllMovies(source: Observable<Movie[]>) {
+    source
+      .subscribe(movies => {
+        this.movies = movies;
+      }, error => alert('Error getting movies'));
   }
 
   refreshVouchers() {
