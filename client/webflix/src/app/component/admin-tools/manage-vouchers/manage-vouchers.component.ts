@@ -290,29 +290,6 @@ export class ManageVouchersComponent {
       .subscribe(() => this.refreshVouchers());
   }
 
-  sortVouchersByID() {
-    this.vouchers.sort((firstVoucher, nextVoucher) => {
-      if (firstVoucher.id < nextVoucher.id) {return -1; }
-      if (firstVoucher.id > nextVoucher.id) {return 1; }
-      return 0;
-    });
-  }
-
-  sortVouchersByDate() {
-    this.vouchers.sort((firstVoucher, nextVoucher) => {
-      if (firstVoucher.expire < nextVoucher.expire) {return 1; }
-      if (firstVoucher.expire > nextVoucher.expire) {return -1; }
-      return 0;
-    });
-  }
-
-  sortVouchersByGlobal() {
-    this.vouchers.sort((firstVoucher, nextVoucher) => {
-      if (firstVoucher.global === true) {return -1; }
-      if (nextVoucher.global === true) {return 1; }
-      return 0;
-    });
-  }
   getVoucherRowStyle(expired: boolean): String{
     if (expired) {
       return 'red';
