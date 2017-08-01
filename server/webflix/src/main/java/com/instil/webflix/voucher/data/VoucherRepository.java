@@ -17,7 +17,7 @@ public interface VoucherRepository extends JpaRepository<Voucher, Long> {
 	public List<Voucher> findAll();
 
 	public Voucher findById(Long id);
-	public Voucher findByGlobalTrue();
+	public List<Voucher> findByGlobalTrue();
 	
 	@Transactional
 	@Modifying

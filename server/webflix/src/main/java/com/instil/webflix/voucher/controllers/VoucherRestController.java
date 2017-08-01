@@ -62,11 +62,11 @@ public class VoucherRestController {
 		return repository.findAll();
 	}
 	
-	@RequestMapping(method = GET, value="/global", produces = "application/json")
+//	@RequestMapping(method = GET, value="/global", produces = "application/json")
 
-	public Voucher allGlobalVouchers() {
-		return repository.findByGlobalTrue();
-	}
+//	public Voucher allGlobalVouchers() {
+//		return repository.findByGlobalTrue();
+//	}
 	
 	@RequestMapping(method = DELETE, value="/{voucherID}",  produces = "application/json")
 	public void removeVoucher(@PathVariable("voucherID") int ID){
@@ -86,10 +86,10 @@ public class VoucherRestController {
 		voucherService.createVoucher(code, newDiscount, expiryDate);
 	}
 	
-
-//	public List<Voucher> allGlobalVouchers() {
-//		return repository.findByGlobalTrue();
-//	}
+	@RequestMapping(method = GET, value="/global", produces = "application/json")
+	public List<Voucher> allGlobalVouchers() {
+		return repository.findByGlobalTrue();
+	}
 	
 	@RequestMapping(method = GET, value="/usedVouchers", produces = "application/json")
 	public List<Integer> allUsedVouchers() {

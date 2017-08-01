@@ -114,14 +114,14 @@ public class DbVoucherServiceTest {
 		assertFalse("Discount format accepted", db.validFormat("20%OF"));
 	}
 	
-	@Test
-	@Ignore
-	public void shouldSetExpiredGlobalToFalse()
-	{
-		when(vRepoMock.findByGlobalTrue()).thenReturn(new Voucher(new Long(1), "SAVINGBIG", "SPEND 20 GET 10 OFF", true, new Date()));
-		db.checkForExpiredGlobal();
-		verify(vRepoMock, times(1)).setAllGlobalFalse();
-	}
+//	@Test
+//	@Ignore
+//	public void shouldSetExpiredGlobalToFalse()
+//	{
+//		when(vRepoMock.findByGlobalTrue()).thenReturn(new Voucher(new Long(1), "SAVINGBIG", "SPEND 20 GET 10 OFF", true, new Date()));
+//		db.checkForExpiredGlobal();
+//		verify(vRepoMock, times(1)).setAllGlobalFalse();
+//	}
 	
 	@Test
 	public void shouldCatchBadExpiryDateOrCodeAlreadyInUse()

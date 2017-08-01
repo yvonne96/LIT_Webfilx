@@ -166,16 +166,23 @@ public class DbVoucherService implements VoucherService {
 	}
 	
 	public void checkForExpiredGlobal() {
-		Voucher global = voucherRepository.findByGlobalTrue();
-		Date currentDate = new Date();
+		try{
+			Voucher global = voucherRepository.findByGlobalTrue().get(0);
+			Date currentDate = new Date();
 		
-		if(!(global == null))
-		{
 			if(global.getExpire().getTime() < currentDate.getTime())
 			{
 				voucherRepository.setAllGlobalFalse();
 			}
+		
 		}
+		catch(IndexOutOfBoundsException ex)
+		{
+			logger.info("No global");
+		}
+	
+		
+		
 	}
 	
 
