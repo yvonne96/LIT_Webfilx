@@ -8,6 +8,4 @@ public interface VoucherService {
 	boolean getVoucherValid(String name);
 	
 	List<Voucher> getAllVouchers();
-	
-	
 }
