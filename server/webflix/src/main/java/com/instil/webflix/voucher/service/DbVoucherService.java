@@ -1,5 +1,6 @@
 package com.instil.webflix.voucher.service;
 
+
 import com.instil.webflix.basket.data.BasketItemRepository;
 import com.instil.webflix.basket.data.BasketRepository;
 import com.instil.webflix.voucher.data.VoucherRepository;
@@ -32,13 +33,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class DbVoucherService implements VoucherService {
 	private final Log logger = LogFactory.getLog(this.getClass());
+
 	
 	@Autowired
 	private VoucherRepository voucherRepository;
 	
+
 	@Autowired
 	private MovieRepository movieRepository;
 	
+
 	
 	public boolean getVoucherValid(String name) {
 		Voucher voucher = voucherRepository.findByName(name);
@@ -56,6 +60,7 @@ public class DbVoucherService implements VoucherService {
 		return stream;
 	}
 	
+
 	public void createVoucher(String code, String discount, Date expiryDate){
 		if(validVoucher(code, discount, expiryDate)){
 			voucherRepository.addVoucher(code, discount, expiryDate);
@@ -173,4 +178,11 @@ public class DbVoucherService implements VoucherService {
 		}
 	}
 	
+
+//	public List<Voucher> getAllGlobalVouchers() {
+//		List<Voucher> stream = voucherRepository.findByGlobalTrue();
+//		return stream;
+//	}
+
+
 }

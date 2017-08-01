@@ -6,11 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
 
 @Entity
-@Table(name = "voucher")
 public class Voucher {
 
     @Id
@@ -20,7 +17,6 @@ public class Voucher {
     private String offer;
     private Boolean global;
     private Date expire;
-    
     public Voucher(){}
 
     public Voucher(Long id, String name, String offer, Boolean global, Date expire) {
@@ -31,7 +27,8 @@ public class Voucher {
 		this.expire = expire;
 	}
 
-	public String getName() {
+
+    public String getName() {
         return name;
     }
 

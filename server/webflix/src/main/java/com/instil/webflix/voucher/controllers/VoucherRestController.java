@@ -1,5 +1,6 @@
 package com.instil.webflix.voucher.controllers;
 
+
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.instil.webflix.basket.data.BasketVoucherRepository;
 import com.instil.webflix.movies.data.MovieRepository;
 import com.instil.webflix.voucher.data.VoucherRepository;
 import com.instil.webflix.movies.model.Genre;
@@ -28,6 +30,7 @@ import com.instil.webflix.security.model.Account;
 import com.instil.webflix.security.service.AccountService;
 import com.instil.webflix.voucher.service.VoucherService;
 
+
 @RestController
 @RequestMapping("/voucher")
 public class VoucherRestController {
@@ -35,11 +38,21 @@ public class VoucherRestController {
 	private VoucherRepository repository;
 	
 	@Autowired
+
 	private VoucherService voucherService;
+	
+	@Autowired
+	private AccountService accountService;	
+	
+	@Autowired
+	private VoucherRepository voucherRepository;
+	
+	@Autowired
+	private BasketVoucherRepository basketVoucherRepository;
 	
 	@RequestMapping(method = GET, value="/{name}", produces = "application/json")
 	public Voucher voucherByName(@PathVariable("name") String name) {
-		voucherService.checkForExpiredGlobal();
+
 		return repository.findByName(name);
 	}
 	
@@ -50,6 +63,7 @@ public class VoucherRestController {
 	}
 	
 	@RequestMapping(method = GET, value="/global", produces = "application/json")
+
 	public Voucher allGlobalVouchers() {
 		return repository.findByGlobalTrue();
 	}
@@ -72,4 +86,24 @@ public class VoucherRestController {
 		voucherService.createVoucher(code, newDiscount, expiryDate);
 	}
 	
+
+//	public List<Voucher> allGlobalVouchers() {
+//		return repository.findByGlobalTrue();
+//	}
+	
+	@RequestMapping(method = GET, value="/usedVouchers", produces = "application/json")
+	public List<Integer> allUsedVouchers() {
+		Account current = accountService.getCurrent();
+		return basketVoucherRepository.getUsedVouchers(current.getId());
+	}
+	
+	@RequestMapping(method = POST, value = "/usedVouchers/{voucherId}",  produces = "application/json")
+    public void addUsedVouchers(@PathVariable("voucherId") Long voucherId) {
+        Account current = accountService.getCurrent();
+        Voucher voucher = voucherRepository.findById(voucherId);
+        basketVoucherRepository.addUsedVouchers(current.getId(), voucher.getId());
+    }
+	
+	
 }
+

@@ -27,10 +27,10 @@ export class MovieGridComponent {
   onAddMovieToBasket = new EventEmitter<Movie>();
   info: string = '';
   image: string = '';
-  listening: any;
   isSet: boolean = false;
   public summary: BasketSummary;
   public myMovies: Movie[];
+
 
   constructor(private http: Http,
               private basketService: BasketService,
@@ -116,4 +116,5 @@ export class MovieGridComponent {
   setImageData() {
     return this.image;
   }
+
 }

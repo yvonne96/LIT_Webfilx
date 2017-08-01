@@ -80,28 +80,7 @@ public class DbBasketServiceTest {
         verify(basketRepository, times(1)).delete((Basket) any());
     }
 
-    /* @Test
-   public void shouldAddNewMovieToBasketAndSave() {
-        stubBasketForAccount(withBasketSizeOf(2));
 
-        target.addMovieToBasket(account, movie);
-
-        verify(basketRepository, times(1)).save(basket);
-        assertThat(basket.getItems(), hasItem(new BasketItem(basket, movie)));
-        assertThat(basket.getItems(), hasSize(3));
-    }
-
-    @Test
-    public void shouldAddNewMovieToNewBasketIfAccountDoesNotHaveOne() {
-        ArgumentCaptor<Basket> basketCaptor = ArgumentCaptor.forClass(Basket.class);
-
-        target.addMovieToBasket(account, movie);
-
-        verify(basketRepository, times(1)).save(basketCaptor.capture());
-        Basket newBasket = basketCaptor.getValue();
-        assertThat(newBasket.getItems(), hasItem(new BasketItem(newBasket, movie)));
-        assertThat(newBasket.getItems(), hasSize(1));
-    }*/
 
     @Test
     public void shouldCalculateCorrectTotalForMoviesInBasketSummary() {

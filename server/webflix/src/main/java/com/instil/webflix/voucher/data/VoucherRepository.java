@@ -1,5 +1,6 @@
 package com.instil.webflix.voucher.data;
 
+
 import com.instil.webflix.voucher.model.Voucher;
 
 import java.util.Date;
@@ -11,11 +12,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-
 public interface VoucherRepository extends JpaRepository<Voucher, Long> {
 	public Voucher findByName(String name);
 	public List<Voucher> findAll();
-	public Voucher findById(int id);
+
+	public Voucher findById(Long id);
 	public Voucher findByGlobalTrue();
 	
 	@Transactional
@@ -37,4 +38,5 @@ public interface VoucherRepository extends JpaRepository<Voucher, Long> {
 	@Modifying
 	@Query(nativeQuery = true, value = "INSERT INTO voucher (name, offer,expire) VALUES (:code , :discount , :expiryDate)")
 	void addVoucher(@Param("code") String code, @Param("discount") String discount, @Param("expiryDate") Date expiryDate);
+
 }
