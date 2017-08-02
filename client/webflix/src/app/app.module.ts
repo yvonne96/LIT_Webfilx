@@ -8,6 +8,7 @@ import {APP_BASE_HREF} from '@angular/common';
 import {AdminToolsComponent} from './component/admin-tools/admin-tools.component';
 import {ManageMoviesComponent} from './component/admin-tools/manage-movies/manage-movies.component';
 import {ManageVouchersComponent } from './component/admin-tools/manage-vouchers/manage-vouchers.component';
+import {AddMoviesComponent} from './component/admin-tools/manage-movies/add-movies/add-movies.component';
 import {APP_CONFIG, WEBFLIX_CONFIG} from './app-config';
 import {AppComponent}  from './app.component';
 import {BasketComponent}  from './component/basket/basket.component';
@@ -62,6 +63,10 @@ const appRoutes: Routes = [
       },
       { path: 'admin/manage-movies',
         component: ManageMoviesComponent
+      },
+      {
+        path: 'admin/manage-movies/add-movies',
+        component: AddMoviesComponent
       }
     ]
   },
@@ -81,6 +86,7 @@ const appRoutes: Routes = [
     AdminToolsComponent,
     ManageVouchersComponent,
     ManageMoviesComponent,
+    AddMoviesComponent,
     AppComponent,
     BasketComponent,
     BasketButtonComponent,
