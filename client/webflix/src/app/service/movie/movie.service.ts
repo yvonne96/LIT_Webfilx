@@ -7,4 +7,8 @@ export abstract class MovieService {
   abstract fetchByTitle(title: string): Observable<Movie[]>;
 
   abstract fetchMyMovies(): Observable<Movie[]>;
+
+  abstract fetchPurchasableMovies(): Observable<Movie[]>;
+
+  abstract togglePurchasableMovie(movie: Movie): Observable<boolean>;
 }

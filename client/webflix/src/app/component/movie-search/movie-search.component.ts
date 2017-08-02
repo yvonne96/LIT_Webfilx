@@ -42,7 +42,7 @@ export class MovieSearchComponent {
 
   //  this.extractMovies(this.checkDuplicates(this.movieService.fetchAllMovies()));
 
-     this.extractMovies(this.movieService.fetchAllMovies());
+     this.extractMovies(this.movieService.fetchPurchasableMovies());
   }
 
   private extractMovies(source: Observable<Movie[]>) {

@@ -14,6 +14,7 @@ public class Movie {
 	private String title;
 	private String year;
 	private String description;
+	private Boolean purchasable;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "genre")
@@ -26,12 +27,21 @@ public class Movie {
 	@Column(table = "movie_price", name = "price")
 	private BigDecimal price;
 
+	public Boolean getPurchasable() {
+		return purchasable;
+	}
+
+	public void setPurchasable(Boolean purchasable) {
+		this.purchasable = purchasable;
+	}
+
 	public Movie() {
 		super();
 		this.title = "";
 		this.year = "";
 		this.price = new BigDecimal(0);
 		this.description = "";
+		this.purchasable = true;
 	}
 
 	public Movie(String title) {

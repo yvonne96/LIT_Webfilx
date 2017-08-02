@@ -10,6 +10,7 @@ const baseUrl = '/movie';
 
 @Injectable()
 export class HttpMovieService extends MovieService {
+
   constructor(private http: Http,
               private restService: RestService) {
     super();
@@ -31,5 +32,25 @@ export class HttpMovieService extends MovieService {
     return this.restService.get(baseUrl + '/mine')
       .build()
       .map(resp => resp.json());
+  }
+
+  fetchPurchasableMovies(): Observable<Movie[]> {
+    return this.restService.get(baseUrl + '/purchasableMovies')
+      .build()
+      .map(resp => resp.json())
+      .catch(error => {
+        console.log('Error retrieving purchasable movies');
+        return Observable.of([]);
+      });
+  }
+
+  togglePurchasableMovie(movie: Movie): Observable<boolean> {
+    return this.restService.post(baseUrl + '/togglePurchasable/' + movie.id + '/' + (!movie.purchasable))
+      .build()
+      .map(() => true)
+      .catch(error => {
+        console.log('Error toggling purchasable field of movie');
+        return Observable.of(false);
+      });
   }
 }

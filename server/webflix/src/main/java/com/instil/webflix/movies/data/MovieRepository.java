@@ -3,7 +3,10 @@ package com.instil.webflix.movies.data;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 
 import com.instil.webflix.movies.model.Movie;
 
@@ -14,4 +17,11 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	List<Movie> findByTitleContains(String titleString);
 
 	List<Movie> findByTitleContainsAllIgnoreCase(String titleString);
+	
+	List<Movie> findByPurchasableTrue();
+	
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true, value = "UPDATE movie SET purchasable = :purchasable WHERE id = :id")
+	void togglePurchasableMovie(@Param("id") int id, @Param("purchasable") boolean purchasable);
 }

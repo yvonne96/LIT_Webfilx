@@ -15,6 +15,8 @@ import com.instil.webflix.movies.model.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/movie")
@@ -26,18 +28,26 @@ public class MovieRestController {
 	private AccountService accountService;
 	
 	
-	//refractor this into another method!!!
 	@RequestMapping(method = GET, produces = "application/json")
 	public Iterable<Movie> allMoviesAsJson() {
-		//return checkMyMovies(repository.findAll());
 		return repository.findAll();
 		
+	}
+	
+	@RequestMapping(method = GET, value = "/purchasableMovies", produces = "application/json")
+	public List<Movie> allPurchasableMovies() {
+		return repository.findByPurchasableTrue();
 	}
 
 	@RequestMapping(method = GET, value = "/mine", produces = "application/json")
 	public Iterable<Movie> allMyMovies() {
 		Account current = accountService.getCurrent();
 		return current.getMyMovies();
+	}
+	
+	@RequestMapping(method = POST, value = "/togglePurchasable/{movieID}/{purchasable}", produces = "application/json")
+	public void togglePurchasableMovie(@PathVariable("movieID") int movieID, @PathVariable("purchasable") boolean purchasable) {
+		repository.togglePurchasableMovie(movieID, purchasable);
 	}
 
 	@RequestMapping(method = GET, produces = "application/xml")
@@ -72,22 +82,4 @@ public class MovieRestController {
 		repository.save(movie);
 	}
 	
-	//Not called - previous version 2.1 and less
-	/* private Iterable<Movie> checkMyMovies(Iterable<Movie> movies) {
-		Iterable<Movie> mine = allMyMovies();
-		ArrayList<Movie> whatRemains = new ArrayList<>();
-		for(Movie m : movies) {
-			boolean found = false;
-			for(Movie n : mine){
-				if(m.equals(n)){
-					found = true;
-				}
-			}
-			if(!found){
-				whatRemains.add(m);
-			}	
-		}
-		Iterable<Movie> check = whatRemains;
-		return check;
-	} */
 }

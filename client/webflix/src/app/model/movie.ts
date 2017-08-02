@@ -7,6 +7,7 @@ export class Movie {
   genre: Genre;
   price: number;
   description: string;
+  purchasable: boolean;
 }
 
 interface Classification {

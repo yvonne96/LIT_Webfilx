@@ -2,6 +2,8 @@ import {Component, Input} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {Movie} from '../../model/movie';
 import {BasketService} from '../../service/basket/basket.service';
+import {MovieService} from '../../service/movie/movie.service';
+import {Observable} from 'rxjs/Observable';
 
 
 @Component({
@@ -20,7 +22,8 @@ export class MovieDisplayComponent {
   @Input('showPrice')
   showPrice: boolean;
 
-  constructor(private basket: BasketService) {
+  constructor(private basket: BasketService,
+              private moviesService: MovieService) {
     this.showAddToBasket = true;
     this.showPrice = true;
   }
@@ -28,4 +31,5 @@ export class MovieDisplayComponent {
   movieAdded(movie: Movie) {
     this.basket.addToBasket(movie).subscribe();
   }
+
 }
