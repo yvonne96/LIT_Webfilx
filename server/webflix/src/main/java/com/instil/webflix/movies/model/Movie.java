@@ -13,7 +13,12 @@ public class Movie {
 	private Long id;
 	private String title;
 	private String year;
+	private Integer rating;
+	private String cast;
 	private String description;
+	private boolean purchasable;
+	private String director;
+	
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "genre")
@@ -32,13 +37,22 @@ public class Movie {
 		this.year = "";
 		this.price = new BigDecimal(0);
 		this.description = "";
+		this.rating = 0;
+		this.cast = "";
+		this.purchasable = true;
+		this.director = "";
 	}
+	
 
 	public Movie(String title) {
 		this();
 		this.title = title;
 	}
-
+	
+	public String getTitle() {
+		return title;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -47,8 +61,33 @@ public class Movie {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public void setRating(Integer rating) {
+		this.rating = rating;
+	}
+	
+	public Integer getRating() {
+		return this.rating;
+	}
+	public String getDirector() {
+		return this.director;
+	}
+	public void setDirector(String director) {
+		this.director = director;
+	}
+	public void setCast(String cast) {
+		this.cast = cast;
+	}
+	
+	public String getCast() {
+		return  this.cast;
+	}
+	
+	public void setPurchasable(boolean purchasable) {
+		this.purchasable = purchasable;
+	}
+	
+	public boolean getPurchasable() {
+		return this.purchasable;
 	}
 
 	public void setTitle(String title) {

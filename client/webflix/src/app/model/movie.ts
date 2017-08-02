@@ -4,6 +4,10 @@ export class Movie {
   title: string;
   year: string;
   classification: Classification;
+  rating: number;
+  director: string;
+  cast: string;
+  purchasable: boolean;
   genre: Genre;
   price: number;
   description: string;

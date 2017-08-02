@@ -15,7 +15,6 @@
       <th>Price</th>
       <th>Purchasable</th>
       <th>Edit</th>
-      <th>Remove</th>
     </tr>
     </thead>
     <tbody>
@@ -23,23 +22,18 @@
         <td>{{movie.title}}</td>
         <td>{{movie.year}}</td>
         <td>{{movie.genre.value}}</td>
-        <td>(RATING)</td>
+        <td>{{movie.rating}}</td>
         <td>{{movie.classification.value}}</td>
-        <td>(DIRECTOR)</td>
-        <td>(CAST)</td>
+        <td>{{movie.director}}</td>
+        <td>{{movie.cast}}</td>
         <td>{{movie.description}}</td>
-        <td>{{movie.price}}</td>
+        <td>{{movie.price | currency:'EUR':true:'1.2-2'}}</td>
         <td style="text-align: center">
-          <div class="checkbox"><input type="checkbox"></div>
+          <div class="checkbox"><input type="checkbox" [checked]="movie.purchasable"></div>
         </td>
         <td style="text-align: center">
           <button>
           <span class="glyphicon glyphicon-pencil"></span>
-          </button>
-        </td>
-        <td style="text-align: center">
-          <button class="btn btn-danger">
-            <span class="glyphicon glyphicon-trash"></span>
           </button>
         </td>
     </tr>

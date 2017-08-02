@@ -27,6 +27,7 @@ export class ManageMoviesComponent {
     source
       .subscribe(movies => {
         this.movies = movies;
+        console.log(movies);
       }, error => alert('Error getting movies'));
   }
 }
