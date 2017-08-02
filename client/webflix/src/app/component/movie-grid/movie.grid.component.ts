@@ -100,10 +100,12 @@ export class MovieGridComponent {
   }
 
   getImageData() {
+    debugger;
     const data =  this.http
       .get('https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=' + this.theMovie.title)
       .subscribe(dat => {
         this.image = dat.json().results[0].poster_path;
+        this.desc = dat.json().results[0].overview;
        this.isSet = true;
       });
     if (this.image !== '') {
