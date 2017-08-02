@@ -152,7 +152,8 @@ export class BasketComponent {
       .subscribe(
         (res) => {
           console.log(res);
-          if (res === false || res.expire <= this.logDate()) {
+          // FIX TO INCLUDE CHECK FOR EXPIRED DATE
+          if (res === null) {
             this.warningMessage = name + ': Is not a valid voucher. Please check expiry date and voucher code.';
             this.voucherMessage = '';
             this.inUse = false;
@@ -231,7 +232,7 @@ export class BasketComponent {
        .subscribe();
   }
 
-  private applyVoucher(res: Object): void {
+  private applyVoucher(res: Voucher): void {
     console.log(res);
     if (!this.checkIfDiscountApplied()) {
       this.checkIfApplied = true;

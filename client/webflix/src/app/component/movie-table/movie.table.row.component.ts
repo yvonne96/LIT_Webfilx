@@ -32,9 +32,7 @@ export class MovieTableRowComponent {
 
   addMovieToBasket(): void {
     if (this.checkForMovieDuplicates()) {
-      this.cMovies = true;
       alert('Already bought!!');
-      this.checkMovies = 'Already bought!!';
     } else if (this.checkForBasketDuplicates()){
       alert('Already in basket!!');
     } else {

@@ -20,13 +20,13 @@ export class HttpVoucherService extends VoucherService {
     super();
   }
 
-  getVoucherValid(name: String): Observable<Boolean> {
+  getVoucherValid(name: String): Observable<Voucher> {
     return this.restService.get(baseUrl + '/' + name)
       .build()
       .map(resp => resp.json())
       .catch(error => {
         console.log('error readying voucher');
-        return Observable.of(false);
+        return Observable.of(null);
       });
   }
 
