@@ -1,0 +1,49 @@
+<div class="jumbotron" style="max-width: none">
+  <h2>Manage Movies</h2>
+  <p><button>Add Movie</button></p>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Genre</th>
+      <th>Rating</th>
+      <th>Classification</th>
+      <th>Director</th>
+      <th>Main Cast</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Purchasable</th>
+      <th>Edit</th>
+      <th>Remove</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let movie of movies">
+        <td>{{movie.title}}</td>
+        <td>{{movie.year}}</td>
+        <td>{{movie.genre.value}}</td>
+        <td>(RATING)</td>
+        <td>{{movie.classification.value}}</td>
+        <td>(DIRECTOR)</td>
+        <td>(CAST)</td>
+        <td>{{movie.description}}</td>
+        <td>{{movie.price}}</td>
+        <td style="text-align: center">
+          <div class="checkbox"><input type="checkbox"></div>
+        </td>
+        <td style="text-align: center">
+          <button>
+          <span class="glyphicon glyphicon-pencil"></span>
+          </button>
+        </td>
+        <td style="text-align: center">
+          <button class="btn btn-danger">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+        </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
