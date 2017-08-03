@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component,Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {AuthenticationService} from '../../../service/authentication/authentication.service';
@@ -8,12 +8,12 @@ import {Movie} from '../../../model/movie';
 @Component({
   moduleId: module.id,
   selector: 'manage-movies',
-  // styleUrls: ['manage-movies.component.css'],
   templateUrl: 'manage-movies.component.html'
 })
 export class ManageMoviesComponent {
   private movies: Movie[];
   private isAdmin: boolean;
+  descLen: number = 50;
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
@@ -30,4 +30,5 @@ export class ManageMoviesComponent {
         console.log(movies);
       }, error => alert('Error getting movies'));
   }
+
 }

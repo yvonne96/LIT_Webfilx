@@ -2,6 +2,8 @@ package com.instil.webflix.movies.controllers;
 
 import com.instil.webflix.security.model.Account;
 import com.instil.webflix.security.service.AccountService;
+import com.instil.webflix.voucher.model.Voucher;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,23 +73,23 @@ public class MovieRestController {
 	public void createMovie(@RequestBody Movie movie) {
 		repository.save(movie);
 	}
-	
-	//Not called - previous version 2.1 and less
-	/* private Iterable<Movie> checkMyMovies(Iterable<Movie> movies) {
-		Iterable<Movie> mine = allMyMovies();
-		ArrayList<Movie> whatRemains = new ArrayList<>();
-		for(Movie m : movies) {
-			boolean found = false;
-			for(Movie n : mine){
-				if(m.equals(n)){
-					found = true;
-				}
-			}
-			if(!found){
-				whatRemains.add(m);
-			}	
-		}
-		Iterable<Movie> check = whatRemains;
-		return check;
-	} */
+
+//Not called - previous version 2.1 and less
+//* private Iterable<Movie> checkMyMovies(Iterable<Movie> movies) {
+//		Iterable<Movie> mine = allMyMovies();
+//		ArrayList<Movie> whatRemains = new ArrayList<>();
+//		for(Movie m : movies) {
+//			boolean found = false;
+//			for(Movie n : mine){
+//				if(m.equals(n)){
+//					found = true;
+//				}
+//			}
+//			if(!found){
+//				whatRemains.add(m);
+//			}	
+//		}
+//		Iterable<Movie> check = whatRemains;
+//		return check;
+//	} */
 }
