@@ -22,7 +22,7 @@ export class AddMoviesComponent {
   private classification: number;
   private director: string;
   private price: number;
-  private cast: string;
+  private mainCast: string;
   private description: string;
 
   constructor(private movieService: MovieService, private router: Router,
@@ -36,9 +36,9 @@ export class AddMoviesComponent {
 
   addMovie() {
     console.log(this.title, this.year, this.genre,
-      this.classification, this.director, this.cast, this.description);
+      this.classification, this.director, this.mainCast, this.description);
     this.movieService.addMovie(this.title, this.year, this.genre,
-      this.classification, this.director, this.cast, this.description)
+      this.classification, this.director, this.mainCast, this.description)
       .subscribe(
         () => { console.log('Subscribed');
         },
