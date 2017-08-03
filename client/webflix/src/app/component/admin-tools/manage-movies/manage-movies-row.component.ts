@@ -24,6 +24,9 @@ export class ManageMoviesRowComponent {
     // this.setAllEditMoviesToFalse();
   }
 
+  addMovie(aMovie: Movie) {
+    this.theMovie = aMovie;
+  }
   getCurrentMovie() {
     return this.theMovie;
   }

@@ -1,6 +1,8 @@
 import {Component,Input} from '@angular/core';
 import {Movie} from '../../../../model/movie';
 import {Router} from '@angular/router';
+// import {theMovie} from '../manage-movies-row.component';
+
 // import {Observable} from 'rxjs/Observable';
 // import {AuthenticationService} from '../../../service/authentication/authentication.service';
 import {MovieService} from '../../../../service/movie/movie.service';
@@ -19,10 +21,14 @@ export class EditMovieComponent {
   private price: number;
   private cast: string;
   private description: string;
+  private aMovie: Movie;
+
   movieToEdit: any;
 
   constructor(private router: Router,
               private movieService: MovieService) {
-    // this.title = this.movieToEdit.title;
+    // this.aMovie = theMovie.getCurrentMovie();
+    // this.title = this.aMovie.title;
   }
+
 }
