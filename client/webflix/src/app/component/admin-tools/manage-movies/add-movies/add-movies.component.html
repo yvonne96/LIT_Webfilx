@@ -1,3 +1,44 @@
-
-<p>hello</p>
+<div>
+  <div class="col-md-12">
+    <div class="jumbotron">
+        <h3 class="addMovietitle">Add Movie</h3>
+        <hr>
+      <form name="addMovie" id="addMovie" #f="ngForm" (ngSubmit)="addMovie()">
+        <label htmlFor="name">Name:
+        <input type="text" class="form-control addText" > </label>
+        <br>
+        <label htmlFor="name">Year:</label>
+          <input type="text" class="form-control addText" >
+        <br>
+        <label htmlFor="name">Genre:</label>
+          <select value="Select" class="form-control addText">
+            <option value="" selected="selected">Select option</option>
+            <option value='horror'>Horror</option>
+            <option value='romance'>Romance</option>
+            <option value='action'>Action</option>
+          </select>
+        <br>
+        <label htmlFor="name">Classisfication: </label>
+          <select value="Select" class="form-control addText">
+            <option value="" selected="selected">Select option</option>
+            <option value='eighteen'>18</option>
+            <option value='sixteen'>16</option>
+            <option value='twelve'>12</option>
+          </select>
+        <br>
+        <label htmlFor="name">Director:</label>
+        <input type="text" class="form-control addText" >
+        <br>
+        <label htmlFor="name">Main Cast:</label>
+        <textarea class="form-control addTextMainCast" > </textarea>
+        <br>
+        <label htmlFor="name">Description:</label>
+        <textarea class="form-control addTextMainCast" > </textarea>
+        <br>
+        <input type="submit" value="Submit" class="btn-primary buttons">
+        <input type="submit" value="Cancel" class="btn-danger buttons">
+      </form>
+    </div>
+  </div>
+</div>
 

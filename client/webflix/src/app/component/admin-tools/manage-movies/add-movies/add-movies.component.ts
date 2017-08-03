@@ -8,7 +8,7 @@ import {Component} from '@angular/core';
 @Component({
   moduleId: module.id,
   selector: 'add-movies',
-  // styleUrls: ['manage-movies.component.css'],
+   styleUrls: ['add-movies.component.css'],
   templateUrl: 'add-movies.component.html'
 })
 
