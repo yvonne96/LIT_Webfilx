@@ -3,6 +3,7 @@ package com.instil.webflix.movies.controllers;
 import com.instil.webflix.security.model.Account;
 import com.instil.webflix.security.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,9 @@ import com.instil.webflix.movies.data.MovieRepository;
 import com.instil.webflix.movies.model.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
+
+import java.io.Console;
+import java.util.Date;
 
 
 @RestController
@@ -71,6 +75,13 @@ public class MovieRestController {
 	public void createMovie(@RequestBody Movie movie) {
 		repository.save(movie);
 	}
+	@RequestMapping(method = PUT, value="/{title}/{year}/{genre}/{classification}/{director}/{cast}/{description},  consumes = "application/json")
+	public void addMovie(@PathVariable("title") String title, @PathVariable("year") String year, @PathVariable("genre") Integer genre, @PathVariable("classification") Integer classification, @PathVariable("director") String director, @PathVariable("cast") String cast, @PathVariable("description") String description){
+		System.out.print("test");
+		repository.addMovie(title, year, genre, classification, director, cast, description);
+	}
+
+	
 	
 	//Not called - previous version 2.1 and less
 	/* private Iterable<Movie> checkMyMovies(Iterable<Movie> movies) {

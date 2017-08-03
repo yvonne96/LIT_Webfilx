@@ -32,4 +32,21 @@ export class HttpMovieService extends MovieService {
       .build()
       .map(resp => resp.json());
   }
+
+  addMovie(title: string,
+           year: string,
+           genre: number,
+           classification: number,
+           director: string,
+           cast: string,
+           description: string): Observable<boolean> {
+    return this.restService.post(baseUrl + '/' + title + '/' + year + '/' + genre + '/' + classification
+      + '/' + director  + '/' + cast + '/' + description)
+      .build()
+      .map(() => true)
+      .catch(error => {
+        console.log('unable to add movie');
+        return Observable.of(false);
+      });
+  }
 }

@@ -14,6 +14,8 @@ public class Movie {
 	private String title;
 	private String year;
 	private String description;
+	private String director;
+	private String cast;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "genre")
@@ -32,6 +34,8 @@ public class Movie {
 		this.year = "";
 		this.price = new BigDecimal(0);
 		this.description = "";
+		this.director="";
+		this.cast="";
 	}
 
 	public Movie(String title) {
@@ -94,7 +98,23 @@ public class Movie {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+	
+	public String getCast() {
+		return cast;
+	}
+	
+	public void setCast(String cast) {
+		this.cast = cast;
+	}
+	
+	public String getDirector() {
+		return director;
+	}
+	
+	public void setDirector(String director) {
+		this.director = director;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

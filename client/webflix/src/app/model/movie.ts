@@ -7,6 +7,8 @@ export class Movie {
   genre: Genre;
   price: number;
   description: string;
+  cast: string;
+  director: string;
 }
 
 interface Classification {

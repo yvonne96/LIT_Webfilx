@@ -4,39 +4,47 @@
         <h3 class="addMovietitle">Add Movie</h3>
         <hr>
       <form name="addMovie" id="addMovie" #f="ngForm" (ngSubmit)="addMovie()">
-        <label htmlFor="name">Name:
-        <input type="text" class="form-control addText" > </label>
+        <label>Name:</label>
+        <input type="text" class="form-control addText" name="title" [(ngModel)]="title" >
         <br>
-        <label htmlFor="name">Year:</label>
-          <input type="text" class="form-control addText" >
+        <label >Year:</label>
+          <input type="text" class="form-control addText" name="year" [(ngModel)]="year">
         <br>
-        <label htmlFor="name">Genre:</label>
-          <select value="Select" class="form-control addText">
+        <label>Genre:</label>
+          <select value="Select" class="form-control addText" name="genre" [(ngModel)]="genre">
             <option value="" selected="selected">Select option</option>
-            <option value='horror'>Horror</option>
-            <option value='romance'>Romance</option>
-            <option value='action'>Action</option>
+            <option value='5'>Horror</option>
+            <option value='6'>Comedy</option>
+            <option value='7'>Family</option>
+            <option value='8'>Science Fiction</option>
           </select>
         <br>
-        <label htmlFor="name">Classisfication: </label>
-          <select value="Select" class="form-control addText">
+        <label> Classification: </label>
+          <select value="Select" class="form-control addText" name="classification" [(ngModel)]="classification">
             <option value="" selected="selected">Select option</option>
-            <option value='eighteen'>18</option>
-            <option value='sixteen'>16</option>
-            <option value='twelve'>12</option>
+            <option value='8'>U</option>
+            <option value='9'>PG</option>
+            <option value='10'>PG13</option>
+            <option value='11'>12</option>
+            <option value='12'>12A</option>
+            <option value='13'>15</option>
+            <option value='14'>18</option>
           </select>
         <br>
-        <label htmlFor="name">Director:</label>
-        <input type="text" class="form-control addText" >
+        <label >Director:</label>
+        <input type="text" class="form-control addText" name="director" [(ngModel)]="director">
         <br>
-        <label htmlFor="name">Main Cast:</label>
-        <textarea class="form-control addTextMainCast" > </textarea>
+        <label>Price:</label>
+        <input type="number" class="form-control addText" min="0" step=".01" name="price" [(ngModel)]="price">
         <br>
-        <label htmlFor="name">Description:</label>
-        <textarea class="form-control addTextMainCast" > </textarea>
+        <label>Main Cast:</label>
+        <textarea class="form-control addTextMainCast" name="cast" [(ngModel)]="cast"> </textarea>
         <br>
-        <input type="submit" value="Submit" class="btn-primary buttons">
-        <input type="submit" value="Cancel" class="btn-danger buttons">
+        <label >Description:</label>
+        <textarea class="form-control addTextMainCast" name="description" [(ngModel)]="description"> </textarea>
+        <br>
+        <input type="submit" value="Submit" class="btn btn-primary buttons">
+        <input  value="Cancel" class="btn btn-danger buttons">
       </form>
     </div>
   </div>
