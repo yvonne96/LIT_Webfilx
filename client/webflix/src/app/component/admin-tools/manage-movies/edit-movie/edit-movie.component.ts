@@ -31,15 +31,15 @@ export class EditMovieComponent {
     this.fetchById();
   }
 
-  // editMovie() {
-  //   this.movieService.editMovie(this.movieToEdit.id, this.title, this.year,
-  //     this.genre, this.classification, this.director, this.cast, this.description)
-  //     .subscribe(
-  //       next => {
-  //         this.router.navigate(['../']);
-  //       },
-  //     );
-  // }
+  editMovie() {
+    this.movieService.editMovie(this.movieToEdit.id, this.title, this.year,
+      this.genre, this.classification, this.director, this.cast, this.description)
+      .subscribe(
+        next => {
+          this.router.navigate(['../']);
+        },
+      );
+  }
   fetchById() {
     this.movieService.fetchById(this.id)
       .subscribe(

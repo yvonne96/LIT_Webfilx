@@ -14,7 +14,7 @@ public class Movie {
 	private String title;
 	private String year;
 	private Integer rating;
-	private String cast;
+	private String main_cast;
 	private String description;
 	private boolean purchasable;
 	private String director;
@@ -38,7 +38,7 @@ public class Movie {
 		this.price = new BigDecimal(0);
 		this.description = "";
 		this.rating = 0;
-		this.cast = "";
+		this.main_cast = "";
 		this.purchasable = true;
 		this.director = "";
 	}
@@ -75,11 +75,11 @@ public class Movie {
 		this.director = director;
 	}
 	public void setCast(String cast) {
-		this.cast = cast;
+		this.main_cast = cast;
 	}
 	
 	public String getCast() {
-		return  this.cast;
+		return  this.main_cast;
 	}
 	
 	public void setPurchasable(boolean purchasable) {
