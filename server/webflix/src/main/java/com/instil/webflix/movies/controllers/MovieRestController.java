@@ -74,6 +74,11 @@ public class MovieRestController {
 		repository.save(movie);
 	}
 
+	@RequestMapping(method = POST,value="/{id}/{title}/{year}/{genre}/{classification}/{director}/{cast}/{description}", consumes = "application/json")
+	public void editMovie(@PathVariable("id")int id,@PathVariable("title") String title, @PathVariable("year") String year, @PathVariable("genre") Integer genre, @PathVariable("classification") Integer classification,@PathVariable("director") String director, @PathVariable("cast") String mainCast, @PathVariable("description") String description) {
+		repository.editMovie(id,title,year,genre,classification,director,mainCast,description);
+	}
+
 //Not called - previous version 2.1 and less
 //* private Iterable<Movie> checkMyMovies(Iterable<Movie> movies) {
 //		Iterable<Movie> mine = allMyMovies();

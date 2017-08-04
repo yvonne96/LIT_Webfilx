@@ -47,6 +47,10 @@ export class HttpMovieService extends MovieService {
     return this.restService.post(baseUrl + '/' + id + '/' + title + '/' + year + '/' +
       genre + '/' + classification + '/' + director + '/' + cast + '/' + description)
       .build()
-      .map(() => true);
+      .map(() => true)
+      .catch(error => {
+        console.log('unable to edit movie');
+        return Observable.of(false);
+      });
   }
 }

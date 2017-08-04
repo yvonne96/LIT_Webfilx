@@ -32,11 +32,11 @@ export class EditMovieComponent {
   }
 
   editMovie() {
-    this.movieService.editMovie(this.movieToEdit.id, this.title, this.year,
+    this.movieService.editMovie(this.id, this.title, this.year,
       this.genre, this.classification, this.director, this.cast, this.description)
       .subscribe(
         next => {
-          this.router.navigate(['../']);
+          this.router.navigate(['/dashboard/admin/manage-movies']);
         },
       );
   }
