@@ -7,10 +7,8 @@
     <button class='btn navbar-btn' routerLink="./" routerLinkActive="active">Home</button>
     <button class='btn navbar-btn' routerLink="./mymovies" routerLinkActive="active">My Movies</button>
 
-
     <div class="nav navbar-right">
-
-      <basket-button></basket-button>
+      <basket-button *ngIf="basketMovies && purchasableMovies" [(basketMovies)]="basketMovies" [(purchasableMovies)]="purchasableMovies"></basket-button>
       <button class='btn navbar-btn' (click)="logout()">Logout</button>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import {BasketService} from '../../service/basket/basket.service';
 import {BasketSummary} from '../../model/basket-summary';
 import {Movie} from '../../model/movie';
@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {VoucherService} from '../../service/voucher/voucher.service';
 import {Voucher} from '../../model/voucher';
 import {Observable} from 'rxjs/Observable';
+import {MovieService} from '../../service/movie/movie.service';
 
 @Component({
   moduleId: module.id,
@@ -13,7 +14,7 @@ import {Observable} from 'rxjs/Observable';
   templateUrl: 'basket.component.html',
   styleUrls: ['basket.component.css']
 })
-export class BasketComponent {
+export class BasketComponent implements OnInit{
   private summary: BasketSummary;
   public valid: boolean;
   public voucherMessage: string = '';
@@ -31,17 +32,24 @@ export class BasketComponent {
   private inUseVoucherId: number;
   public basketMovies: Movie[];
   private warningMessage: string = '';
-
+  public purchasableMovies: Movie[];
 
 
   constructor(private basketService: BasketService,
               private router: Router,
-              private voucherService: VoucherService) {
+              private voucherService: VoucherService,
+              private movieService: MovieService) {
     this.summary = BasketSummary.empty();
-    this.fetchAllVouchers();
+    this.extractPurchasableMovies(this.movieService.fetchPurchasableMovies());
     this.refreshSummary();
+    this.fetchAllVouchers();
     this.fetchAllGlobalVouchers();
     this.fetchUsedVouchers();
+  }
+
+  ngOnInit() {
+    // this.checkForUnpurchasables(this.summary.movies);
+    // this.refreshSummary();
   }
 
   clearBasket(): void {
@@ -107,6 +115,35 @@ export class BasketComponent {
         });
   }
 
+  checkForUnpurchasables(movies: Movie[]) {
+    for (let n = 0; n < movies.length; n++) {
+      if (!this.purchasableMovie(movies[n])) {
+        this.basketService.removeMovie(movies[n])
+          .subscribe(() => {
+            this.refreshSummary();
+            alert('A Movie was removed from your basket because it is no longer available for purchase: ' + movies[n].title);
+          });
+      }
+    }
+    this.refreshSummary();
+  }
+
+  purchasableMovie(movie: Movie): boolean {
+    for (let n = 0; n < this.purchasableMovies.length; n++) {
+      if (movie.id === this.purchasableMovies[n].id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  extractPurchasableMovies(source: Observable<Movie[]>) {
+    source
+      .subscribe(movies => {
+        this.purchasableMovies = movies;
+      }, error => ('Could not pull purchasable movies'));
+  }
+
   fetchUsedVouchers(): void {
     this.getUsedVouchers(this.voucherService.getUsedVouchers());
   }
@@ -137,7 +174,6 @@ export class BasketComponent {
   getAllGlobalVouchers(source: Observable<Voucher[]>) {
     const voucherGetter = source
       .subscribe(globals => {
-        console.log(globals);
         this.globals = globals;
         this.globalVoucher = globals[0].offer;
         this.globalSet = true;
@@ -151,7 +187,6 @@ export class BasketComponent {
     this.voucherService.getVoucherValid(name.toUpperCase())
       .subscribe(
         (res) => {
-          console.log(res);
           // FIX TO INCLUDE CHECK FOR EXPIRED DATE
           if (res === null) {
             this.warningMessage = name + ': Is not a valid voucher. Please check expiry date and voucher code.';
