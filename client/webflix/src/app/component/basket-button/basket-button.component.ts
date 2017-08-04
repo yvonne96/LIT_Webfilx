@@ -11,7 +11,7 @@ import {BasketSummary} from '../../model/basket-summary';
   selector: 'basket-button',
   templateUrl: 'basket-button.component.html'
 })
-export class BasketButtonComponent implements OnInit {
+export class BasketButtonComponent implements OnInit{
 
   @Input('basketMovies')
   public basketMovies: Movie[];
@@ -39,7 +39,6 @@ export class BasketButtonComponent implements OnInit {
   }
 
   checkForUnpurchasableMovies() {
-    this.refreshBasketAndPurchasableMovies();
     console.log(this.basketMovies);
     console.log(this.purchasableMovies);
     for (let n = 0; n < this.basketMovies.length; n++) {
@@ -66,23 +65,23 @@ export class BasketButtonComponent implements OnInit {
       .subscribe(value => this.itemCount = value);
   }
 
-  extractPurchasableMovies(source: Observable<Movie[]>) {
-    source
-      .subscribe(movies => {
-        this.purchasableMovies = movies;
-      }, error => ('Could not pull purchasable movies'));
-  }
-
-  extractBasketMovies(source: Observable<BasketSummary>) {
-    source
-      .subscribe(summary => {
-        this.basketMovies = summary.movies;
-      }, error => ('Error reading basket movies'));
-  }
-
-  refreshBasketAndPurchasableMovies () {
-    this.extractPurchasableMovies(this.movieService.fetchPurchasableMovies());
-    this.extractBasketMovies(this.basketService.getBasketSummary());
-  }
+  // extractPurchasableMovies(source: Observable<Movie[]>) {
+  //   source
+  //     .subscribe(movies => {
+  //       this.purchasableMovies = movies;
+  //     }, error => ('Could not pull purchasable movies'));
+  // }
+  //
+  // extractBasketMovies(source: Observable<BasketSummary>) {
+  //   source
+  //     .subscribe(summary => {
+  //       this.basketMovies = summary.movies;
+  //     }, error => ('Error reading basket movies'));
+  // }
+  //
+  // refreshBasketAndPurchasableMovies () {
+  //   this.extractPurchasableMovies(this.movieService.fetchPurchasableMovies());
+  //   this.extractBasketMovies(this.basketService.getBasketSummary());
+  // }
 
 }

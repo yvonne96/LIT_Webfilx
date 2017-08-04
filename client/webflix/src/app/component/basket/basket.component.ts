@@ -14,7 +14,7 @@ import {MovieService} from '../../service/movie/movie.service';
   templateUrl: 'basket.component.html',
   styleUrls: ['basket.component.css']
 })
-export class BasketComponent implements OnInit{
+export class BasketComponent {
   private summary: BasketSummary;
   public valid: boolean;
   public voucherMessage: string = '';
@@ -32,7 +32,6 @@ export class BasketComponent implements OnInit{
   private inUseVoucherId: number;
   public basketMovies: Movie[];
   private warningMessage: string = '';
-  public purchasableMovies: Movie[];
 
 
   constructor(private basketService: BasketService,
@@ -40,16 +39,10 @@ export class BasketComponent implements OnInit{
               private voucherService: VoucherService,
               private movieService: MovieService) {
     this.summary = BasketSummary.empty();
-    this.extractPurchasableMovies(this.movieService.fetchPurchasableMovies());
     this.refreshSummary();
     this.fetchAllVouchers();
     this.fetchAllGlobalVouchers();
     this.fetchUsedVouchers();
-  }
-
-  ngOnInit() {
-    // this.checkForUnpurchasables(this.summary.movies);
-    // this.refreshSummary();
   }
 
   clearBasket(): void {
@@ -113,35 +106,6 @@ export class BasketComponent implements OnInit{
           this.summary = summary;
           this.subtotal = this.summary.total;
         });
-  }
-
-  checkForUnpurchasables(movies: Movie[]) {
-    for (let n = 0; n < movies.length; n++) {
-      if (!this.purchasableMovie(movies[n])) {
-        this.basketService.removeMovie(movies[n])
-          .subscribe(() => {
-            this.refreshSummary();
-            alert('A Movie was removed from your basket because it is no longer available for purchase: ' + movies[n].title);
-          });
-      }
-    }
-    this.refreshSummary();
-  }
-
-  purchasableMovie(movie: Movie): boolean {
-    for (let n = 0; n < this.purchasableMovies.length; n++) {
-      if (movie.id === this.purchasableMovies[n].id) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  extractPurchasableMovies(source: Observable<Movie[]>) {
-    source
-      .subscribe(movies => {
-        this.purchasableMovies = movies;
-      }, error => ('Could not pull purchasable movies'));
   }
 
   fetchUsedVouchers(): void {
