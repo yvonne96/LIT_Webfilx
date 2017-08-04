@@ -41,4 +41,6 @@ export class DetailedMovieViewComponent{
   backClick() {
     this.location.back();
   }
+
+
 }

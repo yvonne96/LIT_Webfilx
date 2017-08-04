@@ -1,17 +1,26 @@
 <div class="jumbotron">
-  <button class="btn btn-danger" (click)="backClick()">Back</button>
   <h2>Detailed Movie View</h2><br>
   <img src="" alt="PLACEHOLDER">
   <div>
-  <h2>{{theMovie?.title}} ({{theMovie?.year}})</h2>
-  <p>Avg. Review: PLACEHOLDER</p>
-  <p>Genre: {{theMovie?.genre.value}}</p>
-  <P>Cast: PLACEHOLDER</P>
-  <p>Classification: {{theMovie?.classification.value}}</p>
-  <p>Price: {{theMovie?.price | currency:'EUR':true:'1.2-2'}}</p>
-  </div><br><br><br>
+    <h2>{{theMovie?.title}} ({{theMovie?.year}})</h2>
+    <p>Avg. Review: PLACEHOLDER</p>
+    <p>Genre: {{theMovie?.genre.value}}</p>
+    <P>Cast: PLACEHOLDER</P>
+    <p>Classification: {{theMovie?.classification.value}}</p>
+    <div class="buttonDiv" *ngIf='theMovie?.purchasable'>
+      <button class="btn btn-success">
+        <span class="glyphicon glyphicon-shopping-cart"></span>
+        <span> Buy now: </span>
+        <span class="badge">{{theMovie?.price | currency:'EUR':true}}</span>
+      </button>
+    </div>
+  </div><br><br><br><br><br>
   <div>
-    <h3>Description: {{theMovie?.description}}</h3><br>
-    <h3>Reviews:</h3>
+    <h3>Description:</h3><br>
+    <p>{{theMovie?.description}}</p><br><br>
+    <h3>Reviews:</h3><br>
+    <p>PLACEHOLDER</p><br>
+    <button class="btn btn-success">Add a review</button><br><br>
+    <button class="btn btn-danger" (click)="backClick()">Back</button>
   </div>
 </div>
