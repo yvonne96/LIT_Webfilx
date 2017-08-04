@@ -32,5 +32,11 @@ export class HttpMovieService extends MovieService {
       .build()
       .map(resp => resp.json());
   }
-
+  editMovie(id: number, title: string, year: string, genre: number,
+            classification: number, director: string, cast: string, description: string): Observable<boolean> {
+    return this.restService.post(baseUrl + '/' + id + '/' + title + '/' + year + '/' +
+      genre + '/' + classification + '/' + director + '/' + cast + '/' + description)
+      .build()
+      .map(() => true);
+  }
 }

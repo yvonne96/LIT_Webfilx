@@ -7,4 +7,6 @@ export abstract class MovieService {
   abstract fetchByTitle(title: string): Observable<Movie[]>;
 
   abstract fetchMyMovies(): Observable<Movie[]>;
+
+  abstract editMovie(id: number, title: string, year: string, genre: number, classification: number, director: string, cast: string, description: string): Observable<boolean>;
 }

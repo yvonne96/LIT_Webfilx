@@ -129,6 +129,17 @@ export class ManageMoviesComponent {
           return 0;
         });
         break;
+
+      case 'PURCHASABLE':
+        this.setSortVariableToFalse();
+        this.sortPurchasableOn = true;
+        this.movies.sort((firstMovie, nextMovie) => {
+          if (firstMovie.purchasable === true) {return -1; }
+          if (nextMovie.purchasable === true) {return 1; }
+          return 0;
+        });
+        break;
+
       default:
         this.setSortVariableToFalse();
         this.sortYearOn = true;
