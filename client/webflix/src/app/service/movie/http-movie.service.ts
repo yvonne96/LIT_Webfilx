@@ -27,6 +27,16 @@ export class HttpMovieService extends MovieService {
       .map(resp => resp.json());
   }
 
+  fetchById(id: number): Observable<Movie> {
+    return this.restService.get(baseUrl + '/byId/' + id)
+      .build()
+      .map(resp => resp.json())
+      .catch(error => {
+          console.log('unable to retrieve movie by id');
+          return Observable.of();
+    });
+  }
+
   fetchMyMovies(): Observable<Movie[]> {
     return this.restService.get(baseUrl + '/mine')
       .build()

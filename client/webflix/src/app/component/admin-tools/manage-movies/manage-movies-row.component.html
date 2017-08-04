@@ -11,7 +11,7 @@
   <div class="checkbox"><input type="checkbox" [checked]="theMovie.purchasable"></div>
 </td>
 <td style="text-align: center">
-  <button  style="max-width: 100px"  class="btn btn-info navbar-btn" onclick="addMovie(theMovie)" routerLink="./edit-movie" routerLinkActive="active">
+  <button  style="max-width: 100px"  class="btn btn-info navbar-btn" [routerLink]="['./edit-movie',{ id : theMovie.id}]">
     <span class="glyphicon glyphicon-pencil"></span>
   </button>
 </td>

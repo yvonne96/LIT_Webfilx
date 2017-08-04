@@ -15,8 +15,10 @@ export class Movie {
 
 interface Classification {
   value: string;
+  id: number;
 }
 
 interface Genre {
   value: string;
+  id: number;
 }

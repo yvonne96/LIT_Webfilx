@@ -25,13 +25,13 @@ export class ManageMoviesRowComponent {
               private movieService: MovieService, private route: ActivatedRoute) {
     // this.setAllEditMoviesToFalse();
   }
-  routeToEditMovieWithMovie() {
-    const routes: Route = [
-      {path: '', redirectTo : './edit-movie', pathMatch: 'full'},
-      {path : 'edit-movie', component : EditMovieComponent, data : {id : '{theMovie.id}'}}
-    ];
-    this.router.navigate(routes);
-  }
+  // routeToEditMovieWithMovieID() {
+  //   const routes: Route = [
+  //     {path: '', redirectTo : './edit-movie', pathMatch: 'full'},
+  //     {path : 'edit-movie', component : EditMovieComponent, data : {id : '{theMovie.id}'}}
+  //   ];
+  //   this.router.navigate(routes);
+  // }
   addMovie(aMovie: Movie) {
     this.theMovie = aMovie;
   }

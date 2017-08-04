@@ -14,6 +14,7 @@ import {Subscription} from "rxjs/Subscription";
   templateUrl: 'edit-movie.component.html'
 })
 export class EditMovieComponent {
+  private id: number;
   private title: string;
   private year: string;
   private genre: number;
@@ -23,30 +24,42 @@ export class EditMovieComponent {
   private cast: string;
   private description: string;
   private movieToEdit: Movie;
-  private movieChanges: Movie;
-  private sub: Subscription;
 
   constructor(private router: Router,
               private movieService: MovieService, private route: ActivatedRoute) {
-    // this.aMovie = theMovie.getCurrentMovie();
-    // this.title = this.aMovie.title;
+    this.route.params.subscribe(params => {this.id = +params['id']; });
+    this.fetchById();
   }
 
-  editMovie() {
-    this.movieService.editMovie(this.movieToEdit.id, this.title, this.year,
-      this.genre, this.classification, this.director, this.cast, this.description)
+  // editMovie() {
+  //   this.movieService.editMovie(this.movieToEdit.id, this.title, this.year,
+  //     this.genre, this.classification, this.director, this.cast, this.description)
+  //     .subscribe(
+  //       next => {
+  //         this.router.navigate(['../']);
+  //       },
+  //     );
+  // }
+  fetchById() {
+    this.movieService.fetchById(this.id)
       .subscribe(
-        next => {
-          this.router.navigate(['../']);
-        },
+        movie => {
+          this.movieToEdit = movie;
+          this.intializeMovieParameters();
+          console.log(this.movieToEdit);
+        }
       );
+    }
+
+    intializeMovieParameters() {
+      this.title = this.movieToEdit.title;
+      this.year = this.movieToEdit.year;
+      this.genre = this.movieToEdit.genre.id;
+      this.classification = this.movieToEdit.classification.id;
+      this.director = this.movieToEdit.director;
+      this.price = this.movieToEdit.price;
+      this.cast = this.movieToEdit.cast;
+      this.description = this.movieToEdit.description;
+    }
   }
-  ngOnInit() {
-    this.sub = this.route
-      .data
-      .subscribe(v => console.log(v));
-  }
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
-}
+
