@@ -1,4 +1,4 @@
-<td >{{theMovie.title}}<br> <p (mouseenter)="showDescription()" (mouseleave)="hideDescription()" class="glyphicon glyphicon-info-sign"><br><span>{{ desc }}</span></p></td>
+<td [routerLink]="['./detailedMovieView']" [queryParams]="{id: theMovie.id}"  routerLinkActive="active">{{theMovie.title}}<br> <p  (mouseenter)="showDescription()" (mouseleave)="hideDescription()" class="glyphicon glyphicon-info-sign"><br><span>{{ desc }}</span></p></td>
 <td>{{theMovie.year}}</td>
 <td>{{theMovie.genre.value}}</td>
 <td>{{theMovie.classification.value}}</td>

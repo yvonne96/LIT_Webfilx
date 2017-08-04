@@ -1,0 +1,17 @@
+<div class="jumbotron">
+  <button class="btn btn-danger" (click)="backClick()">Back</button>
+  <h2>Detailed Movie View</h2><br>
+  <img src="" alt="PLACEHOLDER">
+  <div>
+  <h2>{{theMovie?.title}} ({{theMovie?.year}})</h2>
+  <p>Avg. Review: PLACEHOLDER</p>
+  <p>Genre: {{theMovie?.genre.value}}</p>
+  <P>Cast: PLACEHOLDER</P>
+  <p>Classification: {{theMovie?.classification.value}}</p>
+  <p>Price: {{theMovie?.price | currency:'EUR':true:'1.2-2'}}</p>
+  </div><br><br><br>
+  <div>
+    <h3>Description: {{theMovie?.description}}</h3><br>
+    <h3>Reviews:</h3>
+  </div>
+</div>

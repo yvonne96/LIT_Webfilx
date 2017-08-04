@@ -39,8 +39,6 @@ export class BasketButtonComponent implements OnInit{
   }
 
   checkForUnpurchasableMovies() {
-    console.log(this.basketMovies);
-    console.log(this.purchasableMovies);
     for (let n = 0; n < this.basketMovies.length; n++) {
       if (!this.purchasableMovie(this.basketMovies[n])) {
         this.basketService.removeMovie(this.basketMovies[n])
@@ -64,24 +62,5 @@ export class BasketButtonComponent implements OnInit{
     this.basketService.basketCount
       .subscribe(value => this.itemCount = value);
   }
-
-  // extractPurchasableMovies(source: Observable<Movie[]>) {
-  //   source
-  //     .subscribe(movies => {
-  //       this.purchasableMovies = movies;
-  //     }, error => ('Could not pull purchasable movies'));
-  // }
-  //
-  // extractBasketMovies(source: Observable<BasketSummary>) {
-  //   source
-  //     .subscribe(summary => {
-  //       this.basketMovies = summary.movies;
-  //     }, error => ('Error reading basket movies'));
-  // }
-  //
-  // refreshBasketAndPurchasableMovies () {
-  //   this.extractPurchasableMovies(this.movieService.fetchPurchasableMovies());
-  //   this.extractBasketMovies(this.basketService.getBasketSummary());
-  // }
 
 }

@@ -21,7 +21,7 @@ import {MyMoviesComponent} from './component/my-movies/my-movies.component';
 import {RegisterNewUserComponent} from './component/login/register-new-user.component';
 import {UserDashboardComponent} from './component/user-dashboard/user-dashboard.components';
 import { MovieGridComponent } from './component/movie-grid/movie.grid.component';
-
+import { DetailedMovieViewComponent } from './component/detailed-movie-view/detailed-movie-view.component';
 
 import {ApiClient} from './service/api-client/api-client.service';
 import {AuthenticationService} from './service/authentication/authentication.service';
@@ -62,6 +62,14 @@ const appRoutes: Routes = [
       },
       { path: 'admin/manage-movies',
         component: ManageMoviesComponent
+      },
+      {
+        path: 'detailedMovieView',
+        component: DetailedMovieViewComponent,
+      },
+      {
+        path: 'mymovies/detailedMovieView',
+        component: DetailedMovieViewComponent,
       }
     ]
   },
@@ -94,6 +102,7 @@ const appRoutes: Routes = [
     UserDashboardComponent,
     MovieGridComponent,
     GridComponent,
+    DetailedMovieViewComponent,
   ],
   bootstrap: [
     AppComponent
