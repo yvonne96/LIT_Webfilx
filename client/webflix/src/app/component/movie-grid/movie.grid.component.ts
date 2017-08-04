@@ -98,7 +98,7 @@ export class MovieGridComponent {
   hideInfo() {
     this.info = '';
   }
-
+/*
   getImageData() {
     const data =  this.http
       .get('https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=' + this.theMovie.title)
@@ -111,7 +111,8 @@ export class MovieGridComponent {
       console.log(this.image);
       return this.image;
     }
-  }
+  }*/
+
 
   setImageData() {
     return this.image;

@@ -9,6 +9,7 @@ export class Movie {
   description: string;
   mainCast: string;
   director: string;
+  image: string;
 }
 
 interface Classification {
