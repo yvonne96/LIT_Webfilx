@@ -40,7 +40,7 @@ export class AddMoviesComponent {
     this.movieService.addMovie(this.title, this.year, this.genre,
       this.classification, this.director, this.mainCast, this.description)
       .subscribe(
-        () => { console.log('Subscribed');
+        next => {
         },
         error => {
           console.log('Error adding movie');
