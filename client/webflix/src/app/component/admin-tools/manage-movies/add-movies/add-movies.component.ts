@@ -41,6 +41,7 @@ export class AddMoviesComponent {
       this.classification, this.director, this.mainCast, this.description)
       .subscribe(
         next => {
+          this.router.navigate(['/dashboard/admin/manage-movies']);
         },
         error => {
           console.log('Error adding movie');
