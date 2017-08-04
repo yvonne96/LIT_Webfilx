@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from '../../../../service/authentication/authentication.service';
 import {MovieService} from '../../../../service/movie/movie.service';
 import {Movie} from "../../../../model/movie";
-// import {Movie} from '../../../model/movie';
 
 @Component({
   moduleId: module.id,
@@ -24,6 +23,7 @@ export class AddMoviesComponent {
   private price: number;
   private mainCast: string;
   private description: string;
+  private image: string;
 
   constructor(private movieService: MovieService, private router: Router,
               private authenticationService: AuthenticationService,
@@ -31,16 +31,18 @@ export class AddMoviesComponent {
 
     authenticationService.isAdmin
       .subscribe(x => this.isAdmin = x);
-
   }
 
+  saveImageToFile() {
+    console.log('Here');
+    console.log(this.image);
+  }
   addMovie() {
-    console.log(this.title, this.year, this.genre,
-      this.classification, this.director, this.mainCast, this.description);
+
     this.movieService.addMovie(this.title, this.year, this.genre,
       this.classification, this.director, this.mainCast, this.description)
       .subscribe(
-        () => { console.log('Subscribed');
+        () => {
         },
         error => {
           console.log('Error adding movie');

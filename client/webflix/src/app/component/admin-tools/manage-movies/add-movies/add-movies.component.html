@@ -5,14 +5,13 @@
         <hr>
       <form name="addMovie" id="addMovie" #f="ngForm" (ngSubmit)="addMovie()">
         <label>Name:</label>
-        <input type="text" class="form-control addText" name="title" [(ngModel)]="title" >
+        <input type="text" class="form-control addText" name="title" [(ngModel)]="title" required >
         <br>
         <label >Year:</label>
-          <input type="text" class="form-control addText" name="year" [(ngModel)]="year">
+          <input type="text" class="form-control addText" name="year" [(ngModel)]="year" required>
         <br>
         <label>Genre:</label>
-          <select value="Select" class="form-control addText" name="genre" [(ngModel)]="genre">
-            <option value="" selected="selected">Select option</option>
+          <select value="Select" class="form-control addText" name="genre" [(ngModel)]="genre" required>
             <option value='5'>Horror</option>
             <option value='6'>Comedy</option>
             <option value='7'>Family</option>
@@ -20,8 +19,7 @@
           </select>
         <br>
         <label> Classification: </label>
-          <select value="Select" class="form-control addText" name="classification" [(ngModel)]="classification">
-            <option value="" selected="selected">Select option</option>
+          <select value="Select" class="form-control addText" name="classification" [(ngModel)]="classification" required>
             <option value='8'>U</option>
             <option value='9'>PG</option>
             <option value='10'>PG13</option>
@@ -32,19 +30,29 @@
           </select>
         <br>
         <label >Director:</label>
-        <input type="text" class="form-control addText" name="director" [(ngModel)]="director">
+        <input type="text" class="form-control addText" name="director" [(ngModel)]="director" required>
         <br>
         <label>Price:</label>
-        <input type="number" class="form-control addText" min="0" step=".01" name="price" [(ngModel)]="price">
+        <input type="number" class="form-control addText" min="0" step=".01" name="price" [(ngModel)]="price" required>
+        <br>
+        <form #f="ngForm" (ngSubmit)="saveImageToFile()">
+          <label>Image:</label>
+          <input type="file" name="image" [(ngModel)]="image" accept="image/*" required>
+
+          <br>
+          <input type="submit" value="Save Image" class="btn btn-primary buttons">
+        </form>
+
+
         <br>
         <label>Main Cast:</label>
-        <textarea class="form-control addTextMainCast" name="mainCast" [(ngModel)]="mainCast"> </textarea>
+        <textarea class="form-control addTextMainCast" name="mainCast" [(ngModel)]="mainCast" required> </textarea>
         <br>
         <label >Description:</label>
-        <textarea class="form-control addTextMainCast" name="description" [(ngModel)]="description"> </textarea>
+        <textarea class="form-control addTextMainCast" name="description" [(ngModel)]="description" required> </textarea>
         <br>
         <input type="submit" value="Submit" class="btn btn-primary buttons">
-        <input  value="Cancel" class="btn btn-danger buttons">
+        <input value="Cancel" class="btn btn-danger buttons">
       </form>
     </div>
   </div>
