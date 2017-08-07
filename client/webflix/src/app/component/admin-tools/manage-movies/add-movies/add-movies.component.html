@@ -3,7 +3,7 @@
     <div class="jumbotron">
         <h3 class="addMovietitle">Add Movie</h3>
         <hr>
-      <form name="addMovie" id="addMovie" #f="ngForm" (ngSubmit)="addMovie()">
+      <form name="addMovie" id="addMovie" #f="ngForm" (ngSubmit)="addMovie() ; addPrice()">
         <label>Name:</label>
         <input type="text" class="form-control addText" name="title" [(ngModel)]="title" required >
         <br>
@@ -51,10 +51,13 @@
         <label >Description:</label>
         <textarea class="form-control addTextMainCast" name="description" [(ngModel)]="description" required> </textarea>
         <br>
-        <input type="submit" value="Submit" class="btn btn-primary buttons">
-        <input value="Cancel" class="btn btn-danger buttons">
+
+        <input type="submit" value="Submit" class="btn btn-primary buttons" >
+        <button  class="btn btn-danger buttons" routerLink='/dashboard/admin/manage-movies' routerLinkActive="active">Cancel </button>
+
       </form>
     </div>
   </div>
 </div>
 
+<!--; addPrice()-->
