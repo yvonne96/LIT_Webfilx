@@ -3,7 +3,7 @@
     <div class="jumbotron">
         <h3 class="addMovietitle">Add Movie</h3>
         <hr>
-      <form name="addMovie" id="addMovie" #f="ngForm" (ngSubmit)="addMovie()">
+      <form name="addMovie" id="addMovie" #f="ngForm" (ngSubmit)="addMovie() ; addPrice()">
         <label>Name:</label>
         <input type="text" class="form-control addText" name="title" [(ngModel)]="title" >
         <br>
@@ -50,3 +50,4 @@
   </div>
 </div>
 
+<!--; addPrice()-->

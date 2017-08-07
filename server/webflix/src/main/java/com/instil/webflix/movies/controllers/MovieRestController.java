@@ -3,7 +3,6 @@ package com.instil.webflix.movies.controllers;
 import com.instil.webflix.security.model.Account;
 import com.instil.webflix.security.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +15,9 @@ import com.instil.webflix.movies.model.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+import java.awt.List;
 import java.io.Console;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -81,25 +82,25 @@ public class MovieRestController {
 		System.out.print("test");
 		repository.addMovie(title, year, genre, classification, director, mainCast, description);
 	}
+	
+	@RequestMapping(method = POST, value="/{price}",  produces = "application/json")
+	public void addPrice(@PathVariable("price") BigDecimal price){
+		System.out.println("test2");
+		long movie_id = 12;//= getAllMovies();
+		repository.addPrice(movie_id, price);
+	}
+	
+//	private long getAllMovies() {
+//		Iterable<Movie> testID = repository.getAllMovies();
+//		long idHighest = 0;
+//		
+//		for(Movie m: testID) {
+//			if(m.getId() > idHighest) {
+//				idHighest = m.getId();
+//			}
+//		}
+//		
+//		return idHighest;
+//	}
 
-	
-	
-	//Not called - previous version 2.1 and less
-	/* private Iterable<Movie> checkMyMovies(Iterable<Movie> movies) {
-		Iterable<Movie> mine = allMyMovies();
-		ArrayList<Movie> whatRemains = new ArrayList<>();
-		for(Movie m : movies) {
-			boolean found = false;
-			for(Movie n : mine){
-				if(m.equals(n)){
-					found = true;
-				}
-			}
-			if(!found){
-				whatRemains.add(m);
-			}	
-		}
-		Iterable<Movie> check = whatRemains;
-		return check;
-	} */
 }

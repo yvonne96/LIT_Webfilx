@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-// import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
 import {AuthenticationService} from '../../../../service/authentication/authentication.service';
 import {MovieService} from '../../../../service/movie/movie.service';
-import {Movie} from "../../../../model/movie";
-// import {Movie} from '../../../model/movie';
+import {Movie} from '../../../../model/movie';
+
 
 @Component({
   moduleId: module.id,
@@ -49,5 +49,20 @@ export class AddMoviesComponent {
         }
       );
   }
+
+  addPrice() {
+    console.log(this.price);
+    this.movieService.addPrice(this.price)
+      .subscribe(
+        () => {
+          console.log('added');
+          console.log(this.price);
+        },
+        error => {
+          console.log('Error adding movie');
+        }
+      );
+  }
+
 }
 
