@@ -2,6 +2,8 @@ package com.instil.webflix.movies.controllers;
 
 import com.instil.webflix.security.model.Account;
 import com.instil.webflix.security.service.AccountService;
+import com.instil.webflix.voucher.model.Voucher;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import com.instil.webflix.movies.data.MovieRepository;
 import com.instil.webflix.movies.model.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
+import java.math.BigDecimal;
 
 import java.awt.List;
 import java.io.Console;
@@ -90,17 +93,12 @@ public class MovieRestController {
 		repository.addPrice(movie_id, price);
 	}
 	
-//	private long getAllMovies() {
-//		Iterable<Movie> testID = repository.getAllMovies();
-//		long idHighest = 0;
-//		
-//		for(Movie m: testID) {
-//			if(m.getId() > idHighest) {
-//				idHighest = m.getId();
-//			}
-//		}
-//		
-//		return idHighest;
-//	}
+	@RequestMapping(method = POST,value="/{price}/{id}/{title}/{year}/{genre}/{classification}/{director}/{cast}/{description}", consumes = "application/json")
+	public void editMovie(@PathVariable("price") float price ,@PathVariable("id")int id,@PathVariable("title") String title, @PathVariable("year") String year, @PathVariable("genre") Integer genre, @PathVariable("classification") Integer classification,@PathVariable("director") String director, @PathVariable("cast") String mainCast, @PathVariable("description") String description) {
+		System.out.println("in rest controller:  " + price);
+		repository.editMovie(id,title,year,genre,classification,director,mainCast,description);
+		repository.editMoviePrice(id,price);
+	}
+
 
 }
