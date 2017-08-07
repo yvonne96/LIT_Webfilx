@@ -16,6 +16,7 @@ import com.instil.webflix.movies.data.MovieRepository;
 import com.instil.webflix.movies.model.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
+import java.math.BigDecimal;
 
 
 @RestController
@@ -74,9 +75,11 @@ public class MovieRestController {
 		repository.save(movie);
 	}
 
-	@RequestMapping(method = POST,value="/{id}/{title}/{year}/{genre}/{classification}/{director}/{cast}/{description}", consumes = "application/json")
-	public void editMovie(@PathVariable("id")int id,@PathVariable("title") String title, @PathVariable("year") String year, @PathVariable("genre") Integer genre, @PathVariable("classification") Integer classification,@PathVariable("director") String director, @PathVariable("cast") String mainCast, @PathVariable("description") String description) {
+	@RequestMapping(method = POST,value="/{price}/{id}/{title}/{year}/{genre}/{classification}/{director}/{cast}/{description}", consumes = "application/json")
+	public void editMovie(@PathVariable("price") float price ,@PathVariable("id")int id,@PathVariable("title") String title, @PathVariable("year") String year, @PathVariable("genre") Integer genre, @PathVariable("classification") Integer classification,@PathVariable("director") String director, @PathVariable("cast") String mainCast, @PathVariable("description") String description) {
+		System.out.println("in rest controller:  " + price);
 		repository.editMovie(id,title,year,genre,classification,director,mainCast,description);
+		repository.editMoviePrice(id,price);
 	}
 
 //Not called - previous version 2.1 and less

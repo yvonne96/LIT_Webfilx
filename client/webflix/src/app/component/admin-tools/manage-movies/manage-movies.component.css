@@ -19,3 +19,8 @@
   background-color: hotpink;
   border: hotpink;
 }
+
+descriptionP {
+  font-size: 12px;
+  font-weight: normal;
+}

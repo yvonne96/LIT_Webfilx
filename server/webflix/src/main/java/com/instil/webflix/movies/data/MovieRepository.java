@@ -1,6 +1,7 @@
 package com.instil.webflix.movies.data;
 
 import java.util.List;
+import java.math.BigDecimal;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,4 +24,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	@Query(nativeQuery = true, value = "UPDATE movie SET title = :title, year = :year, genre = :genre, classification = :classification, director = :director, main_cast = :mainCast, description = :description  WHERE id = :id")
 	void editMovie(@Param("id") int id,@Param("title") String title, @Param("year") String year, @Param("genre") Integer genre, @Param("classification") Integer classification, @Param("director") String director, @Param("mainCast") String mainCast, @Param("description") String description);
 	
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true, value = "UPDATE movie_price SET price = :price WHERE movie_id = :id")
+	void editMoviePrice(@Param("id") int id, @Param("price") float price);
 }

@@ -8,34 +8,36 @@ import {EditMovieComponent} from './edit-movie/edit-movie.component';
   moduleId: module.id,
   selector: '[manage-movies-row]',
   templateUrl: 'manage-movies-row.component.html',
+  styleUrls: ['manage-movies.component.css'],
 })
 
 export class ManageMoviesRowComponent {
   desc: string = '';
+  descLen: number = 100;
   @Input('currentMovie')
   theMovie: any;
   @Input('showAddToBasket')
   showAddToBasket: boolean;
   @Input('showPrice')
   showPrice: boolean;
-  // @Output()
-  // this.theMovie();
+
 
   constructor(private router: Router,
               private movieService: MovieService, private route: ActivatedRoute) {
-    // this.setAllEditMoviesToFalse();
   }
-  // routeToEditMovieWithMovieID() {
-  //   const routes: Route = [
-  //     {path: '', redirectTo : './edit-movie', pathMatch: 'full'},
-  //     {path : 'edit-movie', component : EditMovieComponent, data : {id : '{theMovie.id}'}}
-  //   ];
-  //   this.router.navigate(routes);
-  // }
   addMovie(aMovie: Movie) {
     this.theMovie = aMovie;
   }
   getCurrentMovie() {
     return this.theMovie;
+  }
+
+  showDescription() {
+    this.desc = this.theMovie.description.slice(0, this.descLen);
+    this.desc += '...';
+  }
+
+  hideDescription() {
+    this.desc = '';
   }
 }

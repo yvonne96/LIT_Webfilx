@@ -4,6 +4,7 @@
       <h3 class="addMovietitle">Edit Movie</h3>
       <hr>
       <form name="editMovie" id="editMovie" #f="ngForm" (ngSubmit)="editMovie()">
+        <div id="failure-alert" *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
         <label htmlFor="title">Name:
           <input type="text" class="form-control addText"  name="title"
                  [(ngModel)]="title" required ></label>
@@ -13,7 +14,7 @@
                [(ngModel)]="year" required>
         <br>
         <label htmlFor="genre">Genre:</label>
-        <select value="Select" [(ngModel)]="genre" name="genre" class="form-control addText">
+        <select value="Select" [(ngModel)]="genre" name="genre" class="form-control addText" required>
           <option value="" selected="selected">Select option</option>
           <option value='5'>Horror</option>
           <option value='6'>Comedy</option>
@@ -22,7 +23,7 @@
         </select>
         <br>
         <label htmlFor="classification">Classification: </label>
-        <select value="Select" [(ngModel)]="classification" name="classification" class="form-control addText">
+        <select value="Select" [(ngModel)]="classification" name="classification" class="form-control addText" required>
           <option value="" selected="selected">Select option</option>
           <option value='8'>U</option>
           <option value='9'>PG</option>
@@ -34,16 +35,16 @@
         </select>
         <br>
         <label htmlFor="director">Director:</label>
-        <input type="text" class="form-control addText" name="director" [(ngModel)]="director">
+        <input type="text" class="form-control addText" name="director" [(ngModel)]="director" required>
         <br>
         <label htmlFor="price">Price:</label>
-        <input type="number" class="form-control addText" min="0" step=".01" name="price" [(ngModel)]="price">
+        <input type="number" class="form-control addText" min="0" step=".01" name="price" [(ngModel)]="price" required>
         <br>
         <label htmlFor="cast">Main Cast:</label>
-        <textarea class="form-control addTextMainCast" [(ngModel)]="cast" name="cast"> </textarea>
+        <textarea class="form-control addTextMainCast" [(ngModel)]="cast" name="cast" required> </textarea>
         <br>
         <label htmlFor="description">Description:</label>
-        <textarea class="form-control addTextMainCast" [(ngModel)]="description" name="description" > </textarea>
+        <textarea class="form-control addTextMainCast" [(ngModel)]="description" name="description" required > </textarea>
         <br>
         <div class="form-group">
           <button class="btn btn-primary">Save Changes</button>

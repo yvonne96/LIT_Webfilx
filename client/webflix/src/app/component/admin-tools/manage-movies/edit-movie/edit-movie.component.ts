@@ -7,6 +7,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 // import {AuthenticationService} from '../../../service/authentication/authentication.service';
 import {MovieService} from '../../../../service/movie/movie.service';
 import {Subscription} from "rxjs/Subscription";
+import {error} from "selenium-webdriver";
+import {isNumber} from "util";
 
 @Component({
   moduleId: module.id,
@@ -24,6 +26,7 @@ export class EditMovieComponent {
   private cast: string;
   private description: string;
   private movieToEdit: Movie;
+  private errorMessage: string;
 
   constructor(private router: Router,
               private movieService: MovieService, private route: ActivatedRoute) {
@@ -32,14 +35,25 @@ export class EditMovieComponent {
   }
 
   editMovie() {
-    this.movieService.editMovie(this.id, this.title, this.year,
-      this.genre, this.classification, this.director, this.cast, this.description)
-      .subscribe(
-        next => {
-          this.router.navigate(['/dashboard/admin/manage-movies']);
-        },
-      );
+    console.log('in edit form:  ', this.price);
+      this.movieService.editMovie(this.id, this.title, this.year,
+        this.genre, this.classification, this.director, this.cast, this.description, this.price)
+        .subscribe(
+          next => {
+            this.router.navigate(['/dashboard/admin/manage-movies']);
+          },
+          error => {
+            this.errorMessage = 'Editing ' + this.movieToEdit.title + ' was unsuccessful';
+          },
+        );
   }
+
+  // validate() {
+  //   if (this.year.trim() || isNumber(this.year)) {
+  //     return false;
+  //   }
+  //   return !this.director.trim() || !this.cast.trim() || !this.description.trim();
+  // }
   fetchById() {
     this.movieService.fetchById(this.id)
       .subscribe(
