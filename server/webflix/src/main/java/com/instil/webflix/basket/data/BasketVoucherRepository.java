@@ -18,9 +18,10 @@ public interface BasketVoucherRepository extends JpaRepository<BasketVoucher, Lo
 	@Modifying
 	@Query(nativeQuery = true, value = "SELECT voucher_id FROM basket_voucher WHERE account_id = :account_id")
 	public List<Integer> getUsedVouchers(@Param("account_id") Long basket_id);
-	
+
 	@Transactional
 	@Modifying
 	@Query(nativeQuery = true, value = "INSERT INTO basket_voucher (account_id, voucher_id) VALUES (:account_id, :voucher_id)")
 	public void addUsedVouchers(@Param("account_id") Long account_id, @Param("voucher_id") Long voucher_id);
+
 }

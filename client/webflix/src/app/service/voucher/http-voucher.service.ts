@@ -8,6 +8,8 @@ import {VoucherService} from './voucher.service';
 import {RestService} from '../api-client/rest.service';
 import {Voucher} from '../../model/voucher';
 
+import {map} from "rxjs/operator/map";
+
 const baseUrl = '/voucher';
 
 @Injectable()
@@ -18,13 +20,13 @@ export class HttpVoucherService extends VoucherService {
     super();
   }
 
-  getVoucherValid(name: String): Observable<Boolean> {
+  getVoucherValid(name: String): Observable<Voucher> {
     return this.restService.get(baseUrl + '/' + name)
       .build()
       .map(resp => resp.json())
       .catch(error => {
         console.log('error readying voucher');
-        return Observable.of(false);
+        return Observable.of(null);
       });
   }
 
@@ -37,6 +39,41 @@ export class HttpVoucherService extends VoucherService {
         return Observable.of([]);
       });
 
+  }
+
+
+  createVoucher(code: string, discount: string, expiryDate: Date): Observable<Boolean> {
+    console.log(baseUrl + '/' + code + '/' + discount + '/' + expiryDate);
+    let expiryDateNew = new Date(expiryDate);
+    // let newdiscount = String(discount);
+    return this.restService.post(baseUrl + '/' + code + '/' + discount + '/' + expiryDateNew)
+      // .addHeader('Access-Control-Allow-Origin', '*')
+      .build()
+      .map(() => true)
+      .catch(error => {
+        console.log('unable to create voucher');
+        return Observable.of(false);
+      });
+  }
+
+  removeVoucher(voucher: Voucher): Observable<Boolean> {
+    return this.restService.delete(baseUrl + '/' + voucher.id)
+      .build()
+      .map(() => true)
+      .catch(error => {
+      console.log('unable to remove voucher');
+      return Observable.of(false);
+      });
+  }
+  toggleGlobalVoucher(voucher: Voucher, global: boolean): Observable<Boolean> {
+    // console.log(voucher.global);
+    return this.restService.post(baseUrl + '/' + voucher.id  + '/' + global)
+      .build()
+      .map(() => true)
+      .catch(error => {
+        console.log('unable to change global');
+        return Observable.of(false);
+      });
   }
 
   getAllGlobalVouchers(): Observable<Voucher[]> {
@@ -65,7 +102,9 @@ export class HttpVoucherService extends VoucherService {
       .map(resp => true)
       .catch(error => {
         console.log('couldnt add voucher to used');
+
         return Observable.of(false);
       });
   }
 }
+

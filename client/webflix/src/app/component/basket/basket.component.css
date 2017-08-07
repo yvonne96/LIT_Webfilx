@@ -1,0 +1,30 @@
+.voucher-Title{
+  text-align: center;
+}
+
+.voucherSuccess {
+  color: #3c763d;
+  background-color: #dff0d8;
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border-width: thin;
+  text-align: center;
+}
+
+.warningMessageBlockTwo {
+  color: white;
+  background-color: #ff6666;
+  border-radius: 10px;
+  border-color: black;
+  border-style: groove;
+  border-width: thin;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 15px;
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+}

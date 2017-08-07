@@ -27,13 +27,14 @@ export class MovieGridComponent {
   onAddMovieToBasket = new EventEmitter<Movie>();
   info: string = '';
   image: string = '';
-  listening: any;
   isSet: boolean = false;
   public summary: BasketSummary;
   public myMovies: Movie[];
 
 
-  constructor(private http: Http, private basketService: BasketService, private movieService: MovieService) {
+  constructor(private http: Http,
+              private basketService: BasketService,
+              private movieService: MovieService) {
     this.summary = BasketSummary.empty();
     this.readBasketForUser();
     this.readMyMoviesForUser();
@@ -42,7 +43,7 @@ export class MovieGridComponent {
   addMovieToBasket(): void {
     if (this.checkForMovieDuplicates()) {
       alert('Already bought!!');
-    } else if (this.checkForBasketDuplicates()){
+    } else if (this.checkForBasketDuplicates()) {
       alert('Already in basket!!');
     } else {
       this.showAddToBasket = true;
@@ -63,7 +64,7 @@ export class MovieGridComponent {
   checkForMovieDuplicates(): boolean {
     let checkMovies: Movie[] = this.myMovies;
     for (let m = 0; m < checkMovies.length; m++) {
-      if (this.theMovie.id === checkMovies[m].id){
+      if (this.theMovie.id === checkMovies[m].id) {
         return true;
       }
     }
@@ -97,22 +98,24 @@ export class MovieGridComponent {
   hideInfo() {
     this.info = '';
   }
-
+/*
   getImageData() {
     const data =  this.http
       .get('https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=' + this.theMovie.title)
       .subscribe(dat => {
         this.image = dat.json().results[0].poster_path;
-        this.isSet = true;
+       this.isSet = true;
       });
     if (this.image !== '') {
       data.unsubscribe();
       console.log(this.image);
       return this.image;
     }
-  }
+  }*/
+
 
   setImageData() {
     return this.image;
   }
+
 }

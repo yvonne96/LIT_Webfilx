@@ -10,23 +10,29 @@ import {Observable} from 'rxjs/Observable';
 @Component({
   moduleId: module.id,
   selector: 'basket',
-  templateUrl: 'basket.component.html'
+  templateUrl: 'basket.component.html',
+  styleUrls: ['basket.component.css']
 })
 export class BasketComponent {
   private summary: BasketSummary;
   public valid: boolean;
   public voucherMessage: string = '';
+  public globalMessage: string = '';
   public inUse: boolean = false;
   public discount: string = '';
   public subtotal: number;
-  public currentOffer: string;
+  private voucherApplied: boolean;
   public vouchers: Voucher[];
   private globals: Voucher[];
-  private globalVoucher: string = '';
+  private globalVoucher: String = '';
   private globalSet: boolean;
   private used: number[];
+  private checkIfApplied: boolean;
   private inUseVoucherId: number;
-  private apply: boolean = true;
+  public basketMovies: Movie[];
+  private warningMessage: string = '';
+
+
 
   constructor(private basketService: BasketService,
               private router: Router,
@@ -41,11 +47,23 @@ export class BasketComponent {
   clearBasket(): void {
     this.basketService.clearBasket()
       .subscribe(() => this.refreshSummary());
+
+    this.subtotal = 0;
+    this.removeVoucher();
+    this.voucherMessage = '';
+    this.warningMessage = '';
   }
 
   removeMovie(movie: Movie): void {
     this.basketService.removeMovie(movie)
       .subscribe(() => this.refreshSummary());
+
+    if (this.subtotal > this.summary.total) {
+      this.subtotal = this.summary.total;
+    }
+    this.removeVoucher();
+    this.globalSet = true;
+    this.voucherMessage = '';
   }
 
   checkout(): void {
@@ -64,17 +82,21 @@ export class BasketComponent {
 
   private setGlobal() {
     if (this.used.indexOf(this.globals[0].id) > -1) {
-      console.log('Global has already been used');
-    } else {
-      console.log(this.globals[0].id);
-      this.discount = this.globals[0].offer;
-      this.inUseVoucherId = this.globals[0].id;
-      this.inUse = true;
-      this.parseDiscount(this.discount);
       this.globalSet = false;
+      this.globalMessage = 'Global voucher has already been used.';
+    } else {
+      if (!this.checkIfDiscountApplied()) {
+        this.warningMessage = '';
+        this.inUseVoucherId = this.globals[0].id;
+        this.discount = this.globals[0].offer;
+        this.inUse = true;
+        this.parseDiscount(this.discount);
+        this.globalSet = false;
+        this.checkIfApplied = true;
+        this.voucherApplied = true;
+      }
     }
   }
-
 
   private refreshSummary(): void {
     this.basketService.getBasketSummary()
@@ -124,37 +146,28 @@ export class BasketComponent {
   }
 
   checkVoucher(name: string) {
+    this.globalMessage = '';
     if (!(name === '')) {
     this.voucherService.getVoucherValid(name.toUpperCase())
       .subscribe(
         (res) => {
           console.log(res);
-          if (res === false || res.expire <= this.logDate()) {
-            this.voucherMessage = name + ': Is not a valid voucher or has expired';
+          // FIX TO INCLUDE CHECK FOR EXPIRED DATE
+          if (res === null) {
+            this.warningMessage = name + ': Is not a valid voucher. Please check expiry date and voucher code.';
+            this.voucherMessage = '';
             this.inUse = false;
           } else {
             console.log(this.used);
             if (this.used.indexOf(res.id) > -1) {
-              this.apply = false;
+              this.warningMessage = 'Voucher has already been used.';
             } else {
-              this.apply = true;
-            }
-            if (this.apply) {
-              this.voucherMessage = 'This voucher rewards you with: ' + res.offer;
-              this.inUse = true;
-              this.inUseVoucherId = res.id;
-              this.discount = res.offer;
-              this.parseDiscount(this.discount);
-              if (this.globals !== []) {
-                this.globalSet = true;
-              }
-            } else {
-              this.voucherMessage = 'Already used this voucher';
+              this.applyVoucher(res);
             }
           }
         });
     } else {
-      console.log('no voucher entered');
+      this.voucherMessage = 'No voucher code entered';
     }
   }
 
@@ -177,17 +190,28 @@ export class BasketComponent {
   }
 
   applyDiscountOne(amountToBuy: number, amountFree: number) {
-    if (this.summary.movies.length < amountToBuy + amountFree) {
-      console.log('Not enough in basket to apply');
-    } else {
-      this.subtotal = this.summary.total - this.summary.movies[1].price;
+    this.basketMovies = this.summary.movies;
+    if (this.basketMovies.length < 2 ) {
+      this.removeVoucher();
+      this.voucherMessage = '';
+      this.warningMessage = 'Not enough movies in basket to apply voucher.';
+    } else if (this.basketMovies.length === 2) {
+      if (this.summary.movies[0].price > this.summary.movies[1].price) {
+        this.subtotal = this.summary.total - this.summary.movies[1].price;
+      } else {
+        this.subtotal = this.summary.total - this.summary.movies[0].price;
+      }
       return this.subtotal;
+    } else {
+      this.removeVoucher();
+      this.warningMessage = 'Too many movies in basket.';
     }
   }
 
   applyDiscountTwo(amountToSpend: number, amountOff: number) {
     if (this.summary.total < amountToSpend) {
-      console.log('You are not spending enough');
+      this.removeVoucher();
+      this.warningMessage = 'You are not spending enough.';
     } else {
       this.subtotal = this.summary.total - amountOff;
       return this.subtotal;
@@ -196,17 +220,52 @@ export class BasketComponent {
 
   applyDiscountThree(percentOff: number) {
     if (this.summary.total === 0.00) {
-      console.log('Not enough movies in basket to apply voucher');
+      this.warningMessage = 'Not enough movies in basket to apply voucher.';
     } else {
       this.subtotal = this.summary.total * ((100.0 - percentOff) / 100.0);
       return this.subtotal;
     }
-
   }
 
   addUsedVoucher(usedVoucherId: number) {
      return this.voucherService.addUsedVoucher(this.inUseVoucherId)
        .subscribe();
+  }
+
+  private applyVoucher(res: Voucher): void {
+    console.log(res);
+    if (!this.checkIfDiscountApplied()) {
+      this.checkIfApplied = true;
+      this.warningMessage = '';
+      this.voucherMessage = 'This voucher rewards you with: ' + res.offer;
+      this.inUse = true;
+      this.inUseVoucherId = res.id;
+      this.discount = res.offer;
+      this.voucherApplied = true;
+      this.parseDiscount(this.discount);
+    }
+  }
+
+  removeVoucher(): void {
+    this.discount = '';
+    this.subtotal = this.summary.total;
+    this.inUse = false;
+    this.checkIfApplied = false;
+    this.warningMessage = 'Voucher removed please re-enter voucher code';
+    this.voucherApplied = false;
+    this.voucherMessage = '';
+    this.globalSet = true;
+  }
+
+  checkIfDiscountApplied(): boolean {
+    if (this.checkIfApplied === true) {
+      if (confirm('A voucher is already applied. Changing the voucher may change the the cost. Do you wish to proceed?')) {
+        this.removeVoucher();
+        return false;
+      } else {
+        return true;
+      }
+    }
   }
 
 }

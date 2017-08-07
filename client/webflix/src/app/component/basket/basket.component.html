@@ -11,7 +11,7 @@
       <tbody>
       <tr *ngFor="let movie of summary.movies">
         <td>{{movie.title}}</td>
-        <td>${{movie.price}}</td>
+        <td>{{movie.price | currency:'EUR':true:'1.2-2'}}</td>
         <td>
           <button class="btn btn-danger" (click)="removeMovie(movie)">
             <span class="glyphicon glyphicon-trash"></span>
@@ -22,20 +22,23 @@
     </table>
     <button class="btn btn-danger" (click)="clearBasket()">Clear</button>
   </div>
-
-
   <div class="col-md-4">
     <div class="jumbotron">
       <div *ngIf="globalSet" class="alert alert-success" role="alert"><strong>Heads up!</strong> There is a discount voucher available! <a (click)="setGlobal()" class="alert-link">Claim here!</a> </div>
+      <div class="help-block alert-success" *ngIf="globalMessage">{{globalMessage}}</div>
       <h3>Subtotal: {{summary.total | currency:'EUR':true:'1.2-2'}}</h3>
       <h3>Discount: {{discount}}</h3>
       <hr>
       <h3>Total: {{subtotal | currency:'EUR':true}}</h3>
-      <button class="btn btn-success" (click)="checkout()">Purchase</button>
+      <button class="btn btn-primary" (click)="checkout()">Purchase</button>
+      <button class="btn btn-danger" *ngIf="voucherApplied" (click)="removeVoucher()">Remove Voucher</button>
+      <div class="warningMessageBlockTwo " *ngIf="warningMessage">{{warningMessage}}</div>
     </div>
     <div class="jumbotron">
+      <h3 class="voucher-Title">Voucher</h3>
+      <hr>
       <input type="text" class="form-control" #voucher>
-      <div class="help-block alert-success" *ngIf="voucherMessage">{{voucherMessage}}</div>
+      <div class="voucherSuccess" *ngIf="voucherMessage">{{voucherMessage}}</div>
       <br>
       <button (click)="checkVoucher(voucher.value)" class="btn btn-primary">Verify Voucher</button>
     </div>

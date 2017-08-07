@@ -6,6 +6,9 @@ import {RouterModule, Routes} from '@angular/router';
 import {APP_BASE_HREF} from '@angular/common';
 
 import {AdminToolsComponent} from './component/admin-tools/admin-tools.component';
+import {ManageMoviesComponent} from './component/admin-tools/manage-movies/manage-movies.component';
+import {ManageVouchersComponent } from './component/admin-tools/manage-vouchers/manage-vouchers.component';
+import {AddMoviesComponent} from './component/admin-tools/manage-movies/add-movies/add-movies.component';
 import {APP_CONFIG, WEBFLIX_CONFIG} from './app-config';
 import {AppComponent}  from './app.component';
 import {BasketComponent}  from './component/basket/basket.component';
@@ -19,6 +22,7 @@ import {MyMoviesComponent} from './component/my-movies/my-movies.component';
 import {RegisterNewUserComponent} from './component/login/register-new-user.component';
 import {UserDashboardComponent} from './component/user-dashboard/user-dashboard.components';
 import { MovieGridComponent } from './component/movie-grid/movie.grid.component';
+
 
 import {ApiClient} from './service/api-client/api-client.service';
 import {AuthenticationService} from './service/authentication/authentication.service';
@@ -54,6 +58,16 @@ const appRoutes: Routes = [
       { path: 'basket',
         component: BasketComponent
       },
+      { path: 'admin/manage-vouchers',
+        component: ManageVouchersComponent
+      },
+      { path: 'admin/manage-movies',
+        component: ManageMoviesComponent
+      },
+      {
+        path: 'admin/manage-movies/add-movies',
+        component: AddMoviesComponent
+      }
     ]
   },
   {path: 'webflix', redirectTo: '/dashboard', pathMatch: 'prefix'},
@@ -70,6 +84,9 @@ const appRoutes: Routes = [
   ],
   declarations: [
     AdminToolsComponent,
+    ManageVouchersComponent,
+    ManageMoviesComponent,
+    AddMoviesComponent,
     AppComponent,
     BasketComponent,
     BasketButtonComponent,

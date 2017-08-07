@@ -15,6 +15,11 @@ import com.instil.webflix.movies.model.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+import java.awt.List;
+import java.io.Console;
+import java.math.BigDecimal;
+import java.util.Date;
+
 
 @RestController
 @RequestMapping("/movie")
@@ -72,22 +77,30 @@ public class MovieRestController {
 		repository.save(movie);
 	}
 	
-	//Not called - previous version 2.1 and less
-	/* private Iterable<Movie> checkMyMovies(Iterable<Movie> movies) {
-		Iterable<Movie> mine = allMyMovies();
-		ArrayList<Movie> whatRemains = new ArrayList<>();
-		for(Movie m : movies) {
-			boolean found = false;
-			for(Movie n : mine){
-				if(m.equals(n)){
-					found = true;
-				}
-			}
-			if(!found){
-				whatRemains.add(m);
-			}	
-		}
-		Iterable<Movie> check = whatRemains;
-		return check;
-	} */
+	@RequestMapping(method = POST, value="/{title}/{year}/{genre}/{classification}/{director}/{mainCast}/{description}",  produces = "application/json")
+	public void addMovie(@PathVariable("title") String title, @PathVariable("year") String year, @PathVariable("genre") Integer genre, @PathVariable("classification") Integer classification, @PathVariable("director") String director, @PathVariable("mainCast") String mainCast, @PathVariable("description") String description){
+		System.out.print("test");
+		repository.addMovie(title, year, genre, classification, director, mainCast, description);
+	}
+	
+	@RequestMapping(method = POST, value="/{price}",  produces = "application/json")
+	public void addPrice(@PathVariable("price") BigDecimal price){
+		System.out.println("test2");
+		long movie_id = 12;//= getAllMovies();
+		repository.addPrice(movie_id, price);
+	}
+	
+//	private long getAllMovies() {
+//		Iterable<Movie> testID = repository.getAllMovies();
+//		long idHighest = 0;
+//		
+//		for(Movie m: testID) {
+//			if(m.getId() > idHighest) {
+//				idHighest = m.getId();
+//			}
+//		}
+//		
+//		return idHighest;
+//	}
+
 }
