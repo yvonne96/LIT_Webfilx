@@ -13,7 +13,7 @@
 
         <div class="form-group">
           <label>Discount Type</label>
-          <select value="Select" [(ngModel)]="menuType" name="menuType" (change)="chooseDiscountMenu(menuType)" class="form-control">
+          <select [(ngModel)]="menuType" name="menuType" (change)="chooseDiscountMenu(menuType)" class="form-control">
             <option value="" selected="selected">Select your option</option>
             <option value='buyXGetY' >Buy X Get Y Free</option>
             <option value="percentage" >Percentage Discount</option>
@@ -85,6 +85,6 @@
     </div>
 </div>
 <div *ngIf="isAdmin == false" style="color: white; font-size: 100px; text-align: center;">
-  <p>You dont have access to this page!</p>
+  <p>You don't have access to this page!</p>
   <p><img src="app/component/admin-tools/angryBoss.jpg" height = "500" width="800" align="middle"></p>
 </div>

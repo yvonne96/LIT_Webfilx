@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="movie")
-// @SecondaryTable(name="movie_price", pkJoinColumns = @PrimaryKeyJoinColumn(name = "movie_id"))
+
 public class Movie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,9 +29,6 @@ public class Movie {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "classification")
 	private Classification classification;
-
-	// @Column(table = "movie_price", name = "price")
-	// private BigDecimal price;
 
 	public Movie() {
 		super();

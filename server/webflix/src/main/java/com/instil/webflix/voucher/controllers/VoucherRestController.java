@@ -61,13 +61,7 @@ public class VoucherRestController {
 		voucherService.checkForExpiredGlobal();
 		return repository.findAll();
 	}
-	
-//	@RequestMapping(method = GET, value="/global", produces = "application/json")
 
-//	public Voucher allGlobalVouchers() {
-//		return repository.findByGlobalTrue();
-//	}
-	
 	@RequestMapping(method = DELETE, value="/{voucherID}",  produces = "application/json")
 	public void removeVoucher(@PathVariable("voucherID") int ID){
 		repository.deleteById(ID);	

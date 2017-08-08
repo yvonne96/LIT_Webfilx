@@ -46,10 +46,10 @@ export class AddMoviesComponent {
         },
         error => {
           console.log('Error adding movie');
-          // this.setCreateFailureMessage();
         }
       );
   }
+
   getGenreValues(source: Observable<Genre[]>) {
     source
       .subscribe(genres => {
@@ -114,8 +114,6 @@ export class AddMoviesComponent {
   //     // xhr.send(formData);
     });
   }
-
-
 
 }
 

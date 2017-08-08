@@ -95,7 +95,6 @@ public class SecurityContextAccountService implements AccountService {
 			return ResponseEntity.ok().build();
 		}
 		else{
-			// System.out.println("We did it!");
 			logger.info("Invalid password");
 			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 		}
