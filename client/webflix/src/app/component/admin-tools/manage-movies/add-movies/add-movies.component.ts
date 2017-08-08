@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {AuthenticationService} from '../../../../service/authentication/authentication.service';
 import {MovieService} from '../../../../service/movie/movie.service';
-import {Movie} from '../../../../model/movie';
+import {Movie, Genre, Classification} from '../../../../model/movie';
 
 @Component({
   moduleId: module.id,
@@ -13,7 +13,6 @@ import {Movie} from '../../../../model/movie';
 })
 
 export class AddMoviesComponent {
-
   private isAdmin: boolean;
   private title: string;
   private year: string;
@@ -24,6 +23,8 @@ export class AddMoviesComponent {
   private mainCast: string;
   private description: string;
   private image: string;
+  private genres: Genre[];
+  private classifications: Classification[];
 
   constructor(private movieService: MovieService, private router: Router,
               private authenticationService: AuthenticationService,
@@ -31,6 +32,8 @@ export class AddMoviesComponent {
 
     authenticationService.isAdmin
       .subscribe(x => this.isAdmin = x);
+    this.getGenreValues(this.movieService.getGenreValues());
+    this.getClassificationValues(this.movieService.getClassificationValues());
   }
 
   saveImageToFile() {
@@ -49,6 +52,35 @@ export class AddMoviesComponent {
           console.log('Error adding movie');
         }
       );
+  }
+
+  getGenreValues(source: Observable<Genre[]>) {
+    source
+      .subscribe(genres => {
+        this.genres = genres;
+        this.sortGenreArray();
+      }, error => 'error getting genres');
+  }
+  sortGenreArray() {
+    this.genres.sort((firstGenre, nextGenre) => {
+      if (firstGenre.value < nextGenre.value) {return -1; }
+      if (firstGenre.value > nextGenre.value) {return 1; }
+      return 0;
+    });
+  }
+  getClassificationValues(source: Observable<Classification[]>) {
+    source
+      .subscribe(classifications => {
+        this.classifications = classifications;
+        this.sortClassificationArray();
+      }, error => 'error getting classification');
+  }
+  sortClassificationArray() {
+    this.classifications.sort((firstClassification, nextClassification) => {
+      if (firstClassification.value < nextClassification.value) {return -1; }
+      if (firstClassification.value > nextClassification.value) {return 1; }
+      return 0;
+    });
   }
 }
 

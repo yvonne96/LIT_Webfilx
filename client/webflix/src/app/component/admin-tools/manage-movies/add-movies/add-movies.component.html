@@ -12,21 +12,12 @@
         <br>
         <label>Genre:
           <select class="form-control addText" name="genre" [(ngModel)]="genre" required>
-            <option value='5'>Horror</option>
-            <option value='6'>Comedy</option>
-            <option value='7'>Family</option>
-            <option value='8'>Science Fiction</option>
+            <option *ngFor="let currentGenre of genres" value='{{currentGenre.id}}'>{{currentGenre.value}}</option>
           </select></label>
         <br>
         <label> Classification:
           <select class="form-control addText" name="classification" [(ngModel)]="classification" required>
-            <option value='8'>U</option>
-            <option value='9'>PG</option>
-            <option value='10'>PG13</option>
-            <option value='11'>12</option>
-            <option value='12'>12A</option>
-            <option value='13'>15</option>
-            <option value='14'>18</option>
+            <option *ngFor="let currentClassification of classifications" value='{{currentClassification.id}}'>{{currentClassification.value}}</option>
           </select></label>
         <br>
         <label >Director:
