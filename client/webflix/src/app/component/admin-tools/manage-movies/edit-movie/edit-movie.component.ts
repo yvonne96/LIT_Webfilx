@@ -60,7 +60,12 @@ export class EditMovieComponent {
   }
 
   yearValidation() {
-    return (this.year.trim() === '' || !Number(this.year));
+    let matcher = new RegExp(/^(181[2-9]|18[2-9]\d|19\d\d|2\d{3})$/); // 1812-2999
+    let notAYear = false;
+    if (!(matcher.test(this.year))) {
+      notAYear = true
+    }
+    return (this.year.trim() === '' || !Number(this.year) || notAYear);
   }
 
   directorValidation() {
@@ -118,7 +123,7 @@ export class EditMovieComponent {
       }, error => 'error getting classification');
   }
   sortClassificationArray() {
-    this.genres.sort((firstClassification, nextClassification) => {
+    this.classifications.sort((firstClassification, nextClassification) => {
       if (firstClassification.value < nextClassification.value) {return -1; }
       if (firstClassification.value > nextClassification.value) {return 1; }
       return 0;
