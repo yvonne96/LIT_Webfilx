@@ -32,8 +32,6 @@ export class BasketComponent {
   public basketMovies: Movie[];
   private warningMessage: string = '';
 
-
-
   constructor(private basketService: BasketService,
               private router: Router,
               private voucherService: VoucherService) {
@@ -137,7 +135,6 @@ export class BasketComponent {
   getAllGlobalVouchers(source: Observable<Voucher[]>) {
     const voucherGetter = source
       .subscribe(globals => {
-        console.log(globals);
         this.globals = globals;
         this.globalVoucher = globals[0].offer;
         this.globalSet = true;
@@ -151,14 +148,12 @@ export class BasketComponent {
     this.voucherService.getVoucherValid(name.toUpperCase())
       .subscribe(
         (res) => {
-          console.log(res);
           // FIX TO INCLUDE CHECK FOR EXPIRED DATE
           if (res === null) {
             this.warningMessage = name + ': Is not a valid voucher. Please check expiry date and voucher code.';
             this.voucherMessage = '';
             this.inUse = false;
           } else {
-            console.log(this.used);
             if (this.used.indexOf(res.id) > -1) {
               this.warningMessage = 'Voucher has already been used.';
             } else {
@@ -233,7 +228,6 @@ export class BasketComponent {
   }
 
   private applyVoucher(res: Voucher): void {
-    console.log(res);
     if (!this.checkIfDiscountApplied()) {
       this.checkIfApplied = true;
       this.warningMessage = '';

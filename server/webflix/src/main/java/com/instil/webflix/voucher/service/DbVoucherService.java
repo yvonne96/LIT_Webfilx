@@ -181,15 +181,5 @@ public class DbVoucherService implements VoucherService {
 			logger.info("No global");
 		}
 	
-		
-		
 	}
-	
-
-//	public List<Voucher> getAllGlobalVouchers() {
-//		List<Voucher> stream = voucherRepository.findByGlobalTrue();
-//		return stream;
-//	}
-
-
 }

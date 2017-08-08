@@ -47,24 +47,8 @@ export class AddMoviesComponent {
         },
         error => {
           console.log('Error adding movie');
-          // this.setCreateFailureMessage();
         }
       );
   }
-
-  /* addPrice() {
-    console.log(this.price);
-    this.movieService.addPrice(this.price)
-      .subscribe(
-        () => {
-          console.log('added');
-          console.log(this.price);
-        },
-        error => {
-          console.log('Error adding movie');
-        }
-      );
-  } */
-
 }
 

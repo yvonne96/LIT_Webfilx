@@ -86,13 +86,6 @@ public class MovieRestController {
 		repository.addMovie(price, title, year, genre, classification, director, mainCast, description);
 	}
 	
-	//@RequestMapping(method = POST, value="/{price}",  produces = "application/json")
-	//public void addPrice(@PathVariable("price") BigDecimal price){
-		//System.out.println("test2");
-		//long movie_id = 12;//= getAllMovies();
-		//repository.addPrice(movie_id, price);
-	//}
-	
 	@RequestMapping(method = POST,value="/{price}/{id}/{title}/{year}/{genre}/{classification}/{director}/{cast}/{description}", consumes = "application/json")
 	public void editMovie(@PathVariable("price") float price ,@PathVariable("id")int id,@PathVariable("title") String title, @PathVariable("year") String year, @PathVariable("genre") Integer genre, @PathVariable("classification") Integer classification,@PathVariable("director") String director, @PathVariable("cast") String mainCast, @PathVariable("description") String description) {
 		System.out.println("in rest controller:  " + price);

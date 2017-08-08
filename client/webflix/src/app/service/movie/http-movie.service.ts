@@ -63,16 +63,6 @@ export class HttpMovieService extends MovieService {
       });
   }
 
-  /* addPrice(price: number): Observable<boolean> {
-    return this.restService.post(baseUrl  + '/' + price )
-      .build()
-      .map(() => true)
-      .catch(error => {
-        console.log('unable to add movie');
-        return Observable.of(false);
-      });
-  }*/
-
   fetchById(id: number): Observable<Movie> {
 
     return this.restService.get(baseUrl + '/byId/' + id)
