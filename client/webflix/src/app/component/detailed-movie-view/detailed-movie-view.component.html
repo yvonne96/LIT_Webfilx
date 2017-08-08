@@ -7,13 +7,17 @@
     <p>Genre: {{theMovie?.genre.value}}</p>
     <P>Cast: PLACEHOLDER</P>
     <p>Classification: {{theMovie?.classification.value}}</p>
-    <div class="buttonDiv" *ngIf='theMovie?.purchasable'>
-      <button class="btn btn-success">
+    <div class="buttonDiv" *ngIf='theMovie?.purchasable && !owned'>
+      <button class="btn btn-success" (click)="addMovieToBasket()" [disabled]="inBasket">
         <span class="glyphicon glyphicon-shopping-cart"></span>
         <span> Buy now: </span>
         <span class="badge">{{theMovie?.price | currency:'EUR':true}}</span>
       </button>
+      <p *ngIf="inBasket" class="inBasketOrOwnedMsg">This Item is in your basket!</p>
     </div>
+    <p *ngIf="owned" class="inBasketOrOwnedMsg">
+      You own this Movie!
+    </p>
   </div><br><br><br><br><br>
   <div>
     <h3>Description:</h3><br>

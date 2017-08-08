@@ -1,7 +1,7 @@
 
 
 <div class="movie-panel">
-  <h1 [routerLink]="['./detailedMovieView']" [queryParams]="{id: theMovie.id}" routerLinkActive="active">{{theMovie.title}}</h1>
+  <h1 title="Click here for more details" [routerLink]="['./detailedMovieView']" [queryParams]="{id: theMovie.id}" routerLinkActive="active">{{theMovie.title}}</h1>
   <img  src="http://image.tmdb.org/t/p/w500/{{isSet ? image : getImageData()}}" routerLinkActive="true" routerLink="">
   <p>{{theMovie.description.slice(0, descLen)}}....</p>
 

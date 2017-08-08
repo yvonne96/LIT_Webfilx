@@ -54,7 +54,7 @@ export class MovieTableRowComponent {
   checkForMovieDuplicates(): boolean {
     let checkMovies: Movie[] = this.myMovies;
       for (let m = 0; m < checkMovies.length; m++) {
-        if (this.theMovie.id === checkMovies[m].id){
+        if (this.theMovie.id === checkMovies[m].id) {
           return true;
         }
       }
