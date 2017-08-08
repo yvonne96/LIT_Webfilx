@@ -1,15 +1,9 @@
-import {Component,Input} from '@angular/core';
-import {Movie} from '../../../../model/movie';
+import {Component} from '@angular/core';
+import {Classification, Genre, Movie} from '../../../../model/movie';
 import {ActivatedRoute, Router} from '@angular/router';
-// import {theMovie} from '../manage-movies-row.component';
-
-// import {Observable} from 'rxjs/Observable';
-// import {AuthenticationService} from '../../../service/authentication/authentication.service';
 import {MovieService} from '../../../../service/movie/movie.service';
-import {Subscription} from "rxjs/Subscription";
-import {error} from "selenium-webdriver";
-import {isNumber} from "util";
-import {AuthenticationService} from "../../../../service/authentication/authentication.service";
+import {AuthenticationService} from '../../../../service/authentication/authentication.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   moduleId: module.id,
@@ -29,52 +23,56 @@ export class EditMovieComponent {
   private movieToEdit: Movie;
   private errorMessage: string;
   private isAdmin: boolean;
+  private genres: Genre[];
+  private classifications: Classification[];
 
   constructor(private router: Router,
-              private movieService: MovieService, private route: ActivatedRoute , private authenticationService: AuthenticationService) {
-    this.route.params.subscribe(params => {this.id = +params['id']; });
+              private movieService: MovieService, private route: ActivatedRoute, private authenticationService: AuthenticationService) {
+    this.route.params.subscribe(params => {
+      this.id = +params['id'];
+    });
     this.fetchById();
     authenticationService.isAdmin
       .subscribe(x => this.isAdmin = x);
+    this.getGenreValues(this.movieService.getGenreValues());
+    this.getClassificationValues(this.movieService.getClassificationValues());
   }
 
   editMovie() {
     if (this.validate()) {
-      this.movieService.editMovie(this.id, this.title, this.year,
-        this.genre, this.classification, this.director, this.cast, this.description, this.price)
+      this.movieService.editMovie(this.id, this.title.trim(), this.year.trim(),
+        this.genre, this.classification, this.director.trim(), this.cast.trim(), this.description.trim(), this.price)
         .subscribe(
           next => {
             this.router.navigate(['/dashboard/admin/manage-movies']);
           },
           error => {
-            this.errorMessage = 'Editing ' + this.movieToEdit.title + ' was unsuccessful in database';
+            this.errorMessage = 'Editing ' + this.movieToEdit.title + ' was unsuccessful';
           },
         );
     }
     this.errorMessage = 'Editing ' + this.movieToEdit.title + ' was unsuccessful';
   }
 
-  // trimWhiteSpace (str: string) {
-  //   return str.replace(/^\s+|\s+$/gm, '');
-  // }
 
   validate() {
-    if (this.year.trim() === '') {
-      return false;
-    }
-    if (this.director.trim() === '') {
-      return false;
-    }
-    if (this.cast.trim() === '') {
-      return false;
-    }
-    if (this.description.trim() === '') {
-      return false;
-    }
-    if (!Number(this.year)) {
-      return false;
-    }
-    return true;
+    return !(this.castValidation() || this.directorValidation() || this.descriptionValidation() || this.yearValidation());
+  }
+
+  yearValidation() {
+    return (this.year.trim() === '' || !Number(this.year));
+  }
+
+  directorValidation() {
+    return (this.director.trim() === '');
+  }
+
+  castValidation() {
+    return (this.cast.trim() === '');
+  }
+
+  descriptionValidation() {
+    return (this.description.trim() === '');
   }
 
   fetchById() {
@@ -85,17 +83,45 @@ export class EditMovieComponent {
           this.intializeMovieParameters();
         }
       );
-    }
-
-    intializeMovieParameters() {
-      this.title = this.movieToEdit.title;
-      this.year = this.movieToEdit.year;
-      this.genre = this.movieToEdit.genre.id;
-      this.classification = this.movieToEdit.classification.id;
-      this.director = this.movieToEdit.director;
-      this.price = this.movieToEdit.price;
-      this.cast = this.movieToEdit.cast;
-      this.description = this.movieToEdit.description;
-    }
   }
 
+  intializeMovieParameters() {
+    this.title = this.movieToEdit.title;
+    this.year = this.movieToEdit.year;
+    this.genre = this.movieToEdit.genre.id;
+    this.classification = this.movieToEdit.classification.id;
+    this.director = this.movieToEdit.director;
+    this.price = this.movieToEdit.price;
+    this.cast = this.movieToEdit.cast;
+    this.description = this.movieToEdit.description;
+  }
+
+  getGenreValues(source: Observable<Genre[]>) {
+    source
+      .subscribe(genres => {
+        this.genres = genres;
+        this.sortGenreArray();
+      }, error => 'error getting genres');
+  }
+  sortGenreArray() {
+    this.genres.sort((firstGenre, nextGenre) => {
+      if (firstGenre.value < nextGenre.value) {return -1; }
+      if (firstGenre.value > nextGenre.value) {return 1; }
+      return 0;
+    });
+  }
+  getClassificationValues(source: Observable<Classification[]>) {
+    source
+      .subscribe(classifications => {
+        this.classifications = classifications;
+        this.sortClassificationArray();
+      }, error => 'error getting classification');
+  }
+  sortClassificationArray() {
+    this.genres.sort((firstClassification, nextClassification) => {
+      if (firstClassification.value < nextClassification.value) {return -1; }
+      if (firstClassification.value > nextClassification.value) {return 1; }
+      return 0;
+    });
+  }
+}

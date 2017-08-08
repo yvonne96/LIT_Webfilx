@@ -29,7 +29,6 @@ export class ManageMoviesComponent {
       .subscribe(movies => {
         this.movies = movies;
         this.chooseSortMethod('TITLE');
-        console.log(movies);
       }, error => alert('Error getting movies'));
   }
 

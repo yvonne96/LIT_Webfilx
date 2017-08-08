@@ -2,7 +2,7 @@ import {Http} from '@angular/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
-import {Movie} from '../../model/movie';
+import {Classification, Genre, Movie} from '../../model/movie';
 import {MovieService} from './movie.service';
 import {RestService} from '../api-client/rest.service';
 
@@ -17,6 +17,17 @@ export class HttpMovieService extends MovieService {
 
   fetchAllMovies(): Observable<Movie[]> {
     return this.restService.get(baseUrl)
+      .build()
+      .map(resp => resp.json());
+  }
+  getGenreValues(): Observable<Genre[]> {
+    return this.restService.get('/genre')
+      .build()
+      .map(resp => resp.json());
+  }
+
+  getClassificationValues(): Observable<Classification[]> {
+    return this.restService.get('/classification')
       .build()
       .map(resp => resp.json());
   }
@@ -80,5 +91,6 @@ export class HttpMovieService extends MovieService {
       .build()
       .map(() => true)
   }
+
 }
 

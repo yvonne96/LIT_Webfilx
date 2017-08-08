@@ -15,12 +15,12 @@ export class Movie {
   image: string;
 }
 
-interface Classification {
+export interface Classification {
   value: string;
   id: number;
 }
 
-interface Genre {
+export interface Genre {
   value: string;
   id: number;
 }
