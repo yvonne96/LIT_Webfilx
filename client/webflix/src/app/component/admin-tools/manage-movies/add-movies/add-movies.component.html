@@ -4,22 +4,22 @@
         <h3 class="addMovietitle">Add Movie</h3>
         <hr>
       <form name="addMovie" id="addMovie" #f="ngForm" (ngSubmit)="addMovie() ; addPrice()">
-        <label>Name:</label>
-        <input type="text" class="form-control addText" name="title" [(ngModel)]="title" required >
+        <label>Name:
+        <input type="text" class="form-control addText" name="title" [(ngModel)]="title" required ></label>
         <br>
-        <label >Year:</label>
-          <input type="text" class="form-control addText" name="year" [(ngModel)]="year" required>
+        <label >Year:
+          <input type="text" class="form-control addText" name="year" [(ngModel)]="year" required></label>
         <br>
-        <label>Genre:</label>
-          <select value="Select" class="form-control addText" name="genre" [(ngModel)]="genre" required>
+        <label>Genre:
+          <select class="form-control addText" name="genre" [(ngModel)]="genre" required>
             <option value='5'>Horror</option>
             <option value='6'>Comedy</option>
             <option value='7'>Family</option>
             <option value='8'>Science Fiction</option>
-          </select>
+          </select></label>
         <br>
-        <label> Classification: </label>
-          <select value="Select" class="form-control addText" name="classification" [(ngModel)]="classification" required>
+        <label> Classification:
+          <select class="form-control addText" name="classification" [(ngModel)]="classification" required>
             <option value='8'>U</option>
             <option value='9'>PG</option>
             <option value='10'>PG13</option>
@@ -27,13 +27,13 @@
             <option value='12'>12A</option>
             <option value='13'>15</option>
             <option value='14'>18</option>
-          </select>
+          </select></label>
         <br>
-        <label >Director:</label>
-        <input type="text" class="form-control addText" name="director" [(ngModel)]="director" required>
+        <label >Director:
+        <input type="text" class="form-control addText" name="director" [(ngModel)]="director" required></label>
         <br>
-        <label>Price:</label>
-        <input type="number" class="form-control addText" min="0" step=".01" name="price" [(ngModel)]="price" required>
+        <label>Price:
+        <input type="number" class="form-control addText" min="0" step=".01" name="price" [(ngModel)]="price" required></label>
         <br>
         <form #f="ngForm" (ngSubmit)="saveImageToFile()">
           <label>Image:</label>
@@ -45,11 +45,11 @@
 
 
         <br>
-        <label>Main Cast:</label>
-        <textarea class="form-control addTextMainCast" name="mainCast" [(ngModel)]="mainCast" required> </textarea>
+        <label>Main Cast:
+        <textarea class="form-control addTextMainCast" name="mainCast" [(ngModel)]="mainCast" required> </textarea></label>
         <br>
-        <label >Description:</label>
-        <textarea class="form-control addTextMainCast" name="description" [(ngModel)]="description" required> </textarea>
+        <label >Description:
+        <textarea class="form-control addTextMainCast" name="description" [(ngModel)]="description" required> </textarea></label>
         <br>
 
         <input type="submit" value="Submit" class="btn btn-primary buttons" >
@@ -60,4 +60,3 @@
   </div>
 </div>
 
-<!--; addPrice()-->

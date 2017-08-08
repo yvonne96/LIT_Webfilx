@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="movie")
-@SecondaryTable(name="movie_price", pkJoinColumns = @PrimaryKeyJoinColumn(name = "movie_id"))
+// @SecondaryTable(name="movie_price", pkJoinColumns = @PrimaryKeyJoinColumn(name = "movie_id"))
 public class Movie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,13 +16,10 @@ public class Movie {
 	private Integer rating;
 	private String main_cast;
 	private String description;
-
 	private String director;
-
 	private String image;
-
 	private boolean purchasable;
-
+	private BigDecimal price;
 
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
@@ -33,8 +30,8 @@ public class Movie {
 	@JoinColumn(name = "classification")
 	private Classification classification;
 
-	@Column(table = "movie_price", name = "price")
-	private BigDecimal price;
+	// @Column(table = "movie_price", name = "price")
+	// private BigDecimal price;
 
 	public Movie() {
 		super();
@@ -42,14 +39,11 @@ public class Movie {
 		this.year = "";
 		this.price = new BigDecimal(0);
 		this.description = "";
-
 		this.image="";
-
 		this.rating = 0;
 		this.main_cast = "";
 		this.purchasable = true;
 		this.director = "";
-
 	}
 	
 
