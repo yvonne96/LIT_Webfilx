@@ -12,39 +12,38 @@
         <label htmlFor="year">Year:</label>
         <input type="text" class="form-control addText" name="year"
                [(ngModel)]="year" required>
+        <div style="color: red" *ngIf="f.submitted && yearValidation()" class="help-block">Please change Year to a valid year</div>
+
         <br>
         <label htmlFor="genre">Genre:</label>
         <select value="Select" [(ngModel)]="genre" name="genre" class="form-control addText" required>
           <option value="" selected="selected">Select option</option>
-          <option value='5'>Horror</option>
-          <option value='6'>Comedy</option>
-          <option value='7'>Family</option>
-          <option value='8'>Science Fiction</option>
+          <option *ngFor="let currentGenre of genres" value='{{currentGenre.id}}'>{{currentGenre.value}}</option>
+
         </select>
         <br>
         <label htmlFor="classification">Classification: </label>
         <select value="Select" [(ngModel)]="classification" name="classification" class="form-control addText" required>
           <option value="" selected="selected">Select option</option>
-          <option value='8'>U</option>
-          <option value='9'>PG</option>
-          <option value='10'>PG13</option>
-          <option value='11'>12</option>
-          <option value='12'>12A</option>
-          <option value='13'>15</option>
-          <option value='14'>18</option>
+          <option *ngFor="let currentClassification of classifications" value='{{currentClassification.id}}'>{{currentClassification.value}}</option>
+
         </select>
         <br>
         <label htmlFor="director">Director:</label>
         <input type="text" class="form-control addText" name="director" [(ngModel)]="director" required>
+        <div style="color: red" *ngIf="f.submitted && directorValidation()" class="help-block">Must contain at least one charachter</div>
         <br>
         <label htmlFor="price">Price:</label>
         <input type="number" class="form-control addText" min="0" step=".01" name="price" [(ngModel)]="price" required>
         <br>
         <label htmlFor="cast">Main Cast:</label>
         <textarea class="form-control addTextMainCast" [(ngModel)]="cast" name="cast" required> </textarea>
+        <div style="color: red" *ngIf="f.submitted && castValidation()" class="help-block">Must contain at least one charachter</div>
         <br>
         <label htmlFor="description">Description:</label>
-        <textarea class="form-control addTextMainCast" [(ngModel)]="description" name="description" required > </textarea>
+        <textarea class="form-control addTextMainCast" [(ngModel)]="description" name="description" required >
+          <div style="color: red" *ngIf="f.submitted && descriptionValidation()" class="help-block">Must contain at least one charachter</div>
+        </textarea>
         <br>
         <div class="form-group">
           <button class="btn btn-primary">Save Changes</button>
