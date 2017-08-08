@@ -16,13 +16,9 @@ public class Movie {
 	private Integer rating;
 	private String main_cast;
 	private String description;
-
 	private String director;
-
 	private String image;
-
 	private boolean purchasable;
-
 	private BigDecimal price;
 
 

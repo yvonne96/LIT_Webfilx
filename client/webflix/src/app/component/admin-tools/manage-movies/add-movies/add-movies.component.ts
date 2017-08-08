@@ -39,7 +39,7 @@ export class AddMoviesComponent {
   }
   addMovie() {
 
-    this.movieService.addMovie(this.title, this.year, this.genre,
+    this.movieService.addMovie(this.price, this.title, this.year, this.genre,
       this.classification, this.director, this.mainCast, this.description)
       .subscribe(
         next => {
@@ -52,7 +52,7 @@ export class AddMoviesComponent {
       );
   }
 
-  addPrice() {
+  /* addPrice() {
     console.log(this.price);
     this.movieService.addPrice(this.price)
       .subscribe(
@@ -64,7 +64,7 @@ export class AddMoviesComponent {
           console.log('Error adding movie');
         }
       );
-  }
+  } */
 
 }
 

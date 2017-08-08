@@ -33,7 +33,8 @@ export class HttpMovieService extends MovieService {
       .map(resp => resp.json());
   }
 
-  addMovie(title: string,
+  addMovie(price: number,
+           title: string,
            year: string,
            genre: number,
            classification: number,
@@ -41,7 +42,7 @@ export class HttpMovieService extends MovieService {
            cast: string,
            description: string): Observable<boolean> {
 
-    return this.restService.post(baseUrl + '/' + title + '/' + year + '/' + genre + '/' + classification
+    return this.restService.post(baseUrl + '/' + price + '/' + title + '/' + year + '/' + genre + '/' + classification
       + '/' + director  + '/' + cast + '/' + description)
       .build()
       .map(() => true)
@@ -51,7 +52,7 @@ export class HttpMovieService extends MovieService {
       });
   }
 
-  addPrice(price: number): Observable<boolean> {
+  /* addPrice(price: number): Observable<boolean> {
     return this.restService.post(baseUrl  + '/' + price )
       .build()
       .map(() => true)
@@ -59,7 +60,7 @@ export class HttpMovieService extends MovieService {
         console.log('unable to add movie');
         return Observable.of(false);
       });
-  }
+  }*/
 
   fetchById(id: number): Observable<Movie> {
 
@@ -72,13 +73,13 @@ export class HttpMovieService extends MovieService {
       });
   }
 
-  editMovie(id: number, title: string, year: string, genre: number,
-            classification: number, director: string, cast: string, description: string, price: number): Observable<boolean> {
+  editMovie(price: number, id: number, title: string, year: string, genre: number,
+            classification: number, director: string, cast: string, description: string): Observable<boolean> {
 
     return this.restService.post(baseUrl + '/' +  price + '/' + id + '/' + title + '/' + year + '/' +
       genre + '/' + classification + '/' + director + '/' + cast + '/' + description )
       .build()
-      .map(() => true)
+      .map(() => true);
   }
 }
 
