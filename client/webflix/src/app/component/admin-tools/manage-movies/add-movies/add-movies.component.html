@@ -3,7 +3,7 @@
     <div class="jumbotron">
         <h3 class="addMovietitle">Add Movie</h3>
         <hr>
-      <form name="addMovie" id="addMovie" #f="ngForm" (ngSubmit)="addMovie() ; addPrice()">
+      <form name="addMovie" id="addMovie" #f="ngForm" (ngSubmit)="addMovie()">
         <label>Name:
         <input type="text" class="form-control addText" name="title" [(ngModel)]="title" required ></label>
         <br>
@@ -26,12 +26,23 @@
         <label>Price:
         <input type="number" class="form-control addText" min="0" step=".01" name="price" [(ngModel)]="price" required></label>
         <br>
-        <form #f="ngForm" (ngSubmit)="saveImageToFile()">
-          <label>Image:</label>
-          <input type="file" name="image" [(ngModel)]="image" accept="image/*" required>
+        <!--<form #f="ngForm" (ngSubmit)="saveImageToFile()">-->
+          <!--<input type="file" id="movieImage" name="image" [(ngModel)]="image" accept="image/*" required>-->
 
-          <br>
-          <input type="submit" value="Save Image" class="btn btn-primary buttons">
+          <!--<br>-->
+          <!--<input type="submit" value="Save Image" class="btn btn-primary buttons">-->
+        <!--</form>-->
+        <form name="form" method="post" action="" enctype="multipart/form-data">
+          <div class="input-group">
+
+            <input id="imagePath" class="form-control" type="file" (change)="fileChangeEvent($event)" name="Image" accept="image/*" />
+
+            <span class="input-group-btn">
+
+        <a class="btn btn-success" (click)='uploadImagetoStorageContainer()'>Upload</a>
+
+    </span>
+          </div>
         </form>
 
 

@@ -44,7 +44,8 @@ export class HttpMovieService extends MovieService {
       .map(resp => resp.json());
   }
 
-  addMovie(price: number,
+  addMovie(imageName: string,
+            price: number,
            title: string,
            year: string,
            genre: number,
@@ -53,7 +54,7 @@ export class HttpMovieService extends MovieService {
            cast: string,
            description: string): Observable<boolean> {
 
-    return this.restService.post(baseUrl + '/' + price + '/' + title + '/' + year + '/' + genre + '/' + classification
+    return this.restService.post(baseUrl + '/' + imageName + '/' + price + '/' + title + '/' + year + '/' + genre + '/' + classification
       + '/' + director  + '/' + cast + '/' + description)
       .build()
       .map(() => true)
@@ -92,6 +93,5 @@ export class HttpMovieService extends MovieService {
       .build()
       .map(() => true);
   }
-
 }
 

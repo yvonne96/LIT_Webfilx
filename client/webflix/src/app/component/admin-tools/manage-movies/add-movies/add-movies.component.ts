@@ -4,7 +4,6 @@ import {Observable} from 'rxjs/Observable';
 import {AuthenticationService} from '../../../../service/authentication/authentication.service';
 import {MovieService} from '../../../../service/movie/movie.service';
 import {Movie, Genre, Classification} from '../../../../model/movie';
-
 @Component({
   moduleId: module.id,
   selector: 'add-movies',
@@ -22,9 +21,10 @@ export class AddMoviesComponent {
   private price: number;
   private mainCast: string;
   private description: string;
-  private image: string;
   private genres: Genre[];
   private classifications: Classification[];
+  private filesToUpload: File[];
+  private fileName: string;
 
   constructor(private movieService: MovieService, private router: Router,
               private authenticationService: AuthenticationService,
@@ -36,13 +36,9 @@ export class AddMoviesComponent {
     this.getClassificationValues(this.movieService.getClassificationValues());
   }
 
-  saveImageToFile() {
-    console.log('Here');
-    console.log(this.image);
-  }
   addMovie() {
-
-    this.movieService.addMovie(this.price, this.title, this.year, this.genre,
+    // console.log('printing imagae from add movie function:  ');
+    this.movieService.addMovie(this.fileName, this.price, this.title, this.year, this.genre,
       this.classification, this.director, this.mainCast, this.description)
       .subscribe(
         next => {
@@ -82,6 +78,44 @@ export class AddMoviesComponent {
       return 0;
     });
   }
+
+  fileChangeEvent(fileInput: any) {
+    this.filesToUpload = <Array<File>>fileInput.target.files;
+  }
+  uploadImagetoStorageContainer() {
+    this.makeFileRequest('/UploadImage/UploadImagetoBlob', [], this.filesToUpload).then((result) => {
+      console.log(result);
+    }, (error) => {
+      console.error(error);
+    });
+  }
+  makeFileRequest(url: string, params: Array<string>, files: Array<File>) {
+    return new Promise((resolve, reject) => {
+      let formData: any = new FormData();
+      formData.append('uploads[]', files[0], files[0].name);
+      this.fileName = files[0].name;
+      console.log(this.fileName);
+  //     pnp.sp.web.getFolderByServerRelativeUrl('/app/assets/images/').files.add('trial.jpg', file, true);
+  //
+  //     // let xhr = new XMLHttpRequest();
+  //
+  //     // xhr.onreadystatechange = function () {
+  //     //   if (xhr.readyState === 4) {
+  //     //     if (xhr.status === 200) {
+  //     //       alert(' uploaded image into storgae blob');
+  //     //       resolve(JSON.parse(xhr.response));
+  //     //
+  //     //     } else {
+  //     //       reject(xhr.response);
+  //     //     }
+  //     //   }
+  //     // }
+  //     // xhr.open('POST', url, true);
+  //     // xhr.send(formData);
+    });
+  }
+
+
 
 }
 

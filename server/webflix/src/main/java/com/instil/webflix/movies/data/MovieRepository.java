@@ -27,8 +27,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	
 	@Transactional
 	@Modifying
-	@Query(nativeQuery = true, value = "INSERT INTO movie (price, title, year,genre, classification, director, main_cast, description) VALUES (:price, :title , :year , :genre, :classification, :director, :mainCast, :description)")
-	void addMovie(@Param("price") float price, @Param("title") String title, @Param("year") String year, @Param("genre") Integer genre, @Param("classification") Integer classification, @Param("director") String director, @Param("mainCast") String mainCast, @Param("description") String description);
+	@Query(nativeQuery = true, value = "INSERT INTO movie (price, title, year,genre, classification, director, main_cast, description, image) VALUES (:price, :title , :year , :genre, :classification, :director, :mainCast, :description, :imageName)")
+	void addMovie(@Param("imageName") String imageName, @Param("price") float price, @Param("title") String title, @Param("year") String year, @Param("genre") Integer genre, @Param("classification") Integer classification, @Param("director") String director, @Param("mainCast") String mainCast, @Param("description") String description);
 	
 	
 	//@Transactional
@@ -38,7 +38,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
 	@Transactional
 	@Modifying
-	@Query(nativeQuery = true, value = "UPDATE movie SET price = :price, title = :title, year = :year, genre = :genre, classification = :classification, director = :director, main_cast = :mainCast, description = :description  WHERE id = :id")
+	@Query(nativeQuery = true, value = "UPDATE movie SET price = :price, title = :title, year = :year, genre = :genre, classification = :classification, director = :director, main_cast = :mainCast, description = :description,   WHERE id = :id")
 	void editMovie(@Param("price") float price, @Param("id") int id, @Param("title") String title, @Param("year") String year, @Param("genre") Integer genre, @Param("classification") Integer classification, @Param("director") String director, @Param("mainCast") String mainCast, @Param("description") String description);
 	
 	//@Transactional

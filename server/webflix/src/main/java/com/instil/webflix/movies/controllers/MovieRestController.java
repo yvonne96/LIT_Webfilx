@@ -80,10 +80,10 @@ public class MovieRestController {
 		repository.save(movie);
 	}
 	
-	@RequestMapping(method = POST, value="/{price}/{title}/{year}/{genre}/{classification}/{director}/{mainCast}/{description}",  produces = "application/json")
-	public void addMovie(@PathVariable("price") float price, @PathVariable("title") String title, @PathVariable("year") String year, @PathVariable("genre") Integer genre, @PathVariable("classification") Integer classification, @PathVariable("director") String director, @PathVariable("mainCast") String mainCast, @PathVariable("description") String description){
+	@RequestMapping(method = POST, value="/{imageName}/{price}/{title}/{year}/{genre}/{classification}/{director}/{mainCast}/{description}",  produces = "application/json")
+	public void addMovie(@PathVariable("imageName") String imageName, @PathVariable("price") float price, @PathVariable("title") String title, @PathVariable("year") String year, @PathVariable("genre") Integer genre, @PathVariable("classification") Integer classification, @PathVariable("director") String director, @PathVariable("mainCast") String mainCast, @PathVariable("description") String description){
 		System.out.print("test");
-		repository.addMovie(price, title, year, genre, classification, director, mainCast, description);
+		repository.addMovie(imageName, price, title, year, genre, classification, director, mainCast, description);
 	}
 	
 	//@RequestMapping(method = POST, value="/{price}",  produces = "application/json")
@@ -95,10 +95,7 @@ public class MovieRestController {
 	
 	@RequestMapping(method = POST,value="/{price}/{id}/{title}/{year}/{genre}/{classification}/{director}/{cast}/{description}", consumes = "application/json")
 	public void editMovie(@PathVariable("price") float price ,@PathVariable("id")int id,@PathVariable("title") String title, @PathVariable("year") String year, @PathVariable("genre") Integer genre, @PathVariable("classification") Integer classification,@PathVariable("director") String director, @PathVariable("cast") String mainCast, @PathVariable("description") String description) {
-		System.out.println("in rest controller:  " + price);
 		repository.editMovie(price, id,title,year,genre,classification,director,mainCast,description);
-		// repository.editMoviePrice(id,price);
 	}
-
-
+	
 }
