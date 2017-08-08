@@ -39,10 +39,10 @@ export class HttpMovieService extends MovieService {
            classification: number,
            director: string,
            cast: string,
-           description: string): Observable<boolean> {
-    debugger;
+           description: string,
+           image: string): Observable<boolean> {
     return this.restService.post(baseUrl + '/' + title + '/' + year + '/' + genre + '/' + classification
-      + '/' + director  + '/' + cast + '/' + description)
+      + '/' + director + '/' + cast + '/' + description + '/' + image)
       .build()
       .map(() => true)
       .catch(error => {
@@ -52,7 +52,7 @@ export class HttpMovieService extends MovieService {
   }
 
   addPrice(price: number): Observable<boolean> {
-    return this.restService.post(baseUrl  + '/' + price )
+    return this.restService.post(baseUrl + '/' + price)
       .build()
       .map(() => true)
       .catch(error => {
@@ -71,3 +71,4 @@ export class HttpMovieService extends MovieService {
         return Observable.of();
       });
   }
+}

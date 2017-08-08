@@ -20,8 +20,10 @@ import {MovieTableRowComponent} from './component/movie-table/movie.table.row.co
 import {MovieSearchComponent} from './component/movie-search/movie-search.component';
 import {MyMoviesComponent} from './component/my-movies/my-movies.component';
 import {RegisterNewUserComponent} from './component/login/register-new-user.component';
-import {UserDashboardComponent} from './component/user-dashboard/user-dashboard.components';
+import {UserDashboardComponent} from './component/user-dashboard/user-dashboard.component';
 import { MovieGridComponent } from './component/movie-grid/movie.grid.component';
+import { WishlistComponent } from './component/wishlist/wishlist.component';
+import { WishlistButtonComponent } from './component/wishlist-button/wishlist-button.component';
 
 
 import {ApiClient} from './service/api-client/api-client.service';
@@ -35,6 +37,8 @@ import {RestService} from './service/api-client/rest.service';
 import {StorageService} from './service/storage/storage.service';
 import {VoucherService} from './service/voucher/voucher.service';
 import {HttpVoucherService} from './service/voucher/http-voucher.service';
+import {WishlistService} from './service/wishlist/wishlist.service';
+import {HttpWishlistService} from './service/wishlist/http-wishlist.service';
 
 
 import {GridComponent} from './component/movie-grid/grid.component';
@@ -67,6 +71,10 @@ const appRoutes: Routes = [
       {
         path: 'admin/manage-movies/add-movies',
         component: AddMoviesComponent
+      },
+      {
+        path: 'wishlist',
+        component: WishlistComponent,
       }
     ]
   },
@@ -100,6 +108,8 @@ const appRoutes: Routes = [
     UserDashboardComponent,
     MovieGridComponent,
     GridComponent,
+    WishlistButtonComponent,
+    WishlistComponent
   ],
   bootstrap: [
     AppComponent
@@ -113,6 +123,7 @@ const appRoutes: Routes = [
     {provide: MovieService, useClass: HttpMovieService},
     {provide: RestService, useClass: AuthorisedRestService},
     {provide: VoucherService, useClass: HttpVoucherService},
+    {provide: WishlistService, useClass: HttpWishlistService },
     StorageService,
   ]
 })

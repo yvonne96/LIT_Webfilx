@@ -33,14 +33,13 @@ export class AddMoviesComponent {
       .subscribe(x => this.isAdmin = x);
   }
 
-  saveImageToFile() {
-    console.log('Here');
-    console.log(this.image);
+  saveImageToFile(e) {
+    this.image = e.srcElement.files[0].name;
   }
   addMovie() {
 
     this.movieService.addMovie(this.title, this.year, this.genre,
-      this.classification, this.director, this.mainCast, this.description)
+      this.classification, this.director, this.mainCast, this.description, this.title + '.jpg')
       .subscribe(
         next => {
           this.router.navigate(['/dashboard/admin/manage-movies']);

@@ -15,7 +15,8 @@ export abstract class MovieService {
                     classification: number,
                     director: string,
                     cast: string,
-                    description: string): Observable<boolean>;
+                    description: string,
+                    image: string): Observable<boolean>;
 
 
 }

@@ -77,10 +77,10 @@ public class MovieRestController {
 		repository.save(movie);
 	}
 	
-	@RequestMapping(method = POST, value="/{title}/{year}/{genre}/{classification}/{director}/{mainCast}/{description}",  produces = "application/json")
-	public void addMovie(@PathVariable("title") String title, @PathVariable("year") String year, @PathVariable("genre") Integer genre, @PathVariable("classification") Integer classification, @PathVariable("director") String director, @PathVariable("mainCast") String mainCast, @PathVariable("description") String description){
+	@RequestMapping(method = POST, value="/{title}/{year}/{genre}/{classification}/{director}/{mainCast}/{description}/{image}",  produces = "application/json")
+	public void addMovie(@PathVariable("title") String title, @PathVariable("year") String year, @PathVariable("genre") Integer genre, @PathVariable("classification") Integer classification, @PathVariable("director") String director, @PathVariable("mainCast") String mainCast, @PathVariable("description") String description, @PathVariable("image") String image){
 		System.out.print("test");
-		repository.addMovie(title, year, genre, classification, director, mainCast, description);
+		repository.addMovie(title, year, genre, classification, director, mainCast, description, image);
 	}
 	
 	@RequestMapping(method = POST, value="/{price}",  produces = "application/json")
