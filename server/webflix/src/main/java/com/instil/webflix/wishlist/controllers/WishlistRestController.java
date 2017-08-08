@@ -48,12 +48,12 @@ public class WishlistRestController {
     	if(!inBasket){
     		basketService.addMovieToBasket(accountService.getCurrent(), movie);
     	}  */
-    	wishlistService.addMovieToBasket(accountService.getCurrent(), movie);
+    	wishlistService.addMovieToWishlist(accountService.getCurrent(), movie);
     }
 
     @RequestMapping(method = DELETE, value = "/", produces = "application/json")
     public void clear() {
-        wishlistService.clearBasket(accountService.getCurrent());
+        wishlistService.clearWishlist(accountService.getCurrent());
     }
 
     @RequestMapping(method = DELETE, value = "/movieId/{movieId}", produces = "application/json")

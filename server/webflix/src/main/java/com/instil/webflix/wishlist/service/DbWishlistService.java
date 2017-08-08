@@ -39,14 +39,14 @@ public class DbWishlistService implements WishlistService {
 		return wishlist.getItems().size();
 	}
 
-	public void addMovieToBasket(Account account, Movie movie) {
+	public void addMovieToWishlist(Account account, Movie movie) {
 		Wishlist wishlist = getWishlistForAccount(account);
 		wishlist.getItems().add(new WishlistItem(wishlist, movie));
 		wishlistRepository.save(wishlist);
 	}
 
 	@Override
-	public void clearBasket(Account account) {
+	public void clearWishlist(Account account) {
 		Wishlist wishlist = getWishlistForAccount(account);
 		wishlistRepository.delete(wishlist);
 	}
@@ -54,7 +54,7 @@ public class DbWishlistService implements WishlistService {
 	@Override
 	public WishlistSummary getSummary(Account account) {
 		Wishlist wishlist = getWishlistForAccount(account);
-		Collection<Movie> moviesForBasket = getMoviesForBasket(wishlist);
+		Collection<Movie> moviesForBasket = getMoviesForWishlist(wishlist);
 		return new WishlistSummary(moviesForBasket, getTotalCostForMovies(moviesForBasket));
 	}
 
@@ -82,7 +82,7 @@ public class DbWishlistService implements WishlistService {
 	}
 	
 
-	private Collection<Movie> getMoviesForBasket(Wishlist wishlist) {
+	private Collection<Movie> getMoviesForWishlist(Wishlist wishlist) {
 		return wishlist.getItems().stream()
 				.map(WishlistItem::getMovie)
 				.collect(toList());
@@ -95,7 +95,7 @@ public class DbWishlistService implements WishlistService {
 		}
 		else
 		{
-			logger.info("Could not find basket for account: " + account.getEmailAddress());
+			logger.info("Could not find wishlist for account: " + account.getEmailAddress());
 			return new Wishlist(account);
 		}
 	}

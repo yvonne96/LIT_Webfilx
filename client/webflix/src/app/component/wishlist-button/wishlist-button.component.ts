@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {WishlistService} from '../../service/wishlist/wishlist.service';
 
+
 @Component({
   moduleId: module.id,
   selector: 'wishlist-button',
@@ -11,7 +12,7 @@ export class WishlistButtonComponent {
 
   constructor(private wishlistService: WishlistService) {
     this.readItemCountForUser();
-    this.wishlistService.getWishlistItemCount().subscribe(
+    this.wishlistService.wishlistCount.subscribe(
       value => this.itemCount = value
     );
   }

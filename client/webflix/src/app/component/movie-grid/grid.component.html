@@ -3,7 +3,8 @@
     <div class="col-sm-4" *ngFor="let movie of movies" movie-grid
          [currentMovie]="movie"
          [showAddToBasket]="showAddToBasket" [showPrice]="showPrice"
-         (onAddMovieToBasket)="movieAdded($event)">
+         (onAddMovieToBasket)="movieAdded($event)"
+         (onAddMovieToWishlist)="movieAddedToWishlist($event)">
     </div>
   </div>
 </div>

@@ -7,9 +7,9 @@ import com.instil.webflix.security.model.Account;
 public interface WishlistService {
 	int getItemCount(Account account);
 
-	void addMovieToBasket(Account account, Movie movie);
+	void addMovieToWishlist(Account account, Movie movie);
 
-	void clearBasket(Account account);
+	void clearWishlist(Account account);
 
 	WishlistSummary getSummary(Account account);
 

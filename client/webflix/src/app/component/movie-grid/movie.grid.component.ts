@@ -25,6 +25,8 @@ export class MovieGridComponent {
   showPrice: boolean;
   @Output()
   onAddMovieToBasket = new EventEmitter<Movie>();
+  @Output()
+    onAddMovieToWishlist = new EventEmitter<Movie>();
   info: string = '';
   image: string = '';
   isSet: boolean = false;
@@ -51,6 +53,11 @@ export class MovieGridComponent {
       this.onAddMovieToBasket.emit(this.theMovie);
     }
   }
+  
+  addMovieToWishlist(): void {
+    this.onAddMovieToWishlist.emit(this.theMovie);
+  }
+  
   private readBasketForUser() {
     this.basketService.getBasketSummary()
       .subscribe(
@@ -98,21 +105,6 @@ export class MovieGridComponent {
   hideInfo() {
     this.info = '';
   }
-/*
-  getImageData() {
-    const data =  this.http
-      .get('https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=' + this.theMovie.title)
-      .subscribe(dat => {
-        this.image = dat.json().results[0].poster_path;
-       this.isSet = true;
-      });
-    if (this.image !== '') {
-      data.unsubscribe();
-      console.log(this.image);
-      return this.image;
-    }
-  }*/
-
 
   setImageData() {
     return this.image;
