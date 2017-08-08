@@ -20,7 +20,9 @@
   border: hotpink;
 }
 
-descriptionP {
-  font-size: 12px;
-  font-weight: normal;
+.infobtn {
+  display:block;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
 }
