@@ -18,7 +18,21 @@
     <p *ngIf="owned" class="inBasketOrOwnedMsg">
       You own this Movie!
     </p>
-  </div><br><br><br><br><br>
+    <div class="buttonDiv">
+      <button class="btn btn-danger">
+        <span class="glyphicon glyphicon-list"></span>
+        <span>Add to Wishlist</span>
+        <span class="badge"></span>
+      </button>
+    </div>
+    <div class="buttonDiv">
+      <button class="btn btn-warning">
+        <span class="glyphicon glyphicon-heart"></span>
+        <span>Add to Favourites</span>
+        <span class="badge"></span>
+      </button>
+    </div>
+  </div><br><br><br>
   <div>
     <h3>Description:</h3><br>
     <p>{{theMovie?.description}}</p><br><br>
