@@ -40,8 +40,8 @@ export class EditMovieComponent {
 
   editMovie() {
     if (this.validate()) {
-      this.movieService.editMovie(this.id, this.title.trim(), this.year.trim(),
-        this.genre, this.classification, this.director.trim(), this.cast.trim(), this.description.trim(), this.price)
+      this.movieService.editMovie(this.price, this.id, this.title, this.year,
+        this.genre, this.classification, this.director, this.cast, this.description)
         .subscribe(
           next => {
             this.router.navigate(['/dashboard/admin/manage-movies']);
