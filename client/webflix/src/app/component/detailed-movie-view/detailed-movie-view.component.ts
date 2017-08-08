@@ -21,6 +21,7 @@ export class DetailedMovieViewComponent {
   public inBasket: boolean;
   public summary: BasketSummary;
   public myMovies: Movie[];
+  public reviewMenuToggled: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private movieService: MovieService,
@@ -97,6 +98,14 @@ export class DetailedMovieViewComponent {
       }
     }
     return false;
+  }
+
+  createReview() {
+    console.log('CREATE REVIEW');
+  }
+
+  toggleReviewForm() {
+    this.reviewMenuToggled = (!this.reviewMenuToggled);
   }
 
 }

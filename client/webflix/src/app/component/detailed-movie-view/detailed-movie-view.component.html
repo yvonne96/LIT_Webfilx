@@ -1,4 +1,5 @@
 <div class="jumbotron">
+  <button class="btn btn-danger" (click)="backClick()">Back</button>
   <h2>Detailed Movie View</h2><br>
   <img src="" alt="PLACEHOLDER">
   <div>
@@ -34,11 +35,26 @@
     </div>
   </div><br><br><br>
   <div>
-    <h3>Description:</h3><br>
-    <p>{{theMovie?.description}}</p><br><br>
-    <h3>Reviews:</h3><br>
+    <h3>Description:</h3>
+    <p>{{theMovie?.description}}</p><hr>
+
+    <h3>Reviews: <button class="btn btn-success" (click)="toggleReviewForm()">Add a review</button><br><br></h3><br>
+
+    <form (ngSubmit)="createReview()" *ngIf="reviewMenuToggled">
+      <div class="form-group">
+        <label>Score: </label>
+        <input>
+      </div>
+      <div class="form-group">
+        <label>Comments: </label><br>
+        <textarea rows="4" cols="70" maxlength="140"></textarea>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary">Submit</button>
+        <button class="btn btn-primary" (click)="toggleReviewForm()">Cancel</button>
+        <hr>
+      </div>
+    </form>
     <p>PLACEHOLDER</p><br>
-    <button class="btn btn-success">Add a review</button><br><br>
-    <button class="btn btn-danger" (click)="backClick()">Back</button>
   </div>
 </div>

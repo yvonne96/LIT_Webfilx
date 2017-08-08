@@ -14,3 +14,7 @@ img{
 .buttonDiv {
   margin: 10px;
 }
+
+hr{
+  border-top: 1px solid #8c8b8b;
+}
