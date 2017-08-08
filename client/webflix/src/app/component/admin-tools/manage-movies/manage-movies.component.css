@@ -9,7 +9,7 @@
   display: inline-block;
   font-size: 14px;
   border-radius: 4px;
-  max-width: 100px;
+  min-width: 80px;
 }
 .ManageMovieHeadingbutton:hover{
   background-color: #286090;
@@ -20,7 +20,9 @@
   border: hotpink;
 }
 
-descriptionP {
-  font-size: 12px;
-  font-weight: normal;
+.infobtn {
+  display:block;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
 }
