@@ -24,27 +24,11 @@ export class UserDashboardComponent {
               private basketService: BasketService) {
     authenticationService.isAdmin
       .subscribe(x => this.isAdmin = x);
-    this.extractPurchasableMovies(this.movieService.fetchPurchasableMovies());
-    this.extractBasketMovies(this.basketService.getBasketSummary());
   }
 
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
-  }
-
-  extractPurchasableMovies(source: Observable<Movie[]>) {
-    source
-      .subscribe(movies => {
-        this.purchasableMovies = movies;
-      }, error => ('Could not pull purchasable movies'));
-  }
-
-  extractBasketMovies(source: Observable<BasketSummary>) {
-    source
-      .subscribe(summary => {
-        this.basketMovies = summary.movies;
-      }, error => ('Error reading basket movies'));
   }
 
 }

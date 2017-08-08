@@ -22,26 +22,10 @@ var UserDashboardComponent = (function () {
         this.basketService = basketService;
         authenticationService.isAdmin
             .subscribe(function (x) { return _this.isAdmin = x; });
-        this.extractPurchasableMovies(this.movieService.fetchPurchasableMovies());
-        this.extractBasketMovies(this.basketService.getBasketSummary());
     }
     UserDashboardComponent.prototype.logout = function () {
         this.authenticationService.logout();
         this.router.navigate(['/login']);
-    };
-    UserDashboardComponent.prototype.extractPurchasableMovies = function (source) {
-        var _this = this;
-        source
-            .subscribe(function (movies) {
-            _this.purchasableMovies = movies;
-        }, function (error) { return ('Could not pull purchasable movies'); });
-    };
-    UserDashboardComponent.prototype.extractBasketMovies = function (source) {
-        var _this = this;
-        source
-            .subscribe(function (summary) {
-            _this.basketMovies = summary.movies;
-        }, function (error) { return ('Error reading basket movies'); });
     };
     UserDashboardComponent = __decorate([
         core_1.Component({
