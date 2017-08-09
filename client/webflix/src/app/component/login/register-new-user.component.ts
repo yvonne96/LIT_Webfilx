@@ -75,7 +75,6 @@ export class RegisterNewUserComponent {
     return false;
   }
 
-
   setLoginFailureMessage() {
     this.errorMessage = 'Registration failed.';
     this.isLoading = false;

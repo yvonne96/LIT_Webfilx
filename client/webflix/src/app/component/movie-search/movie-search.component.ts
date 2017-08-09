@@ -39,9 +39,6 @@ export class MovieSearchComponent {
   }
 
   private fetchAllMovies(): void {
-
-  //  this.extractMovies(this.checkDuplicates(this.movieService.fetchAllMovies()));
-
      this.extractMovies(this.movieService.fetchAllMovies());
   }
 

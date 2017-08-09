@@ -194,7 +194,6 @@ export class ManageVouchersComponent {
       .subscribe(vouchers => {
         this.vouchers = vouchers;
         this.intializeSort();
-        console.log(vouchers);
       }, error => alert('Error getting vouchers'));
   }
 
