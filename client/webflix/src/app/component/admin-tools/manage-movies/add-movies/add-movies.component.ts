@@ -38,7 +38,7 @@ export class AddMoviesComponent {
 
   addMovie() {
     // console.log('printing imagae from add movie function:  ');
-    this.movieService.addMovie(this.fileName, this.price, this.title, this.year, this.genre,
+    this.movieService.addMovie(this.price, this.title, this.year, this.genre,
       this.classification, this.director, this.mainCast, this.description)
       .subscribe(
         next => {
