@@ -44,7 +44,11 @@ public class AccountRestController {
 
 	@RequestMapping(method = POST, value = "/register", produces = "application/json")
 	public ResponseEntity<Object> register(@RequestBody() Account newAccount) {
-		
 		return accountService.register(newAccount);
+	}
+	
+	@RequestMapping(method = GET, value = "/currentUserID", produces = "application/json")
+	public Long getCurrentUserID() {
+		return accountService.getCurrent().getId();
 	}
 }

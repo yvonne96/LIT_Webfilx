@@ -6,6 +6,10 @@ import {Observable} from 'rxjs/Observable';
 import {Location} from '@angular/common';
 import {BasketService} from '../../service/basket/basket.service';
 import {BasketSummary} from '../../model/basket-summary';
+import {ReviewService} from '../../service/review/review.service';
+import {Account} from '../../model/account';
+import {ApiClient} from '../../service/api-client/api-client.service';
+import {Review} from '../../model/review';
 
 @Component({
   moduleId: module.id,
@@ -22,16 +26,24 @@ export class DetailedMovieViewComponent {
   public summary: BasketSummary;
   public myMovies: Movie[];
   public reviewMenuToggled: boolean = false;
+  public score: number;
+  public comments: string;
+  public currentUserID: number;
+  public reviews: Review[];
 
   constructor(private activatedRoute: ActivatedRoute,
               private movieService: MovieService,
               private basketService: BasketService,
-              private location: Location) {
+              private location: Location,
+              private reviewService: ReviewService,
+              private apiClient: ApiClient) {
     this.summary = BasketSummary.empty();
     this.pullIdFromParams();
     this.retrieveMovieData(this.movieService.fetchById(Number(this.theMovieID)));
     this.readBasketForUser();
     this.readMyMoviesForUser();
+    this.retrieveCurrentAccountID(this.apiClient.getCurrentAccountID());
+    this.retrieveReviewsForMovie(this.reviewService.getReviewsByMovieID(this.theMovieID));
   }
 
   retrieveMovieData(source: Observable<Movie>) {
@@ -101,7 +113,43 @@ export class DetailedMovieViewComponent {
   }
 
   createReview() {
-    console.log('CREATE REVIEW');
+    console.log(this.comments);
+    console.log(this.score);
+    this.reviewService.createReview(this.currentUserID, this.theMovieID, this.comments, this.score)
+      .subscribe(() => {
+        this.refreshReviewForm();
+        this.refreshReviews();
+        this.toggleReviewForm();
+      }, error => ('Unable to create Review'));
+
+  }
+
+  retrieveReviewsForMovie(source: Observable<Review[]>) {
+    source
+      .subscribe(reviews => {
+        this.reviews = reviews;
+        console.log(this.reviews);
+      }, error => ('Error retrieving reviews for movie'));
+  }
+
+  refreshReviews(){
+    this.reviewService.getReviewsByMovieID(this.theMovieID)
+      .subscribe(reviews => {
+        this.reviews = reviews;
+      });
+  }
+
+  refreshReviewForm() {
+    let form = <HTMLFormElement>document.getElementById('createReview');
+    form.reset();
+  }
+
+  retrieveCurrentAccountID(source: Observable<number>) {
+    source
+      .subscribe(id => {
+        this.currentUserID = id;
+        console.log(this.currentUserID);
+      }, error => ('Unable to retrieve current user ID'));
   }
 
   toggleReviewForm() {
