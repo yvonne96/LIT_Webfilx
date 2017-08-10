@@ -12,5 +12,4 @@ public interface AccountService {
 	
 	ResponseEntity<Object> register(Account newAccount);
 	
-	String buildUserDataByID(int accountID);
 }

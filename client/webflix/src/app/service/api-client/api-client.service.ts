@@ -66,8 +66,8 @@ export class ApiClient {
       .map(resp => resp.json());
   }
 
-  getCurrentAccountUsernameEmail(accountID: number): Observable<string> {
-    return this.restService.get('/account/UsernameEmail/' + accountID)
+  getAccountByID(accountID: number): Observable<Account> {
+    return this.restService.get('/account/UserByID/' + accountID)
       .build()
       .map(resp => resp.json());
   }
