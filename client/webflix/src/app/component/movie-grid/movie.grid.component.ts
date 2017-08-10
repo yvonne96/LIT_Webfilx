@@ -1,9 +1,10 @@
 import {Component, Input, EventEmitter, Output} from '@angular/core';
 import {Movie} from '../../model/movie';
-import {Http, } from '@angular/http';
 import {BasketService} from '../../service/basket/basket.service';
 import {BasketSummary} from '../../model/basket-summary';
 import {MovieService} from '../../service/movie/movie.service';
+import {WishlistService} from '../../service/wishlist/wishlist.service';
+import {WishlistSummary} from '../../model/wishlist-summary';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -21,23 +22,28 @@ export class MovieGridComponent {
   theMovie: any;
   @Input('showAddToBasket')
   showAddToBasket: boolean;
+  @Input('showAddToWishlist')
+  showAddToWishlist: boolean;
   @Input('showPrice')
   showPrice: boolean;
   @Output()
   onAddMovieToBasket = new EventEmitter<Movie>();
   @Output()
-    onAddMovieToWishlist = new EventEmitter<Movie>();
+  onAddMovieToWishlist = new EventEmitter<Movie>();
   info: string = '';
   image: string = '';
   isSet: boolean = false;
   public summary: BasketSummary;
+  public wishlistSummary: WishlistSummary;
   public myMovies: Movie[];
 
 
-  constructor(private http: Http,
-              private basketService: BasketService,
-              private movieService: MovieService) {
+  constructor(private basketService: BasketService,
+              private movieService: MovieService,
+              private wishlistService: WishlistService) {
     this.summary = BasketSummary.empty();
+    this.wishlistSummary = WishlistSummary.empty();
+    this.readWishlistForUser();
     this.readBasketForUser();
     this.readMyMoviesForUser();
   }
@@ -48,20 +54,41 @@ export class MovieGridComponent {
     } else if (this.checkForBasketDuplicates()) {
       alert('Already in basket!!');
     } else {
+      if (this.wishlistSummary.movies.indexOf(this.theMovie)) {
+        this.wishlistService.removeMovie(this.theMovie)
+          .subscribe(res => {console.log(res); } );
+      }
       this.showAddToBasket = true;
       this.showPrice = true;
       this.onAddMovieToBasket.emit(this.theMovie);
     }
   }
-  
+
   addMovieToWishlist(): void {
-    this.onAddMovieToWishlist.emit(this.theMovie);
+    if (this.checkForMovieDuplicates()) {
+      alert('Already bought!!');
+    } else if (this.checkForWishlistDuplicates()) {
+      alert('Already in wishlist');
+    } else if (this.checkForBasketDuplicates()){
+      alert('Already in basket');
+    } else {
+      this.showAddToWishlist = true;
+      this.onAddMovieToWishlist.emit(this.theMovie);
+    }
+
   }
-  
+
   private readBasketForUser() {
     this.basketService.getBasketSummary()
       .subscribe(
         summary => this.summary = summary);
+  }
+
+  private readWishlistForUser() {
+    this.wishlistService.getWishlistSummary()
+      .subscribe(
+        summary => this.wishlistSummary = summary
+      );
   }
   private readMyMoviesForUser() {
     this.movieService.fetchMyMovies()
@@ -85,6 +112,17 @@ export class MovieGridComponent {
       }
     }
     this.summary.movies.push(this.theMovie);
+    return false;
+  }
+
+  checkForWishlistDuplicates() {
+    let wishlistMovies: Movie[] = this.wishlistSummary.movies;
+    for (let n = 0; n < wishlistMovies.length; n++) {
+      if (this.theMovie.id === wishlistMovies[n].id) {
+        return true;
+      }
+    }
+    this.wishlistSummary.movies.push(this.theMovie);
     return false;
   }
 

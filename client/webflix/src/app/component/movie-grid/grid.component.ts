@@ -17,12 +17,16 @@ export class GridComponent {
   @Input('showAddToBasket')
   showAddToBasket: boolean;
 
+  @Input('showAddToWishlist')
+  showAddToWishlist: boolean;
+
   @Input('showPrice')
   showPrice: boolean;
 
   constructor(private basket: BasketService,
               private wishlist: WishlistService) {
     this.showAddToBasket = true;
+    this.showAddToWishlist = true;
     this.showPrice = true;
   }
 

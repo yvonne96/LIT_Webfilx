@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {Movie} from '../../model/movie';
 import {BasketService} from '../../service/basket/basket.service';
+import {WishlistService} from '../../service/wishlist/wishlist.service';
 
 
 @Component({
@@ -17,15 +18,23 @@ export class MovieDisplayComponent {
   @Input('showAddToBasket')
   showAddToBasket: boolean;
 
+  @Input('showAddToWishlist')
+  showAddToWishlist: boolean;
+
   @Input('showPrice')
   showPrice: boolean;
 
-  constructor(private basket: BasketService) {
+  constructor(private basket: BasketService, private wishlist: WishlistService) {
     this.showAddToBasket = true;
+    this.showAddToWishlist = true;
     this.showPrice = true;
   }
 
   movieAdded(movie: Movie) {
     this.basket.addToBasket(movie).subscribe();
+  }
+
+  wishlistMovieAdded(movie: Movie) {
+    this.wishlist.addToWishlist(movie).subscribe();
   }
 }

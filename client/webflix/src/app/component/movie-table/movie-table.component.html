@@ -1,20 +1,21 @@
 <table class="table">
   <thead>
   <tr>
-    <th class="col-md-4">Title</th>
+    <th class="col-md-3">Title</th>
     <th class="col-md-1">Year</th>
-    <th class="col-md-2">Genre</th>
+    <th class="col-md-1">Genre</th>
     <th class="col-md-1">Classification</th>
 
     <th class="col-md-1" *ngIf="showPrice">Price</th>
     <th class='col-md-1' *ngIf="showAddToBasket"></th>
+    <th class="col-md-2" *ngIf="showAddToWishlist"></th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let movie of movies" movie-table-row
       [currentMovie]="movie"
-      [showAddToBasket]="showAddToBasket" [showPrice]="showPrice"
-      (onAddMovieToBasket)="movieAdded($event)">
+      [showAddToBasket]="showAddToBasket" [showPrice]="showPrice" [showAddToWishlist]="showAddToWishlist"
+      (onAddMovieToBasket)="movieAdded($event)" (onAddMovieToWishlist)="wishlistMovieAdded($event)">
   </tr>
   </tbody>
 </table>
