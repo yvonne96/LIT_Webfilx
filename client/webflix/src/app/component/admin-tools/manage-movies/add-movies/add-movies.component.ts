@@ -25,6 +25,7 @@ export class AddMoviesComponent {
   private classifications: Classification[];
   private filesToUpload: File[];
   private fileName: string;
+  private errorMessage: string;
 
   constructor(private movieService: MovieService, private router: Router,
               private authenticationService: AuthenticationService,
@@ -38,16 +39,20 @@ export class AddMoviesComponent {
 
   addMovie() {
     // console.log('printing imagae from add movie function:  ');
-    this.movieService.addMovie(this.price, this.title, this.year, this.genre,
-      this.classification, this.director, this.mainCast, this.description)
-      .subscribe(
-        next => {
-          this.router.navigate(['/dashboard/admin/manage-movies']);
-        },
-        error => {
-          console.log('Error adding movie');
-        }
-      );
+    if (this.validate()){
+      this.movieService.addMovie(this.price, this.title, this.year, this.genre,
+        this.classification, this.director, this.mainCast, this.description)
+        .subscribe(
+          next => {
+            this.router.navigate(['/dashboard/admin/manage-movies']);
+          },
+          error => {
+            console.log('Error adding movie');
+            this.errorMessage = 'Adding ' + this.title + ' was unsuccessful';
+          }
+        );
+    }
+    this.errorMessage = 'Adding ' + this.title + ' was unsuccessful';
   }
 
   getGenreValues(source: Observable<Genre[]>) {
@@ -115,5 +120,29 @@ export class AddMoviesComponent {
     });
   }
 
+  validate() {
+    return !(this.castValidation() || this.directorValidation() || this.descriptionValidation() || this.yearValidation());
+  }
+
+  yearValidation() {
+    let matcher = new RegExp(/^(181[2-9]|18[2-9]\d|19\d\d|2\d{3})$/); // 1812-2999
+    let notAYear = false;
+    if (!(matcher.test(this.year))) {
+      notAYear = true
+    }
+    return (this.year.trim() === '' || !Number(this.year) || notAYear);
+  }
+
+  directorValidation() {
+    return (this.director.trim() === '');
+  }
+
+  castValidation() {
+    return (this.mainCast.trim() === '');
+  }
+
+  descriptionValidation() {
+    return (this.description.trim() === '');
+  }
 }
 
