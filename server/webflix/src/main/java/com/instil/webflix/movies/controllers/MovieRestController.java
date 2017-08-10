@@ -79,7 +79,7 @@ public class MovieRestController {
 	public void createMovie(@RequestBody Movie movie) {
 		repository.save(movie);
 	}
-	
+
 	@RequestMapping(method = POST, value="/{price}/{title}/{year}/{genre}/{classification}/{director}/{mainCast}/{description}",  produces = "application/json")
 	public void addMovie(@PathVariable("price") float price, @PathVariable("title") String title, @PathVariable("year") String year, @PathVariable("genre") Integer genre, @PathVariable("classification") Integer classification, @PathVariable("director") String director, @PathVariable("mainCast") String mainCast, @PathVariable("description") String description){
 		System.out.print("test");

@@ -25,6 +25,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	@Modifying
 	@Query(nativeQuery = true, value = "INSERT INTO movie (price, title, year, genre, classification, director, main_cast, description) VALUES (:price, :title, :year, :genre, :classification, :director, :mainCast, :description)")
 	void addMovie(@Param("price") float price, @Param("title") String title, @Param("year") String year, @Param("genre") Integer genre, @Param("classification") Integer classification, @Param("director") String director, @Param("mainCast") String mainCast, @Param("description") String description);
+
 	
 
 	@Transactional

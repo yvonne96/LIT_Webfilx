@@ -1,12 +1,12 @@
 <div>
   <div class="col-md-12">
     <div class="jumbotron">
-        <h3 class="addMovietitle">Add Movie</h3>
-        <hr>
+      <h3 class="addMovietitle">Add Movie</h3>
+      <hr>
       <form name="addMovie" id="addMovie" #f="ngForm" (ngSubmit)="addMovie()">
         <div id="failure-alert" *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
         <label>Name:
-        <input type="text" class="form-control addText" name="title" [(ngModel)]="title" required ></label>
+          <input type="text" class="form-control addText" name="title" [(ngModel)]="title" required ></label>
         <br>
         <label >Year:
           <input type="text" class="form-control addText" name="year" [(ngModel)]="year" required></label>
@@ -23,17 +23,17 @@
           </select></label>
         <br>
         <label >Director:
-        <input type="text" class="form-control addText" name="director" [(ngModel)]="director" required></label>
+          <input type="text" class="form-control addText" name="director" [(ngModel)]="director" required></label>
         <div style="color: red" *ngIf="f.submitted && directorValidation()" class="help-block">Must contain at least one charachter</div>
         <br>
         <label>Price:
-        <input type="number" class="form-control addText" min="0" step=".01" name="price" [(ngModel)]="price" required></label>
+          <input type="number" class="form-control addText" min="0" step=".01" name="price" [(ngModel)]="price" required></label>
         <br>
         <!--<form #f="ngForm" (ngSubmit)="saveImageToFile()">-->
-          <!--<input type="file" id="movieImage" name="image" [(ngModel)]="image" accept="image/*" required>-->
+        <!--<input type="file" id="movieImage" name="image" [(ngModel)]="image" accept="image/*" required>-->
 
-          <!--<br>-->
-          <!--<input type="submit" value="Save Image" class="btn btn-primary buttons">-->
+        <!--<br>-->
+        <!--<input type="submit" value="Save Image" class="btn btn-primary buttons">-->
         <!--</form>-->
         <form name="form" method="post" action="" enctype="multipart/form-data">
           <div class="input-group">
@@ -51,11 +51,11 @@
 
         <br>
         <label>Main Cast:
-        <textarea class="form-control addTextMainCast" name="mainCast" [(ngModel)]="mainCast" required> </textarea></label>
+          <textarea class="form-control addTextMainCast" name="mainCast" [(ngModel)]="mainCast" required> </textarea></label>
         <div style="color: red" *ngIf="f.submitted && castValidation()" class="help-block">Must contain at least one charachter</div>
         <br>
         <label >Description:
-        <textarea class="form-control addTextMainCast" name="description" [(ngModel)]="description" required> </textarea></label>
+          <textarea class="form-control addTextMainCast" name="description" [(ngModel)]="description" required> </textarea></label>
         <div style="color: red" *ngIf="f.submitted && descriptionValidation()" class="help-block">Must contain at least one charachter</div>
         <br>
 
@@ -66,4 +66,3 @@
     </div>
   </div>
 </div>
-

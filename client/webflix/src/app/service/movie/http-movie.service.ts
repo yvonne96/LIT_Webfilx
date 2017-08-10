@@ -46,7 +46,6 @@ export class HttpMovieService extends MovieService {
 
   addMovie(price: number,
            title: string,
-
            year: string,
            genre: number,
            classification: number,

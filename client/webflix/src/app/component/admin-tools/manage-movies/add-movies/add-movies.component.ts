@@ -37,9 +37,14 @@ export class AddMoviesComponent {
     this.getClassificationValues(this.movieService.getClassificationValues());
   }
 
+  //
+  // saveImageToFile(e) {
+  //   this.image = e.srcElement.files[0].name;
+  // }
+
   addMovie() {
     // console.log('printing imagae from add movie function:  ');
-    if (this.validate()){
+    if (this.validate()) {
       this.movieService.addMovie(this.price, this.title, this.year, this.genre,
         this.classification, this.director, this.mainCast, this.description)
         .subscribe(
@@ -84,6 +89,7 @@ export class AddMoviesComponent {
     });
   }
 
+
   fileChangeEvent(fileInput: any) {
     this.filesToUpload = <Array<File>>fileInput.target.files;
   }
@@ -100,23 +106,6 @@ export class AddMoviesComponent {
       formData.append('uploads[]', files[0], files[0].name);
       this.fileName = files[0].name;
       console.log(this.fileName);
-  //     pnp.sp.web.getFolderByServerRelativeUrl('/app/assets/images/').files.add('trial.jpg', file, true);
-  //
-  //     // let xhr = new XMLHttpRequest();
-  //
-  //     // xhr.onreadystatechange = function () {
-  //     //   if (xhr.readyState === 4) {
-  //     //     if (xhr.status === 200) {
-  //     //       alert(' uploaded image into storgae blob');
-  //     //       resolve(JSON.parse(xhr.response));
-  //     //
-  //     //     } else {
-  //     //       reject(xhr.response);
-  //     //     }
-  //     //   }
-  //     // }
-  //     // xhr.open('POST', url, true);
-  //     // xhr.send(formData);
     });
   }
 

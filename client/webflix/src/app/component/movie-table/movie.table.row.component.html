@@ -4,4 +4,5 @@
 <td>{{theMovie.classification.value}}</td>
 <td *ngIf="showPrice">{{theMovie.price | currency:'EUR':true:'1.2-2'}}</td>
 <td *ngIf="showAddToBasket"><span class='btn btn-success' (click)="addMovieToBasket()">Add to basket</span></td>
+<td *ngIf="showAddToWishlist"><span class='btn btn-danger' (click)="addMovieToWishlist()">Add to Wishlist</span></td>
 

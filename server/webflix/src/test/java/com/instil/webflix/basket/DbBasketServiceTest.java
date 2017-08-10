@@ -80,8 +80,6 @@ public class DbBasketServiceTest {
         verify(basketRepository, times(1)).delete((Basket) any());
     }
 
-
-
     @Test
     public void shouldCalculateCorrectTotalForMoviesInBasketSummary() {
         Integer pennies = new Integer(1);

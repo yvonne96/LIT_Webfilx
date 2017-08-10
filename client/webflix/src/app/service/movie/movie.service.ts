@@ -14,13 +14,12 @@ export abstract class MovieService {
 
   abstract addMovie(price: number,
                     title: string,
-
                     year: string,
                     genre: number,
                     classification: number,
                     director: string,
                     cast: string,
-                    description: string): Observable<boolean>;
+                    description: string ): Observable<boolean>;
 
   abstract editMovie(price: number, id: number, title: string, year: string, genre: number, classification: number,
                      director: string, cast: string, description: string): Observable<boolean>;
