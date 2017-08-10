@@ -1,7 +1,7 @@
 export class Review {
-  review_Id: number;
-  account_Id: number;
-  movie_Id: number;
+  review_id: number;
+  account_id: number;
+  movie_id: number;
   comments: string;
   score: number;
 }

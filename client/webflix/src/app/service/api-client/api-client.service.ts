@@ -65,6 +65,12 @@ export class ApiClient {
       .build()
       .map(resp => resp.json());
   }
+
+  getCurrentAccountUsernameEmail(accountID: number): Observable<string> {
+    return this.restService.get('/account/UsernameEmail/' + accountID)
+      .build()
+      .map(resp => resp.json());
+  }
 }
 
 export class ApiClientError extends Error {

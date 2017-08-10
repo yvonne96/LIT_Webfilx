@@ -27,6 +27,6 @@ public class ReviewRestController {
 	
 	@RequestMapping(method = GET, value="/{movieID}", produces = "application/json")
 	public List<Review> findReviewsByMovieID(@PathVariable("movieID") int movieID) {
-		return repository.findByMovie_Id(movieID);
+		return repository.findByMovieID(movieID);
 	}
 }

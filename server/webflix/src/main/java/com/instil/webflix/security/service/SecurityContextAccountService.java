@@ -101,4 +101,10 @@ public class SecurityContextAccountService implements AccountService {
 		}
 
 	}
+	
+	public String buildUserDataByID(int accountID) {
+		Account targetAccount = accountRepository.findByID(accountID);
+		
+		return targetAccount.getFirstname() + targetAccount.getLastname() + " (" + targetAccount.getEmailAddress() + ")";
+	}
 }

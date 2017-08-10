@@ -113,8 +113,6 @@ export class DetailedMovieViewComponent {
   }
 
   createReview() {
-    console.log(this.comments);
-    console.log(this.score);
     this.reviewService.createReview(this.currentUserID, this.theMovieID, this.comments, this.score)
       .subscribe(() => {
         this.refreshReviewForm();
@@ -128,7 +126,6 @@ export class DetailedMovieViewComponent {
     source
       .subscribe(reviews => {
         this.reviews = reviews;
-        console.log(this.reviews);
       }, error => ('Error retrieving reviews for movie'));
   }
 
@@ -148,7 +145,6 @@ export class DetailedMovieViewComponent {
     source
       .subscribe(id => {
         this.currentUserID = id;
-        console.log(this.currentUserID);
       }, error => ('Unable to retrieve current user ID'));
   }
 

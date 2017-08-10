@@ -66,6 +66,9 @@
         <hr>
       </div>
     </form>
-    <p>PLACEHOLDER</p><br>
+    <div *ngIf="reviews">
+    <review *ngFor="let review of reviews" [theReview]="review">
+    </review>
+    </div>
   </div>
 </div>

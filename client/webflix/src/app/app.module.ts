@@ -39,6 +39,7 @@ import {HttpVoucherService} from './service/voucher/http-voucher.service';
 import {GridComponent} from './component/movie-grid/grid.component';
 import {HttpReviewService} from './service/review/http-review.service';
 import {ReviewService} from './service/review/review.service';
+import {ReviewComponent} from './component/detailed-movie-view/review/review.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -105,6 +106,7 @@ const appRoutes: Routes = [
     MovieGridComponent,
     GridComponent,
     DetailedMovieViewComponent,
+    ReviewComponent,
   ],
   bootstrap: [
     AppComponent

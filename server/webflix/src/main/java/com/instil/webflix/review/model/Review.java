@@ -12,45 +12,45 @@ public class Review {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int review_Id;
-	public int account_Id;
-	public int movie_Id;
+	public int review_id;
+	public int account_id;
+	public int movie_id;
 	public String comments;
 	public float score;
 	
 	public Review() {}
 	
-	public Review(int review_Id, int account_Id, int movie_Id, String comments, float score) {
+	public Review(int review_id, int accountID, int movieID, String comments, float score) {
 		super();
-		this.review_Id = review_Id;
-		this.account_Id = account_Id;
-		this.movie_Id = movie_Id;
+		this.review_id = review_id;
+		this.account_id = accountID;
+		this.movie_id = movieID;
 		this.comments = comments;
 		this.score = score;
 	}
 
 	public int getReviewID() {
-		return review_Id;
+		return review_id;
 	}
 
 	public void setReviewID(int review_Id) {
-		this.review_Id = review_Id;
+		this.review_id = review_Id;
 	}
 
 	public int getAccountID() {
-		return account_Id;
+		return account_id;
 	}
 
 	public void setAccountID(int account_Id) {
-		this.account_Id = account_Id;
+		this.account_id = account_Id;
 	}
 
 	public int getMovieID() {
-		return movie_Id;
+		return movie_id;
 	}
 
 	public void setMovieID(int movie_Id) {
-		this.movie_Id = movie_Id;
+		this.movie_id = movie_Id;
 	}
 
 	public String getComments() {

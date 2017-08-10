@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long>{
 	
-	@Query(nativeQuery = true, value = "SELECT review_id, account_id, movie_id, comments, score FROM reviews WHERE movie_id = :movie_id")
-	List<Review> findByMovie_Id(@Param("movie_id") int movieID);
+	@Query(nativeQuery = true, value = "SELECT * FROM reviews WHERE movie_id = :movie_id")
+	List<Review> findByMovieID(@Param("movie_id") int movieID);
 	
 	@Transactional
 	@Modifying
