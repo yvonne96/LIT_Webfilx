@@ -5,4 +5,6 @@ export abstract class ReviewService {
   abstract createReview(accountID: number, movieID: number, comments: string, score: number): Observable<Boolean>;
 
   abstract getReviewsByMovieID(movieID: number) : Observable<Review[]>;
+
+  abstract getAvgScoreByID(movieID: number) : Observable<number>;
 }

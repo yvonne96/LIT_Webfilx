@@ -35,4 +35,14 @@ export class HttpReviewService extends ReviewService {
         return Observable.of([]);
       });
   }
+
+  getAvgScoreByID(movieID: number): Observable<number> {
+    return this.restService.get(baseURL + '/reviewAverageScore/' + movieID)
+      .build()
+      .map(resp => resp.json())
+      .catch(error => {
+        console.log('Error pulling average review score for movie');
+        return Observable.of(0);
+      });
+  }
 }

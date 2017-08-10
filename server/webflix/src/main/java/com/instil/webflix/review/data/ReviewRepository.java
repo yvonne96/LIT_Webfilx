@@ -18,6 +18,9 @@ public interface ReviewRepository extends JpaRepository<Review, Long>{
 	@Query(nativeQuery = true, value = "SELECT * FROM reviews WHERE movie_id = :movie_id")
 	List<Review> findByMovieID(@Param("movie_id") int movieID);
 	
+	@Query(nativeQuery = true, value = "SELECT AVG(score) FROM reviews WHERE movie_id = :movie_id")
+	int findAverageScoreByID(@Param("movie_id") int movieID);
+	
 	@Transactional
 	@Modifying
 	@Query(nativeQuery = true, value = "INSERT INTO reviews (account_id, movie_id, comments, score) VALUES (:accountID, :movieID, :comments, :score)")

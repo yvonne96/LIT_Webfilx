@@ -29,4 +29,9 @@ public class ReviewRestController {
 	public List<Review> findReviewsByMovieID(@PathVariable("movieID") int movieID) {
 		return repository.findByMovieID(movieID);
 	}
+	
+	@RequestMapping(method = GET, value="/reviewAverageScore/{movieID}", produces = "application/json")
+	public int findAverageReviewScoreByID(@PathVariable("movieID") int movieID){
+		return repository.findAverageScoreByID(movieID);
+	}
 }

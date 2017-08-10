@@ -1,10 +1,10 @@
 <div class="jumbotron">
   <button class="btn btn-danger" (click)="backClick()">Back</button>
   <h2>Detailed Movie View</h2><br>
-  <img src="" alt="PLACEHOLDER">
+  <img src="https://www.wpfreeware.com/wp-content/uploads/2014/09/placeholder-images.jpg" alt="PLACEHOLDER">
   <div>
     <h2>{{theMovie?.title}} ({{theMovie?.year}})</h2>
-    <p>Avg. Review: PLACEHOLDER</p>
+    <p>Avg. Review Score: {{avgReviewScore}}</p>
     <p>Genre: {{theMovie?.genre.value}}</p>
     <P>Cast: PLACEHOLDER</P>
     <p>Classification: {{theMovie?.classification.value}}</p>
@@ -36,39 +36,41 @@
   </div><br><br><br>
   <div>
     <h3>Description:</h3>
-    <p>{{theMovie?.description}}</p><hr>
-
-    <h3>Reviews: <button class="btn btn-success" (click)="toggleReviewForm()" *ngIf="!reviewMenuToggled">Add a review</button><br><br></h3><br>
-
-    <form id="createReview" #f="ngForm" (ngSubmit)="createReview()" *ngIf="reviewMenuToggled">
-      <div class="form-group">
-        <label>Score: </label><br>
-        <fieldset class="rating" ngDefaultControl>
-          <input type="radio" [(ngModel)]="score" name="score" id="star5" value='5' /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-          <input type="radio" [(ngModel)]="score" name="score" id="star4half" value='4.5' /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-          <input type="radio" [(ngModel)]="score" name="score" id="star4" value='4' /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-          <input type="radio" [(ngModel)]="score" name="score" id="star3half" value='3.5' /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-          <input type="radio" [(ngModel)]="score" name="score" id="star3" value='3' /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-          <input type="radio" [(ngModel)]="score" name="score" id="star2half" value='2.5' /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-          <input type="radio" [(ngModel)]="score" name="score" id="star2" value='2' /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-          <input type="radio" [(ngModel)]="score" name="score" id="star1half" value='1.5' /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-          <input type="radio" [(ngModel)]="score" name="score" id="star1" value='1' /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-          <input type="radio" [(ngModel)]="score" name="score" id="starhalf" value='0.5' /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-        </fieldset><br><br>
-      </div>
-      <div class="form-group">
-        <label>Comments: </label><br>
-        <textarea placeholder="Got a comment about the movie?" rows="4" cols="70" maxlength="140" [(ngModel)]="comments" name="comments"></textarea>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary">Submit</button>
-        <button class="btn btn-primary" (click)="toggleReviewForm()">Cancel</button>
-        <hr>
-      </div>
-    </form>
-    <div *ngIf="reviews">
-    <review *ngFor="let review of reviews" [theReview]="review">
-    </review>
-    </div>
+    <p>{{theMovie?.description}}</p>
   </div>
+</div>
+
+<div class="jumbotron">
+
+  <h1 id="reviewHeading">Reviews:</h1>
+
+  <form id="createReview" #f="ngForm" (ngSubmit)="createReview()" *ngIf="reviewMenuToggled">
+    <div class="form-group">
+      <label>Score: </label><br>
+      <fieldset class="rating" ngDefaultControl>
+        <input type="radio" [(ngModel)]="score" name="score" id="star5" value='5' /><label class = "full" for="star5"></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star4half" value='4.5' /><label class="half" for="star4half" ></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star4" value='4' /><label class = "full" for="star4" ></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star3half" value='3.5' /><label class="half" for="star3half" ></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star3" value='3' /><label class = "full" for="star3" ></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star2half" value='2.5' /><label class="half" for="star2half"></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star2" value='2' /><label class = "full" for="star2"></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star1half" value='1.5' /><label class="half" for="star1half" ></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star1" value='1' /><label class = "full" for="star1" ></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="starhalf" value='0.5' /><label class="half" for="starhalf" ></label>
+      </fieldset><br><br>
+    </div>
+    <div class="form-group">
+      <label>Comments: </label><br>
+      <textarea placeholder="Got a comment about the movie?" rows="4" cols="70" maxlength="140" [(ngModel)]="comments" name="comments"></textarea>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary">Submit Review</button>
+      <hr>
+    </div>
+  </form>
+    <div *ngIf="reviews">
+      <review *ngFor="let review of reviews" [theReview]="review">
+      </review>
+    </div>
 </div>

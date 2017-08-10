@@ -25,11 +25,12 @@ export class DetailedMovieViewComponent {
   public inBasket: boolean;
   public summary: BasketSummary;
   public myMovies: Movie[];
-  public reviewMenuToggled: boolean = false;
+  public reviewMenuToggled: boolean = true;
   public score: number;
   public comments: string;
   public currentUserID: number;
   public reviews: Review[];
+  public avgReviewScore: number;
 
   constructor(private activatedRoute: ActivatedRoute,
               private movieService: MovieService,
@@ -40,6 +41,7 @@ export class DetailedMovieViewComponent {
     this.summary = BasketSummary.empty();
     this.pullIdFromParams();
     this.retrieveMovieData(this.movieService.fetchById(Number(this.theMovieID)));
+    this.retrieveAvgReviewScore(this.reviewService.getAvgScoreByID(Number(this.theMovieID)))
     this.readBasketForUser();
     this.readMyMoviesForUser();
     this.retrieveCurrentAccountID(this.apiClient.getCurrentAccountID());
@@ -117,6 +119,7 @@ export class DetailedMovieViewComponent {
       .subscribe(() => {
         this.refreshReviewForm();
         this.refreshReviews();
+        this.refreshAvgScore();
         this.toggleReviewForm();
       }, error => ('Unable to create Review'));
 
@@ -129,10 +132,24 @@ export class DetailedMovieViewComponent {
       }, error => ('Error retrieving reviews for movie'));
   }
 
+  retrieveAvgReviewScore(source: Observable<number>) {
+    source
+      .subscribe(avgScore => {
+        this.avgReviewScore = avgScore;
+      }, error => ('Error retrieving average review score for movie'));
+  }
+
   refreshReviews(){
     this.reviewService.getReviewsByMovieID(this.theMovieID)
       .subscribe(reviews => {
         this.reviews = reviews;
+      });
+  }
+
+  refreshAvgScore() {
+    this.reviewService.getAvgScoreByID(this.theMovieID)
+      .subscribe(avgScore => {
+        this.avgReviewScore = avgScore;
       });
   }
 

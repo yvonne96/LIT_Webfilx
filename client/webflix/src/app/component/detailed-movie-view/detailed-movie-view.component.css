@@ -17,13 +17,16 @@ img{
   margin: 10px;
 }
 
+#reviewHeading {
+  left: 50%;
+  padding-bottom: 15px;
+}
+
 hr{
   border-top: 1px solid #8c8b8b;
 }
 
 fieldset, label { margin: 0; padding: 0; }
-body{ margin: 10px; }
-h1 { font-size: 1.5em; margin: 10px; }
 
 /****** Style Star Rating Widget *****/
 
