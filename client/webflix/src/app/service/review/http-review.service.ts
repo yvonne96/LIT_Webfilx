@@ -17,7 +17,7 @@ export class HttpReviewService extends ReviewService {
   }
 
   createReview(accountID: number, movieID: number, comments: string, score: number): Observable<Boolean>{
-    return this.restService.post(baseURL + '/' + accountID + '/' + movieID + '/' + comments + '/' + score)
+    return this.restService.post(baseURL + '/' + accountID + '/' + movieID + '/' + comments + '/' + score + '/')
       .build()
       .map(() => true)
       .catch(error => {
@@ -43,6 +43,16 @@ export class HttpReviewService extends ReviewService {
       .catch(error => {
         console.log('Error pulling average review score for movie');
         return Observable.of(0);
+      });
+  }
+
+  deleteReview(reviewID: number): Observable<boolean> {
+    return this.restService.delete(baseURL + '/deleteReview/' + reviewID)
+      .build()
+      .map(() => true)
+      .catch(error => {
+        console.log('Error deleting user review');
+        return Observable.of(false);
       });
   }
 }

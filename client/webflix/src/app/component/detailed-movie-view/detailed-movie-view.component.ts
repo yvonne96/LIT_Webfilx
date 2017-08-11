@@ -1,13 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Movie} from '../../model/movie';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {MovieService} from '../../service/movie/movie.service';
 import {Observable} from 'rxjs/Observable';
 import {Location} from '@angular/common';
 import {BasketService} from '../../service/basket/basket.service';
 import {BasketSummary} from '../../model/basket-summary';
 import {ReviewService} from '../../service/review/review.service';
-import {Account} from '../../model/account';
 import {ApiClient} from '../../service/api-client/api-client.service';
 import {Review} from '../../model/review';
 
@@ -25,12 +24,13 @@ export class DetailedMovieViewComponent {
   public inBasket: boolean;
   public summary: BasketSummary;
   public myMovies: Movie[];
-  public reviewMenuToggled: boolean = true;
   public score: number;
   public comments: string;
   public currentUserID: number;
   public reviews: Review[];
   public avgReviewScore: number;
+  public reviewErrorMsg: String = null;
+  public canSubmitReview: boolean = true;
 
   constructor(private activatedRoute: ActivatedRoute,
               private movieService: MovieService,
@@ -41,7 +41,7 @@ export class DetailedMovieViewComponent {
     this.summary = BasketSummary.empty();
     this.pullIdFromParams();
     this.retrieveMovieData(this.movieService.fetchById(Number(this.theMovieID)));
-    this.retrieveAvgReviewScore(this.reviewService.getAvgScoreByID(Number(this.theMovieID)))
+    this.retrieveAvgReviewScore(this.reviewService.getAvgScoreByID(Number(this.theMovieID)));
     this.readBasketForUser();
     this.readMyMoviesForUser();
     this.retrieveCurrentAccountID(this.apiClient.getCurrentAccountID());
@@ -114,21 +114,40 @@ export class DetailedMovieViewComponent {
     return false;
   }
 
-  createReview() {
-    this.reviewService.createReview(this.currentUserID, this.theMovieID, this.comments, this.score)
-      .subscribe(() => {
-        this.refreshReviewForm();
-        this.refreshReviews();
-        this.refreshAvgScore();
-        this.toggleReviewForm();
-      }, error => ('Unable to create Review'));
+  checkIfUserHasReview(): boolean {
+    for (let n = 0; n < this.reviews.length; n++) {
+      if (this.reviews[n].account_id === this.currentUserID) {
+        return true;
+      }
+    }
+    return false;
+  }
 
+  createReview() {
+    if (!this.canSubmitReview ) {
+      this.reviewErrorMsg = 'You have already submitted a review for this movie';
+    } else if (this.score == null) {
+      this.reviewErrorMsg = 'Invalid Score submitted';
+    } else if (this.comments == null) {
+      this.reviewErrorMsg = 'Invalid comments submitted';
+    } else { console.log(this.score);
+      this.reviewService.createReview(this.currentUserID, this.theMovieID, this.comments, this.score)
+        .subscribe(() => {
+          this.reviewErrorMsg = null;
+          this.refreshReviewForm();
+          this.refreshReviews();
+          this.refreshAvgScore();
+        }, error => ('Unable to create Review'));
+    }
   }
 
   retrieveReviewsForMovie(source: Observable<Review[]>) {
     source
       .subscribe(reviews => {
         this.reviews = reviews;
+        if (this.checkIfUserHasReview()) {
+          this.canSubmitReview = false;
+        }
       }, error => ('Error retrieving reviews for movie'));
   }
 
@@ -139,7 +158,7 @@ export class DetailedMovieViewComponent {
       }, error => ('Error retrieving average review score for movie'));
   }
 
-  refreshReviews(){
+  refreshReviews() {
     this.reviewService.getReviewsByMovieID(this.theMovieID)
       .subscribe(reviews => {
         this.reviews = reviews;
@@ -165,8 +184,8 @@ export class DetailedMovieViewComponent {
       }, error => ('Unable to retrieve current user ID'));
   }
 
-  toggleReviewForm() {
-    this.reviewMenuToggled = (!this.reviewMenuToggled);
+  userReviewDeleted() {
+    this.canSubmitReview = true;
+    this.refreshReviews();
   }
-
 }

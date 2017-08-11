@@ -7,4 +7,6 @@ export abstract class ReviewService {
   abstract getReviewsByMovieID(movieID: number) : Observable<Review[]>;
 
   abstract getAvgScoreByID(movieID: number) : Observable<number>;
+
+  abstract deleteReview(reviewID: number): Observable<boolean>;
 }

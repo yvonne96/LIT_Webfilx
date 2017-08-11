@@ -19,11 +19,15 @@ public interface ReviewRepository extends JpaRepository<Review, Long>{
 	List<Review> findByMovieID(@Param("movie_id") int movieID);
 	
 	@Query(nativeQuery = true, value = "SELECT AVG(score) FROM reviews WHERE movie_id = :movie_id")
-	int findAverageScoreByID(@Param("movie_id") int movieID);
+	double findAverageScoreByID(@Param("movie_id") int movieID);
 	
 	@Transactional
 	@Modifying
 	@Query(nativeQuery = true, value = "INSERT INTO reviews (account_id, movie_id, comments, score) VALUES (:accountID, :movieID, :comments, :score)")
-	void addReview(@Param("accountID") int accountID, @Param("movieID") int movieID, @Param("comments") String comments, @Param("score") float score);
+	void addReview(@Param("accountID") int accountID, @Param("movieID") int movieID, @Param("comments") String comments, @Param("score") double score);
 
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true, value = "DELETE FROM reviews WHERE review_id = :review_id")
+	void deleteReviewByID(@Param("review_id") int reviewID);
 }

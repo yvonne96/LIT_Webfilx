@@ -16,11 +16,11 @@ public class Review {
 	public int account_id;
 	public int movie_id;
 	public String comments;
-	public float score;
+	public double score;
 	
 	public Review() {}
 	
-	public Review(int review_id, int accountID, int movieID, String comments, float score) {
+	public Review(int review_id, int accountID, int movieID, String comments, double score) {
 		super();
 		this.review_id = review_id;
 		this.account_id = accountID;
@@ -61,11 +61,11 @@ public class Review {
 		this.comments = comments;
 	}
 
-	public float getScore() {
+	public double getScore() {
 		return score;
 	}
 
-	public void setScore(float score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 	

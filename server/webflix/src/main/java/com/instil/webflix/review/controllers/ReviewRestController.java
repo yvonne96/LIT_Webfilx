@@ -4,6 +4,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,12 +18,14 @@ import com.instil.webflix.review.model.Review;
 @RestController
 @RequestMapping("/review")
 public class ReviewRestController {
+	private final Log logger = LogFactory.getLog(this.getClass());
 	
 	@Autowired
 	ReviewRepository repository;
 	
-	@RequestMapping(method = POST, value="/{accountID}/{movieID}/{comments}/{score}",  produces = "application/json")
-	public void createReview(@PathVariable("accountID") int accountID, @PathVariable("movieID") int movieID, @PathVariable("comments") String comments, @PathVariable("score") float score){
+	@RequestMapping(method = POST, value="/{accountID}/{movieID}/{comments}/{score}/",  produces = "application/json")
+	public void createReview(@PathVariable("accountID") int accountID, @PathVariable("movieID") int movieID, @PathVariable("comments") String comments, @PathVariable("score") double score){
+		logger.info(score);
 		repository.addReview(accountID, movieID, comments.replace("%20", " "), score);
 	}
 	
@@ -31,7 +35,12 @@ public class ReviewRestController {
 	}
 	
 	@RequestMapping(method = GET, value="/reviewAverageScore/{movieID}", produces = "application/json")
-	public int findAverageReviewScoreByID(@PathVariable("movieID") int movieID){
+	public double findAverageReviewScoreByID(@PathVariable("movieID") int movieID){
 		return repository.findAverageScoreByID(movieID);
+	}
+	
+	@RequestMapping(method = DELETE, value="/deleteReview/{reviewID}", produces = "application/json")
+	public void deleteReviewByID(@PathVariable("reviewID") int reviewID) {
+		repository.deleteReviewByID(reviewID);
 	}
 }

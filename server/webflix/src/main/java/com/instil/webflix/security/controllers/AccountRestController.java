@@ -24,7 +24,6 @@ import javax.annotation.security.RolesAllowed;
 @RestController
 @RequestMapping("/account")
 public class AccountRestController {
-	private final Log logger = LogFactory.getLog(this.getClass());
 
 	@Autowired
 	private AccountRepository accountRepository;
