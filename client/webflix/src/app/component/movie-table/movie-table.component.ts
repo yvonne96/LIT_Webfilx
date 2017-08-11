@@ -3,6 +3,8 @@ import 'rxjs/add/operator/map';
 import {Movie} from '../../model/movie';
 import {BasketService} from '../../service/basket/basket.service';
 import {WishlistService} from '../../service/wishlist/wishlist.service';
+import {MovieService} from '../../service/movie/movie.service';
+import {Observable} from 'rxjs/Observable';
 
 
 @Component({
@@ -24,7 +26,10 @@ export class MovieDisplayComponent {
   @Input('showPrice')
   showPrice: boolean;
 
-  constructor(private basket: BasketService, private wishlist: WishlistService) {
+
+  constructor(private basket: BasketService,
+              private moviesService: MovieService,  private wishlist: WishlistService) {
+
     this.showAddToBasket = true;
     this.showAddToWishlist = true;
     this.showPrice = true;
@@ -37,4 +42,5 @@ export class MovieDisplayComponent {
   wishlistMovieAdded(movie: Movie) {
     this.wishlist.addToWishlist(movie).subscribe();
   }
+
 }

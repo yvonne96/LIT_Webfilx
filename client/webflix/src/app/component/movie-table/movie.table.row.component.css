@@ -9,6 +9,11 @@ span.glyphicon .tooltiptext{
   border-radius: 5px;
 }
 
+.movieTitle:hover {
+  cursor:pointer;
+  text-decoration: underline;
+}
+
 .span.glyphicon:hover .tooltiptext{
   visibility: visible;
 }

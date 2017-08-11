@@ -39,7 +39,7 @@ export class MovieSearchComponent {
   }
 
   private fetchAllMovies(): void {
-     this.extractMovies(this.movieService.fetchAllMovies());
+    this.extractMovies(this.movieService.fetchPurchasableMovies());
   }
 
   private extractMovies(source: Observable<Movie[]>) {
@@ -75,7 +75,4 @@ export class MovieSearchComponent {
       document.cookie = 'defaultView=grid; expires=Thu, 01 Jan 2020 00:00:00 UTC;';
     }
   }
-
-
-
 }

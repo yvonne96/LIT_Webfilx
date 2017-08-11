@@ -40,4 +40,8 @@ export class ManageMoviesRowComponent {
   hideDescription() {
     this.desc = '';
   }
+  togglePurchasableMovie(movie: Movie){
+    this.movieService.togglePurchasableMovie(movie)
+      .subscribe();
+  }
 }

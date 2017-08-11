@@ -1,10 +1,8 @@
 
 <div class="movie-panel">
-  <h1>{{theMovie.title}}</h1>
 
+  <h1 title="Click here for more details" [routerLink]="['./detailedMovieView']" [queryParams]="{id: theMovie.id}" routerLinkActive="active">{{theMovie.title}}</h1>
   <img  src="assets/images/{{theMovie.image}}" alt = "Image Not Found">
-
-
   <p>{{theMovie.description.slice(0, descLen)}}....</p>
 
 

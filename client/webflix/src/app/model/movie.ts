@@ -7,12 +7,11 @@ export class Movie {
   rating: number;
   director: string;
   cast: string;
-  purchasable: boolean;
   genre: Genre;
   price: number;
   description: string;
-  mainCast: string;
   image: string;
+  purchasable: boolean;
 }
 
 export interface Classification {

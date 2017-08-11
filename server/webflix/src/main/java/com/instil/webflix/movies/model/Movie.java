@@ -18,10 +18,9 @@ public class Movie {
 	private String description;
 	private String director;
 	private String image;
-	private boolean purchasable;
+	private Boolean purchasable;
 	private BigDecimal price;
-
-
+	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "genre")
 	private Genre genre;
@@ -29,6 +28,15 @@ public class Movie {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "classification")
 	private Classification classification;
+
+
+	public Boolean getPurchasable() {
+		return purchasable;
+	}
+
+	public void setPurchasable(Boolean purchasable) {
+		this.purchasable = purchasable;
+	}
 
 	public Movie() {
 		super();
@@ -82,14 +90,6 @@ public class Movie {
 		return  this.main_cast;
 	}
 	
-	public void setPurchasable(boolean purchasable) {
-		this.purchasable = purchasable;
-	}
-	
-	public boolean getPurchasable() {
-		return this.purchasable;
-	}
-
 	public void setTitle(String title) {
 		this.title = title;
 	}

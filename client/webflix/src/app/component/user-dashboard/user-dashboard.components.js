@@ -11,11 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var authentication_service_1 = require('../../service/authentication/authentication.service');
+var movie_service_1 = require('../../service/movie/movie.service');
+var basket_service_1 = require('../../service/basket/basket.service');
 var UserDashboardComponent = (function () {
-    function UserDashboardComponent(router, authenticationService) {
+    function UserDashboardComponent(router, authenticationService, movieService, basketService) {
         var _this = this;
         this.router = router;
         this.authenticationService = authenticationService;
+        this.movieService = movieService;
+        this.basketService = basketService;
         authenticationService.isAdmin
             .subscribe(function (x) { return _this.isAdmin = x; });
     }
@@ -30,7 +34,7 @@ var UserDashboardComponent = (function () {
             styleUrls: ['user-dashboard.component.css'],
             templateUrl: 'user-dashboard.component.html',
         }), 
-        __metadata('design:paramtypes', [router_1.Router, authentication_service_1.AuthenticationService])
+        __metadata('design:paramtypes', [router_1.Router, authentication_service_1.AuthenticationService, movie_service_1.MovieService, basket_service_1.BasketService])
     ], UserDashboardComponent);
     return UserDashboardComponent;
 }());

@@ -6,11 +6,12 @@ export abstract class MovieService {
   abstract getGenreValues(): Observable <Genre[]>;
   abstract getClassificationValues(): Observable <Classification[]>;
 
+  abstract fetchById(id: number): Observable<Movie>;
+
   abstract fetchByTitle(title: string): Observable<Movie[]>;
 
   abstract fetchMyMovies(): Observable<Movie[]>;
 
-  abstract fetchById(id: number): Observable<Movie>;
 
   abstract addMovie(price: number,
                     title: string,
@@ -23,5 +24,9 @@ export abstract class MovieService {
 
   abstract editMovie(price: number, id: number, title: string, year: string, genre: number, classification: number,
                      director: string, cast: string, description: string): Observable<boolean>;
+
+  abstract fetchPurchasableMovies(): Observable<Movie[]>;
+
+  abstract togglePurchasableMovie(movie: Movie): Observable<boolean>;
 
 }

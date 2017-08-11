@@ -10,12 +10,23 @@ const baseUrl = '/movie';
 
 @Injectable()
 export class HttpMovieService extends MovieService {
+
   constructor(private http: Http,
               private restService: RestService) {
     super();
   }
 
-  fetchAllMovies(): Observable<Movie[]> {
+  fetchById(id: number): Observable<Movie> {
+    return this.restService.get(baseUrl + '/byId/' + id)
+      .build()
+      .map(resp => resp.json())
+      .catch(error => {
+        console.log('unable to retrieve movie by id');
+        return Observable.of();
+      });
+  }
+
+    fetchAllMovies(): Observable<Movie[]> {
     return this.restService.get(baseUrl)
       .build()
       .map(resp => resp.json());
@@ -44,6 +55,7 @@ export class HttpMovieService extends MovieService {
       .map(resp => resp.json());
   }
 
+
   addMovie(price: number,
            title: string,
            year: string,
@@ -63,16 +75,6 @@ export class HttpMovieService extends MovieService {
       });
   }
 
-  fetchById(id: number): Observable<Movie> {
-
-    return this.restService.get(baseUrl + '/byId/' + id)
-      .build()
-      .map(resp => resp.json())
-      .catch(error => {
-        console.log('unable to retrieve movie by id');
-        return Observable.of();
-      });
-  }
 
   editMovie(price: number, id: number, title: string, year: string, genre: number,
             classification: number, director: string, cast: string, description: string): Observable<boolean> {
@@ -81,6 +83,26 @@ export class HttpMovieService extends MovieService {
       genre + '/' + classification + '/' + director + '/' + cast + '/' + description )
       .build()
       .map(() => true);
+  }
+
+  fetchPurchasableMovies(): Observable<Movie[]> {
+    return this.restService.get(baseUrl + '/purchasableMovies')
+      .build()
+      .map(resp => resp.json())
+      .catch(error => {
+        console.log('Error retrieving purchasable movies');
+        return Observable.of([]);
+      });
+  }
+
+  togglePurchasableMovie(movie: Movie): Observable<boolean> {
+    return this.restService.post(baseUrl + '/togglePurchasable/' + movie.id + '/' + (!movie.purchasable))
+      .build()
+      .map(() => true)
+      .catch(error => {
+        console.log('Error toggling purchasable field of movie');
+        return Observable.of(false);
+      });
   }
 }
 

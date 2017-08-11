@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import {BasketService} from '../../service/basket/basket.service';
 import {BasketSummary} from '../../model/basket-summary';
 import {Movie} from '../../model/movie';
@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {VoucherService} from '../../service/voucher/voucher.service';
 import {Voucher} from '../../model/voucher';
 import {Observable} from 'rxjs/Observable';
+import {MovieService} from '../../service/movie/movie.service';
 
 @Component({
   moduleId: module.id,
@@ -32,12 +33,14 @@ export class BasketComponent {
   public basketMovies: Movie[];
   private warningMessage: string = '';
 
+
   constructor(private basketService: BasketService,
               private router: Router,
-              private voucherService: VoucherService) {
+              private voucherService: VoucherService,
+              private movieService: MovieService) {
     this.summary = BasketSummary.empty();
-    this.fetchAllVouchers();
     this.refreshSummary();
+    this.fetchAllVouchers();
     this.fetchAllGlobalVouchers();
     this.fetchUsedVouchers();
   }

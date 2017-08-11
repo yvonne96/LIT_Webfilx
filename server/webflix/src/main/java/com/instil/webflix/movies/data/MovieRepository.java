@@ -21,6 +21,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
 	List<Movie> findByTitleContainsAllIgnoreCase(String titleString);
 	
+
 	@Transactional
 	@Modifying
 	@Query(nativeQuery = true, value = "INSERT INTO movie (price, title, year, genre, classification, director, main_cast, description) VALUES (:price, :title, :year, :genre, :classification, :director, :mainCast, :description)")
@@ -32,5 +33,11 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	@Modifying
 	@Query(nativeQuery = true, value = "UPDATE movie SET price = :price, title = :title, year = :year, genre = :genre, classification = :classification, director = :director, main_cast = :mainCast, description = :description,   WHERE id = :id")
 	void editMovie(@Param("price") float price, @Param("id") int id, @Param("title") String title, @Param("year") String year, @Param("genre") Integer genre, @Param("classification") Integer classification, @Param("director") String director, @Param("mainCast") String mainCast, @Param("description") String description);
+
+	List<Movie> findByPurchasableTrue();
 	
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true, value = "UPDATE movie SET purchasable = :purchasable WHERE id = :id")
+	void togglePurchasableMovie(@Param("id") int id, @Param("purchasable") boolean purchasable);
 }

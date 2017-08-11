@@ -3,15 +3,15 @@
   <p><img src="app/component/admin-tools/boss.jpg" height = "200" width="350"></p>
   <div>
     <div class="Container ">
-  <button style="min-width: 150px" class="btn btn-info navbar-btn" routerLink="./manage-movies" routerLinkActive="active">
-    <span>Manage Movies</span>
-  </button>
+      <button style="min-width: 150px" class="btn btn-info navbar-btn" routerLink="./manage-movies" routerLinkActive="active">
+        <span>Manage Movies</span>
+      </button>
 
-  <button style="min-width: 150px"  class="btn btn-info navbar-btn" routerLink="./manage-vouchers" routerLinkActive="active">
-    <span>Manage Vouchers</span>
-  </button>
+      <button style="min-width: 150px"  class="btn btn-info navbar-btn" routerLink="./manage-vouchers" routerLinkActive="active">
+        <span>Manage Vouchers</span>
+      </button>
+    </div>
   </div>
-</div>
 </div>
 <div *ngIf="isAdmin == false" id="non-admin">
   <p>You don't have access to this page!</p>

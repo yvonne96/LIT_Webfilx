@@ -1,4 +1,4 @@
-import {Component,Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {AuthenticationService} from '../../../service/authentication/authentication.service';
@@ -14,7 +14,6 @@ import {Movie} from '../../../model/movie';
 export class ManageMoviesComponent {
   private movies: Movie[];
   private isAdmin: boolean;
-
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
@@ -36,83 +35,140 @@ export class ManageMoviesComponent {
     switch (sortMethod) {
       case 'YEAR':
         this.movies.sort((firstMovie, nextMovie) => {
-          if (firstMovie.year < nextMovie.year) {return -1; }
-          if (firstMovie.year > nextMovie.year) {return 1; }
+          if (firstMovie.year < nextMovie.year) {
+            return -1;
+          }
+          if (firstMovie.year > nextMovie.year) {
+            return 1;
+          }
           return 0;
         });
         break;
 
       case 'GENRE':
         this.movies.sort((firstMovie, nextMovie) => {
-          if (firstMovie.genre < nextMovie.genre) {return -1; }
-          if (firstMovie.genre > nextMovie.genre) {return 1; }
+          if (firstMovie.genre < nextMovie.genre) {
+            return -1;
+          }
+          if (firstMovie.genre > nextMovie.genre) {
+            return 1;
+          }
           return 0;
         });
         break;
 
       case 'RATING':
         this.movies.sort((firstMovie, nextMovie) => {
-          if (firstMovie.rating < nextMovie.rating) {return -1; }
-          if (firstMovie.rating > nextMovie.rating) {return 1; }
+          if (firstMovie.rating < nextMovie.rating) {
+            return -1;
+          }
+          if (firstMovie.rating > nextMovie.rating) {
+            return 1;
+          }
           return 0;
         });
         break;
 
       case 'DIRECTOR':
         this.movies.sort((firstMovie, nextMovie) => {
-          if (firstMovie.director < nextMovie.director) {return -1; }
-          if (firstMovie.director > nextMovie.director) {return 1; }
+          if (firstMovie.director < nextMovie.director) {
+            return -1;
+          }
+          if (firstMovie.director > nextMovie.director) {
+            return 1;
+          }
           return 0;
         });
         break;
 
       case 'CLASSIFICATION':
         this.movies.sort((firstMovie, nextMovie) => {
-          if (firstMovie.classification < nextMovie.classification) {return -1; }
-          if (firstMovie.classification > nextMovie.classification) {return 1; }
+          if (firstMovie.classification < nextMovie.classification) {
+            return -1;
+          }
+          if (firstMovie.classification > nextMovie.classification) {
+            return 1;
+          }
           return 0;
         });
         break;
 
       case 'MAIN CAST':
         this.movies.sort((firstMovie, nextMovie) => {
-          if (firstMovie.cast < nextMovie.cast) {return -1; }
-          if (firstMovie.cast > nextMovie.cast) {return 1; }
+          if (firstMovie.cast < nextMovie.cast) {
+            return -1;
+          }
+          if (firstMovie.cast > nextMovie.cast) {
+            return 1;
+          }
           return 0;
         });
         break;
 
       case 'PRICE':
         this.movies.sort((firstMovie, nextMovie) => {
-          if (firstMovie.price < nextMovie.price) {return -1; }
-          if (firstMovie.price > nextMovie.price) {return 1; }
+          if (firstMovie.price < nextMovie.price) {
+            return -1;
+          }
+          if (firstMovie.price > nextMovie.price) {
+            return 1;
+          }
           return 0;
         });
         break;
 
       case 'DESCRIPTION':
         this.movies.sort((firstMovie, nextMovie) => {
-          if (firstMovie.description < nextMovie.description) {return -1; }
-          if (firstMovie.description > nextMovie.description) {return 1; }
+          if (firstMovie.description < nextMovie.description) {
+            return -1;
+          }
+          if (firstMovie.description > nextMovie.description) {
+            return 1;
+          }
           return 0;
         });
         break;
 
       case 'PURCHASABLE':
         this.movies.sort((firstMovie, nextMovie) => {
-          if (firstMovie.purchasable === true) {return -1; }
-          if (nextMovie.purchasable === true) {return 1; }
+          if (firstMovie.purchasable === true) {
+            return -1;
+          }
+          if (nextMovie.purchasable === true) {
+            return 1;
+          }
           return 0;
         });
         break;
 
       default:
         this.movies.sort((firstMovie, nextMovie) => {
-          if (firstMovie.title < nextMovie.title) {return -1; }
-          if (firstMovie.title > nextMovie.title) {return 1; }
+          if (firstMovie.title < nextMovie.title) {
+            return -1;
+          }
+          if (firstMovie.title > nextMovie.title) {
+            return 1;
+          }
           return 0;
         });
         break;
     }
+  }
+
+  refreshMovies() {
+    this.movieService.fetchAllMovies()
+      .subscribe(movies => {
+        this.movies = movies;
+        this.sortMovieByTitle();
+      }
+      );
+  }
+
+  sortMovieByTitle() {
+    this.movies.sort((firstMovie, nextMovie) => {
+      if (firstMovie.title < nextMovie.title) {return -1; }
+      if (firstMovie.title > nextMovie.title) {return 1; }
+      return 0;
+    });
   }
 }
