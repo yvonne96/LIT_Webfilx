@@ -91,4 +91,8 @@ public class MovieRestController {
 		repository.editMovie(price, id,title,year,genre,classification,director,mainCast,description);
 	}
 	
+	@RequestMapping(method = POST, value="/{movie_id}/{favorite}",  produces = "application/json")
+	public void toggleFavorite(@PathVariable("movie_id") Integer movie_id, @PathVariable("favorite") boolean favorite){
+		repository.toggleFavorite(movie_id, favorite);
+	}
 }

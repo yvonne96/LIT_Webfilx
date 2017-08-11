@@ -1,5 +1,6 @@
 import { Component, Input} from '@angular/core';
 import {Movie} from '../../model/movie';
+import {MovieService} from '../../service/movie/movie.service';
 import {BasketService} from '../../service/basket/basket.service';
 import 'rxjs/add/operator/map';
 

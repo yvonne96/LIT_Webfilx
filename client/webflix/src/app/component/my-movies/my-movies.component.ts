@@ -12,6 +12,33 @@ export class MyMoviesComponent {
   private movies: Movie[];
   checked: boolean = true;
 
+  constructor(private movieService: MovieService) {
+    this.setMyMovies();
+    this.refreshMyMovies();
+  }
+
+  private refreshMyMovies(): void {
+    this.movieService.fetchMyMovies()
+      .subscribe(movies => this.movies = movies);
+  }
+
+  private setMyMovies(): void {
+    let movies = this.movieService.fetchMyMovies();
+  }
+
+  toggleFavorite(movie: Movie) {
+    console.log(movie);
+    let favorite = true;
+    if (movie.favorite = true) {
+      favorite = false;
+      console.log('value set to false');
+    }
+    console.log(favorite);
+    debugger;
+    this.movieService.toggleFavorite(movie.id, favorite)
+      .subscribe(() => this.refreshMyMovies());
+  }
+
   setView() {
     if (document.cookie.length === 0) {
       document.cookie = 'defaultView=grid; expires=Thu, 01 Jan 2020 00:00:00 UTC;';
@@ -38,12 +65,4 @@ export class MyMoviesComponent {
     }
   }
 
-  constructor(private movieService: MovieService) {
-    this.refreshMyMovies();
-  }
-
-  private refreshMyMovies(): void {
-    this.movieService.fetchMyMovies()
-      .subscribe(movies => this.movies = movies);
-  }
 }

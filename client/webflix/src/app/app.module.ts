@@ -21,6 +21,7 @@ import {MovieDisplayComponent}  from './component/movie-table/movie-table.compon
 import {MovieTableRowComponent} from './component/movie-table/movie.table.row.component';
 import {MovieSearchComponent} from './component/movie-search/movie-search.component';
 import {MyMoviesComponent} from './component/my-movies/my-movies.component';
+import {FavoritesComponent} from './component/my-movies/favorites/favorites.component';
 import {RegisterNewUserComponent} from './component/login/register-new-user.component';
 import {UserDashboardComponent} from './component/user-dashboard/user-dashboard.components';
 import { MovieGridComponent } from './component/movie-grid/movie.grid.component';
@@ -73,7 +74,11 @@ const appRoutes: Routes = [
       },
 
       {path: 'admin/manage-movies/edit-movie',
-      component: EditMovieComponent}
+      component: EditMovieComponent},
+
+      { path: 'mymovies/favorites',
+        component: FavoritesComponent
+      },
 
     ]
   },
@@ -105,6 +110,7 @@ const appRoutes: Routes = [
     MovieSearchComponent,
     MovieTableRowComponent,
     MyMoviesComponent,
+    FavoritesComponent,
     RegisterNewUserComponent,
     UserDashboardComponent,
     MovieGridComponent,

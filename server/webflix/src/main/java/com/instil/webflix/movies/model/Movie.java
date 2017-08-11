@@ -18,7 +18,7 @@ public class Movie {
 	private String description;
 	private String director;
 	private String image;
-	private boolean purchasable;
+	//private boolean purchasable;
 	private BigDecimal price;
 
 
@@ -39,7 +39,7 @@ public class Movie {
 		this.image="";
 		this.rating = 0;
 		this.main_cast = "";
-		this.purchasable = true;
+	//	this.purchasable = true;
 		this.director = "";
 	}
 	
@@ -82,13 +82,13 @@ public class Movie {
 		return  this.main_cast;
 	}
 	
-	public void setPurchasable(boolean purchasable) {
-		this.purchasable = purchasable;
-	}
-	
-	public boolean getPurchasable() {
-		return this.purchasable;
-	}
+//	public void setPurchasable(boolean purchasable) {
+//		this.purchasable = purchasable;
+//	}
+//	
+//	public boolean getPurchasable() {
+//		return this.purchasable;
+//	}
 
 	public void setTitle(String title) {
 		this.title = title;

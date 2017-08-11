@@ -20,6 +20,9 @@ export class MovieDisplayComponent {
   @Input('showPrice')
   showPrice: boolean;
 
+  @Input('showFavorites')
+  showFavorites: boolean;
+
   constructor(private basket: BasketService) {
     this.showAddToBasket = true;
     this.showPrice = true;

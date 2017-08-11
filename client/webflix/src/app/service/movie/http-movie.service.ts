@@ -83,5 +83,16 @@ export class HttpMovieService extends MovieService {
       .build()
       .map(() => true);
   }
+
+  toggleFavorite(movie_id: number, favorite: boolean): Observable<boolean> {
+
+    return this.restService.post(baseUrl + '/' + movie_id + '/' + favorite)
+      .build()
+      .map(() => true)
+      .catch(error => {
+        console.log('unable to toggle favorites');
+        return Observable.of(false);
+      });
+  }
 }
 

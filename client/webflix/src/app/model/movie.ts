@@ -13,6 +13,7 @@ export class Movie {
   description: string;
   mainCast: string;
   image: string;
+  favorite: boolean;
 }
 
 export interface Classification {

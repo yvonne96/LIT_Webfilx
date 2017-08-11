@@ -32,4 +32,9 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	@Query(nativeQuery = true, value = "UPDATE movie SET price = :price, title = :title, year = :year, genre = :genre, classification = :classification, director = :director, main_cast = :mainCast, description = :description,   WHERE id = :id")
 	void editMovie(@Param("price") float price, @Param("id") int id, @Param("title") String title, @Param("year") String year, @Param("genre") Integer genre, @Param("classification") Integer classification, @Param("director") String director, @Param("mainCast") String mainCast, @Param("description") String description);
 	
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true, value = "UPDATE public.account_movie SET favorite = :favorite WHERE movie_id = :movie_id")
+	void toggleFavorite(@Param("movie_id") Integer movie_id, @Param("favorite") boolean favorite);
+	
 }

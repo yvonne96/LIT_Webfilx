@@ -22,6 +22,8 @@ export class MovieGridComponent {
   showAddToBasket: boolean;
   @Input('showPrice')
   showPrice: boolean;
+  @Input('showFavorites')
+  showFavorites: boolean;
   @Output()
   onAddMovieToBasket = new EventEmitter<Movie>();
   info: string = '';
