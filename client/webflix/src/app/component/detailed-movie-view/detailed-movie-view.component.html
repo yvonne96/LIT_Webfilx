@@ -9,7 +9,7 @@
     <P>Cast: {{theMovie?.cast}}</P>
     <p>Classification: {{theMovie?.classification.value}}</p>
     <div class="buttonDiv" *ngIf='theMovie?.purchasable && !owned'>
-      <button class="btn btn-success" (click)="addMovieToBasket()" [disabled]="inBasket">
+      <button class="btn btn-info navbar-btn" (click)="addMovieToBasket()" [disabled]="inBasket">
         <span class="glyphicon glyphicon-shopping-cart"></span>
         <span> Buy now: </span>
         <span class="badge">{{theMovie?.price | currency:'EUR':true}}</span>
@@ -20,7 +20,7 @@
       You own this Movie!
     </p>
     <div class="buttonDiv">
-      <button class="btn btn-danger">
+      <button class="btn btn-success navbar-btn">
         <span class="glyphicon glyphicon-list"></span>
         <span>Add to Wishlist</span>
         <span class="badge"></span>

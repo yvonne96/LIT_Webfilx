@@ -13,7 +13,7 @@
         <td>{{movie.title}}</td>
         <td>{{movie.price | currency:'EUR':true:'1.2-2'}}</td>
         <td>
-          <button class="btn btn-success" (click)="addMovieToBasket(movie)">
+          <button class="btn btn-info navbar-btn" (click)="addMovieToBasket(movie)">
             <span>Add to Basket </span><span class="glyphicon glyphicon-plus-sign"></span>
           </button>
           <button class="btn btn-danger" (click)="removeMovie(movie)">
