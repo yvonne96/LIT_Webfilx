@@ -26,6 +26,7 @@ import { WishlistComponent } from './component/wishlist/wishlist.component';
 import { WishlistButtonComponent } from './component/wishlist-button/wishlist-button.component';
 
 
+
 import {ApiClient} from './service/api-client/api-client.service';
 import {AuthenticationService} from './service/authentication/authentication.service';
 import {AuthorisedRestService} from './service/api-client/authorised-rest.service';

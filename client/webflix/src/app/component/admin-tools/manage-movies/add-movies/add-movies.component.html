@@ -3,7 +3,7 @@
     <div class="jumbotron">
         <h3 class="addMovietitle">Add Movie</h3>
         <hr>
-      <form name="addMovie" id="addMovie" #f="ngForm" (ngSubmit)="addMovie()">
+      <form name="addMovie" id="addMovie" enctype="multipart/form-data" #f="ngForm" (ngSubmit)="addMovie()">
         <label>Name:</label>
         <input type="text" class="form-control addText" name="title" [(ngModel)]="title" required >
         <br>
@@ -35,10 +35,10 @@
         <label>Price:</label>
         <input type="number" class="form-control addText" min="0" step=".01" name="price" [(ngModel)]="price" required>
         <br>
-        <form #f="ngForm" (ngSubmit)="saveImageToFile()" enctype="multipart/form-data">
+        <form  enctype="multipart/form-data">
           <label>Image:</label>
-          <input type="file" name="image" (change)="saveImageToFile($event)" accept="image/*" required>
-
+          <input type="file" name="image" (change)="saveImageToFile($event)" accept="image/*" #input required>
+          <img id="img" name="preview" src="" height="200" alt="Image preview..." #img class="img">
           <br>
           <!--<button (click)="saveImageToFile($event, image)">Save Image</button>-->
         </form>
@@ -46,10 +46,10 @@
 
         <br>
         <label>Main Cast:</label>
-        <textarea class="form-control addTextMainCast" name="mainCast" [(ngModel)]="mainCast" required> </textarea>
+        <textarea type="text" class="form-control addTextMainCast" name="mainCast" [(ngModel)]="mainCast" required> </textarea>
         <br>
         <label >Description:</label>
-        <textarea class="form-control addTextMainCast" name="description" [(ngModel)]="description" required> </textarea>
+        <textarea type="text" class="form-control addTextMainCast" name="description" [(ngModel)]="description" required> </textarea>
         <br>
 
         <input type="submit" value="Submit" class="btn btn-primary buttons" >

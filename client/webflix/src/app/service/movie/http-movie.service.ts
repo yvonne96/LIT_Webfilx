@@ -33,16 +33,11 @@ export class HttpMovieService extends MovieService {
       .map(resp => resp.json());
   }
 
-  addMovie(title: string,
-           year: string,
-           genre: number,
-           classification: number,
-           director: string,
-           cast: string,
-           description: string,
-           image: string): Observable<boolean> {
-    return this.restService.post(baseUrl + '/' + title + '/' + year + '/' + genre + '/' + classification
-      + '/' + director + '/' + cast + '/' + description + '/' + image)
+  addMovie(movie: Movie, genre: string, classification: string): Observable<boolean> {
+    console.log(movie.mainCast);
+    console.log(JSON.stringify(movie));
+    return this.restService.post(baseUrl + '/add/' + genre + '/' + classification)
+      .setBody(movie)
       .build()
       .map(() => true)
       .catch(error => {
@@ -53,6 +48,17 @@ export class HttpMovieService extends MovieService {
 
   addPrice(price: number): Observable<boolean> {
     return this.restService.post(baseUrl + '/' + price)
+      .build()
+      .map(() => true)
+      .catch(error => {
+        console.log('unable to add movie');
+        return Observable.of(false);
+      });
+  }
+  addImage(image: String): Observable<boolean> {
+    console.log(image);
+    return this.restService.post(baseUrl + '/upload')
+      .setBody(image)
       .build()
       .map(() => true)
       .catch(error => {

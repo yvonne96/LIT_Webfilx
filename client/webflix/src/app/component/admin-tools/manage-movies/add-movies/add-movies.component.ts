@@ -1,9 +1,11 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
 import {AuthenticationService} from '../../../../service/authentication/authentication.service';
 import {MovieService} from '../../../../service/movie/movie.service';
 import {Movie} from '../../../../model/movie';
+import {RestService} from '../../../../service/api-client/rest.service';
+import 'rxjs/add/operator/timeout';
+import 'rxjs/add/operator/delay';
 
 @Component({
   moduleId: module.id,
@@ -13,6 +15,7 @@ import {Movie} from '../../../../model/movie';
 })
 
 export class AddMoviesComponent {
+
 
   private isAdmin: boolean;
   private title: string;
@@ -24,9 +27,11 @@ export class AddMoviesComponent {
   private mainCast: string;
   private description: string;
   private image: string;
+  imageData;
 
   constructor(private movieService: MovieService, private router: Router,
               private authenticationService: AuthenticationService,
+              private restService: RestService,
               ) {
 
     authenticationService.isAdmin
@@ -34,12 +39,51 @@ export class AddMoviesComponent {
   }
 
   saveImageToFile(e) {
-    this.image = e.srcElement.files[0].name;
-  }
-  addMovie() {
 
-    this.movieService.addMovie(this.title, this.year, this.genre,
-      this.classification, this.director, this.mainCast, this.description, this.title + '.jpg')
+    if (e.srcElement.files && e.srcElement.files[0]) {
+      let reader = new FileReader();
+
+      reader.onload = function (ev) {
+        $('#img')
+          .attr('src', ev.target.result)
+          .width(150)
+          .height(200);
+      };
+
+      setTimeout(() =>  {
+        this.image = document.getElementById('img').src;
+        //console.log(this.image);
+        // this.movieService.addImage(this.image).subscribe(data => { console.log(data); });
+      }, 2000);
+
+      // this.movieService.addImage(this.image).delay(3000).subscribe(data => { console.log(data); });
+      reader.readAsDataURL(e.srcElement.files[0]);
+    }
+
+
+
+    // let req = new XMLHttpRequest();
+    // req.open('POST', 'http://localhost:8080/upload', true);
+    // req.onload = function(Event) {
+    //   if (req.status === 200) {
+    //     console.log('Uploaded!!!');
+    //   } else {
+    //     console.log('Error ' + req.status + ' occured when trying to upload');
+    //   }
+    // };
+    // req.send(formData);
+  }
+
+  addMovie() {
+    console.log(this.image);
+    console.log(this.title);
+    console.log(this.mainCast);
+    console.log(this.description);
+    console.log(this.image);
+
+    let newMovie = new Movie(this.title, this.year, this.classification, this.genre, this.price, this.description, this.mainCast, this.director, this.image);
+
+    this.movieService.addMovie(newMovie, this.classification, this.genre)
       .subscribe(
         next => {
           this.router.navigate(['/dashboard/admin/manage-movies']);

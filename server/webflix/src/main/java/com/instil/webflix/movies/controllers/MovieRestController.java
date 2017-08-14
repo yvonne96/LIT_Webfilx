@@ -2,13 +2,18 @@ package com.instil.webflix.movies.controllers;
 
 import com.instil.webflix.security.model.Account;
 import com.instil.webflix.security.service.AccountService;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.instil.webflix.movies.data.MovieRepository;
 import com.instil.webflix.movies.model.*;
@@ -24,6 +29,8 @@ import java.util.Date;
 @RestController
 @RequestMapping("/movie")
 public class MovieRestController {
+	
+	private final Log logger = LogFactory.getLog(this.getClass());
 	@Autowired
 	private MovieRepository repository;
 
@@ -77,10 +84,16 @@ public class MovieRestController {
 		repository.save(movie);
 	}
 	
-	@RequestMapping(method = POST, value="/{title}/{year}/{genre}/{classification}/{director}/{mainCast}/{description}/{image}",  produces = "application/json")
-	public void addMovie(@PathVariable("title") String title, @PathVariable("year") String year, @PathVariable("genre") Integer genre, @PathVariable("classification") Integer classification, @PathVariable("director") String director, @PathVariable("mainCast") String mainCast, @PathVariable("description") String description, @PathVariable("image") String image){
-		System.out.print("test");
-		repository.addMovie(title, year, genre, classification, director, mainCast, description, image);
+	@RequestMapping(method = POST, value="/add/{genre}/{classification}",  produces = "application/json")
+	public void addMovie(@PathVariable("genre") Integer genre, @PathVariable("classification") Integer classification, @RequestBody Movie movie){
+		logger.info(movie.getTitle() + movie.getYear() + movie.getClassification() + movie.getDirector() + movie.getImage() + movie.getGenre() + movie.getDescription() + movie.getCast());
+		repository.addMovie(movie.getTitle(), movie.getYear(),genre, classification, movie.getDirector(), movie.getDescription(), movie.getImage());
+	}
+	
+	@RequestMapping(method = POST, value="/upload",  produces = "application/json")
+	public boolean addImage(@RequestBody String image){
+		System.out.print(image);
+		return true;
 	}
 	
 	@RequestMapping(method = POST, value="/{price}",  produces = "application/json")

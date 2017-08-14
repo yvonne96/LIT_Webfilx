@@ -11,11 +11,11 @@ public class Movie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String title;
+	public String title;
 	private String year;
 	private String description;
 	private String director;
-	private String mainCast;
+	private String main_cast;
 	private String image;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
@@ -36,7 +36,7 @@ public class Movie {
 		this.price = new BigDecimal(0);
 		this.description = "";
 		this.director="";
-		this.mainCast="";
+		this.main_cast="";
 		this.image="";
 	}
 
@@ -102,11 +102,11 @@ public class Movie {
 	}
 	
 	public String getCast() {
-		return mainCast;
+		return main_cast;
 	}
 	
 	public void setCast(String mainCast) {
-		this.mainCast = mainCast;
+		this.main_cast = mainCast;
 	}
 	
 	public String getDirector() {

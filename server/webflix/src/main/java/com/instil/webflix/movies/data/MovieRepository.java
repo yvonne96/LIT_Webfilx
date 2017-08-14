@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
-
 import com.instil.webflix.movies.model.Movie;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
@@ -25,8 +24,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	
 	@Transactional
 	@Modifying
-	@Query(nativeQuery = true, value = "INSERT INTO movie (title, year,genre, classification, director, main_cast, description, image) VALUES (:title , :year , :genre, :classification, :director, :mainCast, :description, :image)")
-	void addMovie(@Param("title") String title, @Param("year") String year, @Param("genre") Integer genre, @Param("classification") Integer classification, @Param("director") String director, @Param("mainCast") String mainCast, @Param("description") String description, @Param("image") String image);
+	@Query(nativeQuery = true, value = "INSERT INTO movie (title, year,genre, classification, director, description, image) VALUES (:title , :year , :genre, :classification, :director, :description, :image)")
+	void addMovie(@Param("title") String title, @Param("year") String year, @Param("classification") Integer genre, @Param("genre") Integer classification, @Param("director") String director, @Param("description") String description, @Param("image") String image);
 	
 	
 	@Transactional
