@@ -10,7 +10,7 @@
         <br>
         <label >Year:
           <input type="text" class="form-control addText" name="year" [(ngModel)]="year" required></label>
-        <div style="color: red" *ngIf="f.submitted && yearValidation()" class="help-block">Please change Year to a valid year, must be in the range of 1812-2999</div>
+        <div style="color: red" *ngIf="f.submitted && yearValidation()" class="help-block">Please change Year to a valid year, must be in the range of 1800-2999</div>
         <br>
         <label>Genre:
           <select class="form-control addText" name="genre" [(ngModel)]="genre" required>

@@ -40,8 +40,8 @@ export class EditMovieComponent {
 
   editMovie() {
     if (this.validate()) {
-      this.movieService.editMovie(this.price, this.id, this.title, this.year,
-        this.genre, this.classification, this.director, this.cast, this.description)
+      this.movieService.editMovie(this.price, this.id, this.title.trim(), this.year.trim(),
+        this.genre, this.classification, this.director.trim(), this.cast.trim(), this.description.trim())
         .subscribe(
           next => {
             this.router.navigate(['/dashboard/admin/manage-movies']);
@@ -60,7 +60,7 @@ export class EditMovieComponent {
   }
 
   yearValidation() {
-    let matcher = new RegExp(/^(181[2-9]|18[2-9]\d|19\d\d|2\d{3})$/); // 1812-2999
+    let matcher = new RegExp(/^(18\d\d|19\d\d|2\d{3})$/); // 1800-2999
     let notAYear = false;
     if (!(matcher.test(this.year))) {
       notAYear = true

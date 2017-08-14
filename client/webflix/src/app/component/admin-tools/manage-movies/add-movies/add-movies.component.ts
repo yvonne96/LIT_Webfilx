@@ -114,7 +114,7 @@ export class AddMoviesComponent {
   }
 
   yearValidation() {
-    let matcher = new RegExp(/^(181[2-9]|18[2-9]\d|19\d\d|2\d{3})$/); // 1812-2999
+    let matcher = new RegExp(/^(18\d\d|19\d\d|2\d{3})$/); // 1800-2999
     let notAYear = false;
     if (!(matcher.test(this.year))) {
       notAYear = true

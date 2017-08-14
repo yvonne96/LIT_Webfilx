@@ -47,10 +47,10 @@ export class ManageMoviesComponent {
 
       case 'GENRE':
         this.movies.sort((firstMovie, nextMovie) => {
-          if (firstMovie.genre < nextMovie.genre) {
+          if (firstMovie.genre.value < nextMovie.genre.value) {
             return -1;
           }
-          if (firstMovie.genre > nextMovie.genre) {
+          if (firstMovie.genre.value > nextMovie.genre.value) {
             return 1;
           }
           return 0;
@@ -83,10 +83,10 @@ export class ManageMoviesComponent {
 
       case 'CLASSIFICATION':
         this.movies.sort((firstMovie, nextMovie) => {
-          if (firstMovie.classification < nextMovie.classification) {
+          if (firstMovie.classification.value < nextMovie.classification.value) {
             return -1;
           }
-          if (firstMovie.classification > nextMovie.classification) {
+          if (firstMovie.classification.value > nextMovie.classification.value) {
             return 1;
           }
           return 0;
