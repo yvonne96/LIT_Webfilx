@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <button class="btn btn-danger" (click)="backClick()">Back</button>
   <h2>Detailed Movie View</h2><br>
-  <img src="https://www.wpfreeware.com/wp-content/uploads/2014/09/placeholder-images.jpg" alt="PLACEHOLDER">
+  <img  src="assets/images/{{theMovie?.image}}" alt = "Image Not Found">
   <div>
     <h2>{{theMovie?.title}} ({{theMovie?.year}})</h2>
     <p>Avg. Review Score: {{avgReviewScore}}/5</p>
