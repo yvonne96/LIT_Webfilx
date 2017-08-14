@@ -3,6 +3,6 @@
 <td>{{theMovie.genre.value}}</td>
 <td>{{theMovie.classification.value}}</td>
 <td *ngIf="showPrice">{{theMovie.price | currency:'EUR':true:'1.2-2'}}</td>
-<td *ngIf="showAddToBasket"><span class='btn btn-success' (click)="addMovieToBasket()">Add to basket</span></td>
-<td *ngIf="showAddToWishlist"><span class='btn btn-danger' (click)="addMovieToWishlist()">Add to Wishlist</span></td>
+<td *ngIf="showAddToWishlist"><span class='btn btn-success navbar-btn' (click)="addMovieToWishlist()">Add to Wishlist</span></td>
+<td *ngIf="showAddToBasket"><span class='btn btn-info navbar-btn' (click)="addMovieToBasket()">Add to basket</span></td>
 

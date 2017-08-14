@@ -7,11 +7,11 @@
 
 
   <div class="buttonDiv">
-    <button *ngIf="showAddToWishlist" class="btn btn-danger" (click)="addMovieToWishlist()">
+    <button *ngIf="showAddToWishlist" class="btn btn-success navbar-btn" (click)="addMovieToWishlist()">
       <span>Add to Wishlist: </span>
       <span class="badge"><span class="glyphicon glyphicon-list-alt"></span></span>
     </button>
-    <button *ngIf="showAddToBasket" (click)="addMovieToBasket()" class="btn btn-success">
+    <button *ngIf="showAddToBasket" (click)="addMovieToBasket()" class="btn btn-info navbar-btn">
       <span class="glyphicon glyphicon-shopping-cart"></span>
       <span> Buy now: </span>
       <span class="badge" *ngIf="showPrice">{{theMovie.price | currency:'EUR':true}}</span>

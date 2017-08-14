@@ -7,6 +7,6 @@
   </label></span><span class="viewtype">Grid View</span>
   <m-grid *ngIf="checked"
           [movies]='movies' [showAddToBasket]="false" [showAddToWishlist]="false"></m-grid>
-  <movie-table *ngIf="!checked" [movies]="movies" [showAddToBasket]="false"  [showPrice]="false"></movie-table>
+  <movie-table *ngIf="!checked" [movies]="movies" [showAddToBasket]="false"  [showPrice]="false" [showAddToWishlist]="false"></movie-table>
 
 </div>

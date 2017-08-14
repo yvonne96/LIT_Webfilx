@@ -38,7 +38,7 @@ export class HttpWishlistService extends WishlistService {
     return this.restService.get(baseUrl).build()
       .map(resp => resp.json())
       .catch(error => {
-        console.log(`Error reading basket`);
+        console.log(`Error reading wishlist`);
         return Observable.of(WishlistSummary.empty());
       });
   }
@@ -50,7 +50,7 @@ export class HttpWishlistService extends WishlistService {
       .map(x => true)
       .do(response => this.refreshItemCount())
       .catch(error => {
-        console.log(`Error adding item to basket`);
+        console.log(`Error adding item to wishlist`);
         return Observable.of(false);
       });
   }
@@ -66,7 +66,7 @@ export class HttpWishlistService extends WishlistService {
       .map(() => true)
       .do(() => this.refreshItemCount())
       .catch(error => {
-        console.log(`Error reading basket `);
+        console.log(`Error reading wishlist`);
         return Observable.of(false);
       });
   }
