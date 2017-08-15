@@ -52,8 +52,6 @@ export class AddMoviesComponent {
 
       setTimeout(() =>  {
         this.image = document.getElementById('img').src;
-        //console.log(this.image);
-        // this.movieService.addImage(this.image).subscribe(data => { console.log(data); });
       }, 2000);
 
       // this.movieService.addImage(this.image).delay(3000).subscribe(data => { console.log(data); });

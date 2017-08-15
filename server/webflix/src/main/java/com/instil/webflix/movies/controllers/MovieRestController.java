@@ -98,7 +98,6 @@ public class MovieRestController {
 	
 	@RequestMapping(method = POST, value="/{price}",  produces = "application/json")
 	public void addPrice(@PathVariable("price") BigDecimal price){
-		System.out.println("test2");
 		long movie_id = 12;//= getAllMovies();
 		repository.addPrice(movie_id, price);
 	}

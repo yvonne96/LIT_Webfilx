@@ -68,7 +68,6 @@ export class HttpMovieService extends MovieService {
   }
 
   fetchById(id: number): Observable<Movie> {
-    debugger;
     return this.restService.get(baseUrl + '/byId/' + id)
       .build()
       .map(resp => resp.json())
