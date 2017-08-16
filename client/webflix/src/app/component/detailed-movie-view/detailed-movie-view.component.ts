@@ -34,7 +34,7 @@ export class DetailedMovieViewComponent {
   public reviews: Review[];
   public avgReviewScore: number;
   public reviewErrorMsg: String = null;
-  public canSubmitReview: boolean = true;
+  public hasReview: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private movieService: MovieService,
@@ -149,19 +149,27 @@ export class DetailedMovieViewComponent {
   checkIfUserHasReview() {
     for (let n = 0; n < this.reviews.length; n++) {
       if (this.reviews[n].account_id === this.currentUserID) {
-        this.canSubmitReview = false;
+        this.hasReview = true;
       }
     }
   }
 
   createReview() {
-    if (!this.canSubmitReview) {
-      this.reviewErrorMsg = 'You have already submitted a review for this movie';
-    } else if (this.score == null) {
+    if (this.score == null ) {
       this.reviewErrorMsg = 'Invalid Score submitted';
-    } else if (this.comments == null) {
+    } else if (this.comments == null ) {
       this.reviewErrorMsg = 'Invalid comments submitted';
-    } else { console.log(this.score);
+    } else if (this.hasReview) {
+      if (confirm('You have already written a review for this movie, do you want to overwrite your review with this one?')) {
+        this.reviewService.updateReview(this.currentUserID, this.theMovieID, this.comments, this.score)
+          .subscribe(() => {
+            this.reviewErrorMsg = null;
+            this.refreshReviewForm();
+            this.refreshReviews();
+            this.refreshAvgScore();
+          }, error => ('Unable to update Review'));
+      }
+    } else {
       this.reviewService.createReview(this.currentUserID, this.theMovieID, this.comments, this.score)
         .subscribe(() => {
           this.reviewErrorMsg = null;
@@ -215,7 +223,7 @@ export class DetailedMovieViewComponent {
   }
 
   userReviewDeleted() {
-    this.canSubmitReview = true;
+    this.hasReview = false;
     this.refreshReviews();
   }
 }
