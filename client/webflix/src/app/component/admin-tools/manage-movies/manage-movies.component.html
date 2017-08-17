@@ -23,7 +23,6 @@
     </table>
   </div>
 </div>
-<div *ngIf="isAdmin == false" style="color: white; font-size: 100px; text-align: center;">
-  <p>You don't have access to this page!</p>
-  <p><img src="app/component/admin-tools/angryBoss.jpg" height = "500" width="800" align="middle"></p>
-</div>
+
+<!--the content above wont appear if the user is not admin and this will appear instead-->
+<non-admin-warning  *ngIf="isAdmin == false" ></non-admin-warning>

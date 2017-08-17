@@ -28,10 +28,11 @@ export class EditMovieComponent {
 
   constructor(private router: Router,
               private movieService: MovieService, private route: ActivatedRoute, private authenticationService: AuthenticationService) {
+    // gets id from the url
     this.route.params.subscribe(params => {
       this.id = +params['id'];
     });
-    this.fetchById();
+    this.fetchById();   // this is to intialize movieToEdit
     authenticationService.isAdmin
       .subscribe(x => this.isAdmin = x);
     this.getGenreValues(this.movieService.getGenreValues());
@@ -56,31 +57,33 @@ export class EditMovieComponent {
 
 
   validate() {
+    // validating edit form's different fields
     return !(this.castValidation() || this.directorValidation() || this.descriptionValidation() || this.yearValidation());
   }
 
   yearValidation() {
+    // checks if year is in the range of 1800-2999
     let matcher = new RegExp(/^(18\d\d|19\d\d|2\d{3})$/); // 1800-2999
-    let notAYear = false;
-    if (!(matcher.test(this.year))) {
-      notAYear = true
-    }
-    return (this.year.trim() === '' || !Number(this.year) || notAYear);
+    return !(matcher.test(this.year));
   }
 
   directorValidation() {
+    // makes sure director field contains charachters
     return (this.director.trim() === '');
   }
 
   castValidation() {
+    // makes sure cast field contains charachters
     return (this.cast.trim() === '');
   }
 
   descriptionValidation() {
+    // makes sure description field contains charachters
     return (this.description.trim() === '');
   }
 
   fetchById() {
+    // gets movie by ID
     this.movieService.fetchById(this.id)
       .subscribe(
         movie => {
@@ -91,6 +94,7 @@ export class EditMovieComponent {
   }
 
   intializeMovieParameters() {
+    // sets form fields to corresponding movie details
     this.title = this.movieToEdit.title;
     this.year = this.movieToEdit.year;
     this.genre = this.movieToEdit.genre.id;
@@ -102,6 +106,7 @@ export class EditMovieComponent {
   }
 
   getGenreValues(source: Observable<Genre[]>) {
+    // get all genres to fill genre drop down menu
     source
       .subscribe(genres => {
         this.genres = genres;
@@ -116,6 +121,7 @@ export class EditMovieComponent {
     });
   }
   getClassificationValues(source: Observable<Classification[]>) {
+    // get all classifications to fill classification drop down menu
     source
       .subscribe(classifications => {
         this.classifications = classifications;

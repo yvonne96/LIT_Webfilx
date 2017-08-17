@@ -6,6 +6,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {APP_BASE_HREF} from '@angular/common';
 
 import {AdminToolsComponent} from './component/admin-tools/admin-tools.component';
+import {NonAdminWarningComponent} from './component/admin-tools/non-admin-warning/non-admin-warning.component';
 import {ManageMoviesComponent} from './component/admin-tools/manage-movies/manage-movies.component';
 import {ManageMoviesRowComponent} from './component/admin-tools/manage-movies/manage-movies-row.component';
 import {ManageVouchersComponent } from './component/admin-tools/manage-vouchers/manage-vouchers.component';
@@ -113,6 +114,7 @@ const appRoutes: Routes = [
   ],
   declarations: [
     AdminToolsComponent,
+    NonAdminWarningComponent,
     ManageVouchersComponent,
     ManageMoviesComponent,
     AddMoviesComponent,

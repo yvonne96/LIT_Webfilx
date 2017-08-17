@@ -13,7 +13,5 @@
     </div>
   </div>
 </div>
-<div *ngIf="isAdmin == false" id="non-admin">
-  <p>You don't have access to this page!</p>
-  <p><img src="app/component/admin-tools/angryBoss.jpg" height = "500" width="800" align="middle"></p>
-</div>
+
+<non-admin-warning  *ngIf="isAdmin == false" ></non-admin-warning>

@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {AuthenticationService} from '../../../../service/authentication/authentication.service';
 import {MovieService} from '../../../../service/movie/movie.service';
 import {Movie, Genre, Classification} from '../../../../model/movie';
+import {AddEditMovieFormSharedFunction} from "../add-edit-movie-form-shared-functions/add-edit-movie-form-shared-functions.component";
 @Component({
   moduleId: module.id,
   selector: 'add-movies',
@@ -29,6 +30,7 @@ export class AddMoviesComponent {
 
   constructor(private movieService: MovieService, private router: Router,
               private authenticationService: AuthenticationService,
+              private sharedFunctions: AddEditMovieFormSharedFunction,
               ) {
 
     authenticationService.isAdmin
@@ -36,11 +38,6 @@ export class AddMoviesComponent {
     this.getGenreValues(this.movieService.getGenreValues());
     this.getClassificationValues(this.movieService.getClassificationValues());
   }
-
-  //
-  // saveImageToFile(e) {
-  //   this.image = e.srcElement.files[0].name;
-  // }
 
   addMovie() {
     // console.log('printing imagae from add movie function:  ');
@@ -114,12 +111,8 @@ export class AddMoviesComponent {
   }
 
   yearValidation() {
-    let matcher = new RegExp(/^(18\d\d|19\d\d|2\d{3})$/); // 1800-2999
-    let notAYear = false;
-    if (!(matcher.test(this.year))) {
-      notAYear = true
-    }
-    return (this.year.trim() === '' || !Number(this.year) || notAYear);
+    let matcher = new RegExp(/^(18\d\d|19\d\d|2\d{3})$/); // Year must be in the range of1800-2999
+    return !(matcher.test(this.year));
   }
 
   directorValidation() {

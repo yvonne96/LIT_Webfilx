@@ -8,54 +8,50 @@
         <label>Name:
           <input type="text" class="form-control addText" name="title" [(ngModel)]="title" required ></label>
         <br>
+
         <label >Year:
           <input type="text" class="form-control addText" name="year" [(ngModel)]="year" required></label>
         <div style="color: red" *ngIf="f.submitted && yearValidation()" class="help-block">Please change Year to a valid year, must be in the range of 1800-2999</div>
         <br>
+
         <label>Genre:
           <select class="form-control addText" name="genre" [(ngModel)]="genre" required>
             <option *ngFor="let currentGenre of genres" value='{{currentGenre.id}}'>{{currentGenre.value}}</option>
           </select></label>
         <br>
+
         <label> Classification:
           <select class="form-control addText" name="classification" [(ngModel)]="classification" required>
             <option *ngFor="let currentClassification of classifications" value='{{currentClassification.id}}'>{{currentClassification.value}}</option>
           </select></label>
         <br>
+
         <label >Director:
           <input type="text" class="form-control addText" name="director" [(ngModel)]="director" required></label>
         <div style="color: red" *ngIf="f.submitted && directorValidation()" class="help-block">Must contain at least one charachter</div>
         <br>
+
         <label>Price:
           <input type="number" class="form-control addText" min="0" step=".01" name="price" [(ngModel)]="price" required></label>
         <br>
-        <!--<form #f="ngForm" (ngSubmit)="saveImageToFile()">-->
-        <!--<input type="file" id="movieImage" name="image" [(ngModel)]="image" accept="image/*" required>-->
 
-        <!--<br>-->
-        <!--<input type="submit" value="Save Image" class="btn btn-primary buttons">-->
-        <!--</form>-->
         <label>Image:
         <form name="form" method="post" action="" enctype="multipart/form-data">
           <div class="input-group">
-
             <input id="imagePath" class="form-control" type="file" (change)="fileChangeEvent($event)" name="Image" accept="image/*" />
-
             <span class="input-group-btn">
-
-        <a class="btn btn-success" (click)='uploadImagetoStorageContainer()'>Upload</a>
-
-    </span>
+              <a class="btn btn-success" (click)='uploadImagetoStorageContainer()'>Upload</a>
+            </span>
           </div>
         </form>
         </label>
-
 
         <br>
         <label>Main Cast:
           <textarea class="form-control addTextMainCast" name="mainCast" [(ngModel)]="mainCast" required> </textarea></label>
         <div style="color: red" *ngIf="f.submitted && castValidation()" class="help-block">Must contain at least one charachter</div>
         <br>
+
         <label >Description:
           <textarea class="form-control addTextMainCast" name="description" [(ngModel)]="description" required> </textarea></label>
         <div style="color: red" *ngIf="f.submitted && descriptionValidation()" class="help-block">Must contain at least one charachter</div>
@@ -69,7 +65,4 @@
   </div>
 </div>
 
-<div *ngIf="isAdmin == false" style="color: white; font-size: 100px; text-align: center;">
-  <p>You dont have access to this page!</p>
-  <p><img src="app/component/admin-tools/angryBoss.jpg" height = "500" width="800" align="middle"></p>
-</div>
+<non-admin-warning  *ngIf="isAdmin == false" ></non-admin-warning>
