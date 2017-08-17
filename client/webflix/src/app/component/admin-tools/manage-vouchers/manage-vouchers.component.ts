@@ -79,7 +79,7 @@ export class ManageVouchersComponent {
   }
 
   validVoucherParams(): boolean {
-    if (!this.codeNotUsed()) {
+    if (!this.voucherCodeNotUsed()) {
       this.errorMessage = 'Error - the code you supplied is already in use';
       return false;
     }
@@ -124,13 +124,12 @@ export class ManageVouchersComponent {
     return true;
   }
 
-  codeNotUsed(): boolean {
+  voucherCodeNotUsed(): boolean {
     for (let v of this.vouchers){
       if (v.name.toUpperCase() === this.code.toUpperCase()) {
         return false;
       }
     }
-
     return true;
   }
 

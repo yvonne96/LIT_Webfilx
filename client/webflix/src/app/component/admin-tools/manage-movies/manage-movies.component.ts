@@ -154,21 +154,4 @@ export class ManageMoviesComponent {
         break;
     }
   }
-
-  refreshMovies() {
-    this.movieService.fetchAllMovies()
-      .subscribe(movies => {
-        this.movies = movies;
-        this.sortMovieByTitle();
-      }
-      );
-  }
-
-  sortMovieByTitle() {
-    this.movies.sort((firstMovie, nextMovie) => {
-      if (firstMovie.title < nextMovie.title) {return -1; }
-      if (firstMovie.title > nextMovie.title) {return 1; }
-      return 0;
-    });
-  }
 }

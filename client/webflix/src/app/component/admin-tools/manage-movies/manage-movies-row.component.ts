@@ -36,9 +36,6 @@ export class ManageMoviesRowComponent implements OnInit{
   addMovie(aMovie: Movie) {
     this.theMovie = aMovie;
   }
-  getCurrentMovie() {
-    return this.theMovie;
-  }
 
   showDescription() {
     this.desc = this.theMovie.description.slice(0, this.descLen);
