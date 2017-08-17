@@ -33,18 +33,6 @@
 
         <label>Price:
           <input type="number" class="form-control addText" min="0" step=".01" name="price" [(ngModel)]="price" required></label>
-        <br>
-
-        <label>Image:
-        <form name="form" method="post" action="" enctype="multipart/form-data">
-          <div class="input-group">
-            <input id="imagePath" class="form-control" type="file" (change)="fileChangeEvent($event)" name="Image" accept="image/*" />
-            <span class="input-group-btn">
-              <a class="btn btn-success" (click)='uploadImagetoStorageContainer()'>Upload</a>
-            </span>
-          </div>
-        </form>
-        </label>
 
         <br>
         <label>Main Cast:
