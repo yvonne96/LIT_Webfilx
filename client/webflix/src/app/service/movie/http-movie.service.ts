@@ -20,6 +20,7 @@ export class HttpMovieService extends MovieService {
       .build()
       .map(resp => resp.json());
   }
+
   getGenreValues(): Observable<Genre[]> {
     return this.restService.get('/genre')
       .build()
@@ -85,13 +86,22 @@ export class HttpMovieService extends MovieService {
   }
 
   toggleFavorite(movie_id: number, favorite: boolean): Observable<boolean> {
-
     return this.restService.post(baseUrl + '/' + movie_id + '/' + favorite)
       .build()
       .map(() => true)
       .catch(error => {
         console.log('unable to toggle favorites');
         return Observable.of(false);
+      });
+  }
+
+  getMyFavorites(): Observable<Movie[]> {
+    return this.restService.get(baseUrl + '/favorite')
+      .build()
+      .map(resp => resp.json())
+      .catch(error => {
+        console.log('error retrieving favorites');
+        return Observable.of([]);
       });
   }
 }

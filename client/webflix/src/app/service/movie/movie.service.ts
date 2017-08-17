@@ -27,4 +27,6 @@ export abstract class MovieService {
                      director: string, cast: string, description: string): Observable<boolean>;
 
   abstract toggleFavorite(movie_id: number, favorite: boolean): Observable<boolean>;
+
+  abstract getMyFavorites(): Observable<Movie[]>;
 }

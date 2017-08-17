@@ -5,9 +5,8 @@
     <input type="checkbox" (click)="updateView()" [checked]="checked">
     <span class="slider round"></span>
   </label></span><span class="viewtype">Grid View</span>
-  <button class='btn nav-bar' routerLink='./favorites' routerLinkActive="active">Favorites</button>
 
-  <table class="table jumbotron">
+  <table class="table viewtype">
     <thead>
       <tr>
         <th>Title</th>
@@ -25,11 +24,8 @@
           <td>{{movie.genre.value}}</td>
           <td>{{movie.classification.value}}</td>
           <td> null</td>
-          <td ><input type="checkbox" (click)="toggleFavorite(movie)"></td>
+          <td><button class='btn btn-warning' (click)='toggleFavorite(movie)'>Add to Favorites</button></td>
         </tr>
     </tbody>
   </table>
-  <!--<m-grid *ngIf="checked"-->
-          <!--[movies]='movies' [showAddToBasket]="false" [showPrice]="false" [showFavorites]="true"></m-grid>-->
-  <!--<movie-table *ngIf="!checked" [movies]="movies" [showAddToBasket]="false" [showPrice]="false" [showFavorites]="true"></movie-table>-->
 </div>

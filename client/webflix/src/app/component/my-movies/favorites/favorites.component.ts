@@ -1,5 +1,4 @@
 import {Component, } from '@angular/core';
-import {Router} from '@angular/router';
 import {MovieService} from '../../../service/movie/movie.service';
 import {Movie} from '../../../model/movie';
 
@@ -12,8 +11,7 @@ import {Movie} from '../../../model/movie';
 export class FavoritesComponent {
   private checkMovies: boolean;
   private myFavoriteMovies: Movie[];
-  private toggleFavorite: boolean = true;
-  private myMovies: Movie[];
+  private favorite: boolean;
 
   constructor(private movieService: MovieService) {
     this.checkMovies = true;
@@ -22,9 +20,18 @@ export class FavoritesComponent {
   }
 
   private refreshMyMovies(): void {
-    this.movieService.fetchMyMovies()
-      .subscribe(
-        movies => this.myFavoriteMovies = movies);
+    this.movieService.getMyFavorites()
+      .subscribe(movies => {
+        this.myFavoriteMovies = movies;
+        console.log(this.myFavoriteMovies);
+      });
+  }
+
+  toggleFavorite(movie: Movie) {
+    this.refreshMyMovies();
+    this.favorite = false;
+    this.movieService.toggleFavorite(movie.id, this.favorite)
+      .subscribe(() => this.refreshMyMovies());
   }
 
 }

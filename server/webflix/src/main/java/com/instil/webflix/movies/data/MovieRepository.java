@@ -12,6 +12,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 
 import com.instil.webflix.movies.model.Movie;
+import com.instil.webflix.security.model.Account;
+import com.instil.webflix.voucher.model.Voucher;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 	@Query(value = "SELECT m FROM Movie m WHERE m.genre.value = ?1")
@@ -20,6 +22,10 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	List<Movie> findByTitleContains(String titleString);
 
 	List<Movie> findByTitleContainsAllIgnoreCase(String titleString);
+	
+
+	@Query(nativeQuery = true, value = "SELECT * FROM movie m JOIN account_movie am ON m.id = am.movie_id WHERE am.favorite = true AND am.account_id = :account_id")
+	List<Movie> findByFavoriteTrue(@Param("account_id") Long account_id);
 	
 	@Transactional
 	@Modifying
@@ -34,7 +40,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	
 	@Transactional
 	@Modifying
-	@Query(nativeQuery = true, value = "UPDATE public.account_movie SET favorite = :favorite WHERE movie_id = :movie_id")
-	void toggleFavorite(@Param("movie_id") Integer movie_id, @Param("favorite") boolean favorite);
+	@Query(nativeQuery = true, value = "UPDATE account_movie SET favorite = :favorite WHERE movie_id = :movie_id AND account_id = :account_id")
+	void toggleFavorite(@Param("movie_id") Integer movie_id, @Param("favorite") boolean favorite, @Param("account_id") Long account_id);
 	
+
 }
