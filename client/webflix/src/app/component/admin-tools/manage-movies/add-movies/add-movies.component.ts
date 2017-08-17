@@ -4,7 +4,6 @@ import {Observable} from 'rxjs/Observable';
 import {AuthenticationService} from '../../../../service/authentication/authentication.service';
 import {MovieService} from '../../../../service/movie/movie.service';
 import {Movie, Genre, Classification} from '../../../../model/movie';
-import {AddEditMovieFormSharedFunction} from "../add-edit-movie-form-shared-functions/add-edit-movie-form-shared-functions";
 @Component({
   moduleId: module.id,
   selector: 'add-movies',
@@ -30,7 +29,6 @@ export class AddMoviesComponent {
 
   constructor(private movieService: MovieService, private router: Router,
               private authenticationService: AuthenticationService,
-              private sharedFunctions: AddEditMovieFormSharedFunction,
               ) {
 
     authenticationService.isAdmin

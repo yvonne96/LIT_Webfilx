@@ -6,8 +6,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {APP_BASE_HREF} from '@angular/common';
 
 import {AdminToolsComponent} from './component/admin-tools/admin-tools.component';
-import {AddEditMovieFormSharedFunction} from
-  './component/admin-tools/manage-movies/add-edit-movie-form-shared-functions/add-edit-movie-form-shared-functions';
 import {NonAdminWarningComponent} from './component/admin-tools/non-admin-warning/non-admin-warning.component';
 import {ManageMoviesComponent} from './component/admin-tools/manage-movies/manage-movies.component';
 import {ManageMoviesRowComponent} from './component/admin-tools/manage-movies/manage-movies-row.component';
@@ -160,7 +158,6 @@ const appRoutes: Routes = [
     {provide: VoucherService, useClass: HttpVoucherService},
     {provide: WishlistService, useClass: HttpWishlistService },
     {provide: ReviewService, useClass: HttpReviewService},
-    AddEditMovieFormSharedFunction,
     StorageService,
   ]
 })
