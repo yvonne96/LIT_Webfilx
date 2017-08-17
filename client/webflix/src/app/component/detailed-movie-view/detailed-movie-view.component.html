@@ -27,9 +27,9 @@
       </button>
       <p *ngIf="inWishlist">This Item is in your wishlist!</p>
     </div>
-    <div class="buttonDiv">
-      <button class="btn btn-warning">
-        <span class="glyphicon glyphicon-heart"></span>
+    <div class="buttonDiv" *ngIf="owned">
+      <button class="btn btn-warning" (click)='toggleFavorite(theMovie)'>
+        <span class="glyphicon glyphicon-star"></span>
         <span>Add to Favourites</span>
         <span class="badge"></span>
       </button>

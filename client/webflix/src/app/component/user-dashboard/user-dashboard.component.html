@@ -3,10 +3,24 @@
     <div class="navbar-header">
       <img src="assets/logo.png" width="75" height="50"/>
     </div>
-    <button class='btn btn-danger' *ngIf="isAdmin" routerLink="./admin" routerLinkActive="active">Admin Tools</button>
-    <button class='btn navbar-btn' routerLink="./" routerLinkActive="active">Home</button>
-    <button class='btn navbar-btn' routerLink="./mymovies" routerLinkActive="active">My Movies</button>
-    <button class='btn navbar-btn' routerLink='./mymovies/favorites' routerLinkActive="active">Favorites</button>
+    <button class='btn btn-danger' *ngIf="isAdmin" routerLink="./admin" routerLinkActive="active">
+      <span class="glyphicon glyphicon-cog"></span>
+      <span>Admin Tools</span>
+    </button>
+    <button class='btn navbar-btn' routerLink="./" routerLinkActive="active">
+      <span class="glyphicon glyphicon-home"></span>
+      <span>Home</span>
+    </button>
+
+    <button class='btn navbar-btn' routerLink="./mymovies" routerLinkActive="active">
+      <span class="glyphicon glyphicon-film"></span>
+      <span>My Movies</span>
+    </button>
+
+    <button class='btn btn-warning' routerLink='./mymovies/favorites' routerLinkActive="active">
+      <span class="glyphicon glyphicon-star"></span>
+      <span>Favorites</span>
+    </button>
 
     <div class="nav navbar-right">
 

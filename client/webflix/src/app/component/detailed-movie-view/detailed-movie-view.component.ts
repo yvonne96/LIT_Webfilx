@@ -35,6 +35,7 @@ export class DetailedMovieViewComponent {
   public avgReviewScore: number;
   public reviewErrorMsg: String = null;
   public hasReview: boolean = false;
+  private favorite: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private movieService: MovieService,
@@ -226,4 +227,11 @@ export class DetailedMovieViewComponent {
     this.hasReview = false;
     this.refreshReviews();
   }
+
+  toggleFavorite(movie: Movie) {
+      this.favorite = true;
+      this.movieService.toggleFavorite(movie.id, this.favorite)
+        .subscribe(() => {
+        });
+    }
 }
