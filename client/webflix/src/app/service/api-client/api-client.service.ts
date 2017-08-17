@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import {Injectable} from '@angular/core';
 import {User} from '../../model/user';
 import {RestService} from './rest.service';
+import {Account} from '../../model/account';
 
 @Injectable()
 export class ApiClient {
@@ -57,6 +58,18 @@ export class ApiClient {
           return Observable.throw(new ApiClientError(ApiClientErrorCode.UNAUTHORIZED_REQUEST));
         }
       });
+  }
+
+  getCurrentAccountID(): Observable<number> {
+    return this.restService.get('/account/currentUserID')
+      .build()
+      .map(resp => resp.json());
+  }
+
+  getAccountByID(accountID: number): Observable<Account> {
+    return this.restService.get('/account/UserByID/' + accountID)
+      .build()
+      .map(resp => resp.json());
   }
 }
 

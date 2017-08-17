@@ -1,0 +1,28 @@
+<div class="row" *ngIf="isAdmin">
+  <div class="jumbotron" style="max-width: none">
+    <h2>Manage Movies</h2>
+    <p><button style="min-width: 150px" class="btn btn-info navbar-btn" routerLink="./add-movies" routerLinkActive="active">Add Movie</button></p>
+    <table class="table">
+      <thead>
+      <tr>
+        <th><button class="ManageMovieHeadingbutton" (click)="chooseSortMethod('TITLE')">Title</button></th>
+        <th><button class="ManageMovieHeadingbutton" (click)="chooseSortMethod('YEAR')">Year</button></th>
+        <th><button class="ManageMovieHeadingbutton" (click)="chooseSortMethod('GENRE')">Genre</button></th>
+        <th><button class="ManageMovieHeadingbutton" (click)="chooseSortMethod('RATING')">Rating</button></th>
+        <th><button class="ManageMovieHeadingbutton" (click)="chooseSortMethod('CLASSIFICATION')">Classification</button></th>
+        <th><button class="ManageMovieHeadingbutton" (click)="chooseSortMethod('DIRECTOR')">Director</button></th>
+        <th><button class="ManageMovieHeadingbutton" (click)="chooseSortMethod('MAIN CAST')">Main Cast</button></th>
+        <th><button class="ManageMovieHeadingbutton" (click)="chooseSortMethod('PRICE')">Price</button></th>
+        <th><button class="ManageMovieHeadingbutton" (click)="chooseSortMethod('PURCHASABLE')">Purchasable</button></th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let movie of movies" manage-movies-row [currentMovie]="movie">
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--the content above wont appear if the user is not admin and this will appear instead-->
+<non-admin-warning  *ngIf="isAdmin == false" ></non-admin-warning>

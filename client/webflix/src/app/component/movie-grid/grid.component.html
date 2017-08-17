@@ -2,8 +2,9 @@
   <div class="col-sm-12" style="margin-bottom: 20px;">
     <div class="col-sm-4" *ngFor="let movie of movies" movie-grid
          [currentMovie]="movie"
-         [showAddToBasket]="showAddToBasket" [showPrice]="showPrice"
-         (onAddMovieToBasket)="movieAdded($event)">
+         [showAddToBasket]="showAddToBasket" [showPrice]="showPrice" [showAddToWishlist]="showAddToWishlist"
+         (onAddMovieToBasket)="movieAdded($event)"
+         (onAddMovieToWishlist)="movieAddedToWishlist($event)">
     </div>
   </div>
 </div>

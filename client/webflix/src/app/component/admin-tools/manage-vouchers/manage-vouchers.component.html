@@ -1,0 +1,87 @@
+<div class="row" *ngIf="isAdmin">
+  <div class="col-md-4">
+    <div class="jumbotron">
+      <!-- IMPLEMENT CREATEVOUCHERS()-->
+      <h3>Create Voucher</h3>
+      <form name="createVouchers" id="createVouchers" #f="ngForm" (ngSubmit)="createVoucher()">
+        <div id="failure-alert" *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
+          <label htmlFor="code">Code</label>
+          <input type="text" class="form-control" name="code"
+                 [(ngModel)]="code" required/>
+        </div>
+
+        <div class="form-group">
+          <label>Discount Type</label>
+          <select [(ngModel)]="menuType" name="menuType" (change)="chooseDiscountMenu(menuType)" class="form-control">
+            <option value="" selected="selected">Select your option</option>
+            <option value='buyXGetY' >Buy X Get Y Free</option>
+            <option value="percentage" >Percentage Discount</option>
+            <option value="spendXGetY" >Spend X Get Y Off</option>
+          </select>
+
+          <div *ngIf="toggledBuyXGetYFree">
+            <label>Buy X:</label>
+            <input min="0" type="number" name="discountX" [(ngModel)]="discountX" required>
+            <label>Get Y Free:</label>
+            <input min= "0" type="number" name="discountY" [(ngModel)]="discountY" required>
+          </div>
+
+          <div *ngIf="toggledPercentOff">
+            <label>Percentage Discount:</label>
+            <input min="0" max="100" type="number" name="discountX" [(ngModel)]="discountX" required>
+          </div>
+
+          <div *ngIf="toggledSpendXGetYOff">
+            <label>Spend X:</label>
+            <input min="0" type="number" name="discountX" [(ngModel)]="discountX" required>
+            <label>Get Y Off:</label>
+            <input min="0" type="number" name="discountY" [(ngModel)]="discountY" required>
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isLoading}">
+          <label htmlFor="expiryDate">Expiry Date</label>
+          <input type="date" [min]="tomorrow" name="expiryDate" class="form-control"
+                 [(ngModel)]="expiryDate" required/>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-primary">Create Voucher</button>
+        </div>
+      </form>
+    </div>
+    </div>
+    <!-- MANAGE VOUCHERS-->
+    <div class="jumbotron col-md-8">
+      <h2>Manage Vouchers</h2>
+      <table class="table">
+        <thead>
+        <tr>
+          <th class="col-md-2" ><button class="ManageVoucherHeadingbutton" (click)="chooseSortMethod('CODE')">Code</button></th>
+          <th class="col-md-3" ><button class="ManageVoucherHeadingbutton" (click)="chooseSortMethod('DISCOUNT')">Discount</button></th>
+          <th class="col-md-3" ><button class="ManageVoucherHeadingbutton" (click)="chooseSortMethod('DATE')">Expires</button></th>
+          <th class="col-md-2" ><button class="ManageVoucherHeadingbutton" (click)="chooseSortMethod('GLOBAL')">Global</button></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let voucher of vouchers" [style.color]="getVoucherRowStyle(checkVoucherExpired(voucher))">
+          <td>{{voucher.name}}</td>
+          <td>{{voucher.offer}}</td>
+          <td>{{voucher.expire | date}}</td>
+          <td ><div class="radio" style="text-align: center"><input type="checkbox" name="global-bttn"  [disabled]="checkVoucherExpired(voucher)"[checked]="voucher.global" (click)="toggleGlobalButton(voucher)"></div></td>
+          <td  style="text-align: center">
+            <button class="btn btn-danger" (click)="removeVoucher(voucher)">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </td>
+          <td *ngIf="checkVoucherExpired(voucher)" class="danger">
+              EXPIRED
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+<non-admin-warning  *ngIf="isAdmin == false" ></non-admin-warning>

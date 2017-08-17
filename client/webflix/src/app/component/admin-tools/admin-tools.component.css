@@ -1,0 +1,22 @@
+#page-wrap {
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+#non-admin {
+  color: white;
+  font-size: 100px;
+  text-align: center;
+}
+.button-space {
+  width:5px;
+  height:auto;
+  display:inline-block;
+}
+.Container button{ /* You Can Name it what you want*/
+  margin-right:20px;
+}
+.Container button:last-child{
+  margin-left:20px;
+  /*so the last one dont push the div thas giving the space only between the inputs*/
+}

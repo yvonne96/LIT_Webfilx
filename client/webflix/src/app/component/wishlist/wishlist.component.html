@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="jumbotron">
+    <h1>Wishlist</h1>
+    <table class="table">
+      <thead>
+        <th class="col-md-4">Name</th>
+        <th class="col-md-1">Price</th>
+        <th class="col-md-3"></th>
+        <th class="col-md-4"></th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let movie of summary.movies">
+        <td>{{movie.title}}</td>
+        <td>{{movie.price | currency:'EUR':true:'1.2-2'}}</td>
+        <td>
+          <button class="btn btn-info navbar-btn" (click)="addMovieToBasket(movie)">
+            <span>Add to Basket </span><span class="glyphicon glyphicon-plus-sign"></span>
+          </button>
+          <button class="btn btn-danger" (click)="removeMovie(movie)">
+            <span>Remove from Wishlist </span><span class="glyphicon glyphicon-trash"></span>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-danger" (click)="clearWishlist()">Clear</button>
+  </div>
+</div>

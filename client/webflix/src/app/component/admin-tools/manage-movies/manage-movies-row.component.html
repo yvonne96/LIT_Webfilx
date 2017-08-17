@@ -1,0 +1,16 @@
+<td>{{theMovie.title}}<br> <p style="font-size: 14px; font-weight: normal; color: #337ab7" (mouseenter)="showDescription()" (mouseleave)="hideDescription()" class="glyphicon glyphicon-info-sign"><br><span>{{ desc }}</span></p></td>
+<td>{{theMovie.year}}</td>
+<td>{{theMovie.genre.value}}</td>
+<td>{{avgReviewScore}}</td>
+<td>{{theMovie.classification.value}}</td>
+<td>{{theMovie.director}}</td>
+<td>{{theMovie.cast}}</td>
+<td>{{theMovie.price | currency:'EUR':true:'1.2-2'}}</td>
+<td style="text-align: center">
+  <div class="checkbox"><input type="checkbox" [checked]="theMovie.purchasable" (click)="togglePurchasableMovie(theMovie)"></div>
+</td>
+<td style="text-align: center">
+  <button  style="max-width: 100px"  class="btn btn-info navbar-btn" [routerLink]="['./edit-movie',{ id : theMovie.id}]">
+    <span class="glyphicon glyphicon-pencil"></span>
+  </button>
+</td>

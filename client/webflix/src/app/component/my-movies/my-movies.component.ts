@@ -10,7 +10,59 @@ import {Movie} from '../../model/movie';
 })
 export class MyMoviesComponent {
   private movies: Movie[];
-  checked: boolean = true;
+  private myFavoriteMovies: Movie[];
+  private checked: boolean = true;
+  private returnValue: boolean;
+  private favorite: boolean = false;
+  private check: number;
+
+  constructor(private movieService: MovieService) {
+    this.refreshMyMovies();
+    this.refreshMyFavorites();
+  }
+
+  private refreshMyMovies(): void {
+    this.movieService.fetchMyMovies()
+      .subscribe(movies => this.movies = movies);
+  }
+  private refreshMyFavorites(): void {
+    this.movieService.getMyFavorites()
+      .subscribe(movies => {
+        this.myFavoriteMovies = movies;
+      });
+  }
+
+  toggleFavorite(movie: Movie) {
+    this.refreshMyFavorites();
+    if (!this.checkIfFavorite(movie.id)) {
+      this.favorite = true;
+      this.refreshMyFavorites();
+      console.log(this.favorite);
+      this.movieService.toggleFavorite(movie.id, this.favorite)
+        .subscribe(() => {
+          this.refreshMyMovies();
+          this.refreshMyFavorites();
+        });
+    }
+
+  }
+
+  checkIfFavorite(thisMovieId: number): boolean {
+    this.check = thisMovieId;
+    this.refreshMyFavorites();
+    let checkMovies: Movie[] = this.myFavoriteMovies;
+    console.log(this.check);
+    for (let m = 0; m < checkMovies.length; m++) {
+      if (this.check === checkMovies[m].id) {
+        this.returnValue = true;
+      }
+    }
+    if (this.returnValue) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   setView() {
     if (document.cookie.length === 0) {
@@ -38,12 +90,4 @@ export class MyMoviesComponent {
     }
   }
 
-  constructor(private movieService: MovieService) {
-    this.refreshMyMovies();
-  }
-
-  private refreshMyMovies(): void {
-    this.movieService.fetchMyMovies()
-      .subscribe(movies => this.movies = movies);
-  }
 }

@@ -1,0 +1,6 @@
+<div class="jumbotron" id="jumbotronReviewIndividual">
+<h3 *ngIf="isUserReview" id="isUserReviewMsg">This is your review! <button class="btn btn-danger" (click)="deleteReview()"><span class="glyphicon glyphicon-trash"></span></button></h3>
+<h4>Score: {{theReview.score}}/5</h4>
+<h4>{{theReview.comments}}</h4><br>
+<h4>By: {{userData}}</h4><br>
+</div>

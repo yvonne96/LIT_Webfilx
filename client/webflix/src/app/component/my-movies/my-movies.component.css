@@ -71,3 +71,7 @@ input:checked + .slider:before {
 .sform{
   margin-bottom: 20px;
 }
+
+.test {
+  color: white;
+}

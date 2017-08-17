@@ -1,0 +1,82 @@
+<div class="jumbotron">
+  <button class="btn btn-danger" (click)="backClick()">Back</button>
+  <h2>Detailed Movie View</h2><br>
+  <img  src="assets/images/{{theMovie?.image}}" alt = "Image Not Found">
+  <div>
+    <h2>{{theMovie?.title}} ({{theMovie?.year}})</h2>
+    <p>Avg. Review Score: {{avgReviewScore}}/5</p>
+    <p>Genre: {{theMovie?.genre.value}}</p>
+    <P>Cast: {{theMovie?.cast}}</P>
+    <p>Classification: {{theMovie?.classification.value}}</p>
+    <div class="buttonDiv" *ngIf='theMovie?.purchasable && !owned'>
+      <button class="btn btn-info navbar-btn" (click)="addMovieToBasket()" [disabled]="inBasket">
+        <span class="glyphicon glyphicon-shopping-cart"></span>
+        <span> Buy now: </span>
+        <span class="badge">{{theMovie?.price | currency:'EUR':true}}</span>
+      </button>
+      <p *ngIf="inBasket" class="inBasketOrOwnedMsg">This Item is in your basket!</p>
+    </div>
+    <p *ngIf="owned" class="inBasketOrOwnedMsg">
+      You own this Movie!
+    </p>
+    <div class="buttonDiv" *ngIf='!owned'>
+      <button class="btn btn-danger" (click)="addMovieToWishlist()" [disabled]="inWishlist">
+        <span class="glyphicon glyphicon-list"></span>
+        <span>Add to Wishlist</span>
+        <span class="badge"></span>
+      </button>
+      <p *ngIf="inWishlist">This Item is in your wishlist!</p>
+    </div>
+    <div class="buttonDiv" *ngIf="owned">
+      <button class="btn btn-warning" (click)='toggleFavorite(theMovie)'>
+        <span class="glyphicon glyphicon-star"></span>
+        <span>Add to Favourites</span>
+        <span class="badge"></span>
+      </button>
+    </div>
+  </div><br><br><br>
+  <div>
+    <h3>Description:</h3>
+    <p>{{theMovie?.description}}</p>
+  </div>
+</div>
+
+<div class="jumbotron">
+
+  <h1 id="reviewHeading">Reviews:</h1>
+
+  <div id="failure-alert" *ngIf="reviewErrorMsg" class="alert alert-danger">{{reviewErrorMsg}}</div>
+
+  <form id="createReview" #f="ngForm" (ngSubmit)="createReview()" >
+    <div class="form-group">
+      <label>Score: </label><br>
+      <fieldset class="rating" ngDefaultControl>
+        <input type="radio" [(ngModel)]="score" name="score" id="star5" value='5' /><label class = "full" for="star5"></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star4half" value='4.5' /><label class="half" for="star4half" ></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star4" value='4' /><label class = "full" for="star4" ></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star3half" value='3.5' /><label class="half" for="star3half" ></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star3" value='3' /><label class = "full" for="star3" ></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star2half" value='2.5' /><label class="half" for="star2half"></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star2" value='2' /><label class = "full" for="star2"></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star1half" value='1.5' /><label class="half" for="star1half" ></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="star1" value='1' /><label class = "full" for="star1" ></label>
+        <input type="radio" [(ngModel)]="score" name="score" id="starhalf" value='0.5' /><label class="half" for="starhalf" ></label>
+      </fieldset><br><br>
+    </div>
+    <div class="form-group">
+      <label>Comments: </label><br>
+      <textarea placeholder="Got a comment about the movie? (140 Char Limit)" rows="4" cols="70" maxlength="140" [(ngModel)]="comments" name="comments"></textarea>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary">Submit Review</button>
+      <hr>
+    </div>
+  </form>
+    <div *ngIf="reviews">
+      <review *ngFor="let review of reviews"
+              [theReview]="review"
+              [currentUserID]="currentUserID"
+              (onDeleteReview)="userReviewDeleted()">
+      </review>
+    </div>
+</div>

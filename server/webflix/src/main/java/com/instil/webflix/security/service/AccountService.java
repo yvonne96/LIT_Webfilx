@@ -11,4 +11,5 @@ public interface AccountService {
 	ResponseEntity<LoginResponse> login(String email, String pw);
 	
 	ResponseEntity<Object> register(Account newAccount);
+	
 }

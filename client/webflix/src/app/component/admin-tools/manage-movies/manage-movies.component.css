@@ -1,0 +1,21 @@
+.ManageMovieHeadingbutton{
+  background-color: #337ab7; /* Green */
+  border: none;
+  color: white;
+  font-weight: normal;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+  min-width: 80px;
+}
+.ManageMovieHeadingbutton:hover{
+  background-color: #286090;
+}
+
+.ManageMovieHeadingbutton:focus {
+  background-color: hotpink;
+  border: hotpink;
+}

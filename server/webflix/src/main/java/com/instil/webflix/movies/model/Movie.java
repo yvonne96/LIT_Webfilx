@@ -6,15 +6,21 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="movie")
-@SecondaryTable(name="movie_price", pkJoinColumns = @PrimaryKeyJoinColumn(name = "movie_id"))
+
 public class Movie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String title;
 	private String year;
+	private Integer rating;
+	private String main_cast;
 	private String description;
-
+	private String director;
+	private String image;
+	private Boolean purchasable;
+	private BigDecimal price;
+	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "genre")
 	private Genre genre;
@@ -23,8 +29,14 @@ public class Movie {
 	@JoinColumn(name = "classification")
 	private Classification classification;
 
-	@Column(table = "movie_price", name = "price")
-	private BigDecimal price;
+
+	public Boolean getPurchasable() {
+		return purchasable;
+	}
+
+	public void setPurchasable(Boolean purchasable) {
+		this.purchasable = purchasable;
+	}
 
 	public Movie() {
 		super();
@@ -32,13 +44,23 @@ public class Movie {
 		this.year = "";
 		this.price = new BigDecimal(0);
 		this.description = "";
+		this.image="";
+		this.rating = 0;
+		this.main_cast = "";
+	//	this.purchasable = true;
+		this.director = "";
 	}
+	
 
 	public Movie(String title) {
 		this();
 		this.title = title;
 	}
-
+	
+	public String getTitle() {
+		return title;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -47,10 +69,27 @@ public class Movie {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public void setRating(Integer rating) {
+		this.rating = rating;
 	}
-
+	
+	public Integer getRating() {
+		return this.rating;
+	}
+	public String getDirector() {
+		return this.director;
+	}
+	public void setDirector(String director) {
+		this.director = director;
+	}
+	public void setCast(String cast) {
+		this.main_cast = cast;
+	}
+	
+	public String getCast() {
+		return  this.main_cast;
+	}
+	
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -94,7 +133,15 @@ public class Movie {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	
+	public String getImage() {
+		return image;
+	}
 
+	public void setImage(String image) {
+		this.image = image;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
