@@ -16,12 +16,22 @@ export class HttpReviewService extends ReviewService {
     super();
   }
 
-  createReview(accountID: number, movieID: number, comments: string, score: number): Observable<Boolean>{
-    return this.restService.post(baseURL + '/' + accountID + '/' + movieID + '/' + comments + '/' + score + '/')
+  createReview(accountID: number, movieID: number, comments: string, score: number): Observable<Boolean> {
+    return this.restService.post(baseURL + '/add/' + accountID + '/' + movieID + '/' + comments + '/' + score + '/')
       .build()
       .map(() => true)
       .catch(error => {
         console.log('Error creating review');
+        return Observable.of(false);
+      });
+  }
+
+  updateReview(accountID: number, movieID: number, comments: string, score: number): Observable<Boolean> {
+    return this.restService.post(baseURL + '/update/' + accountID + '/' + movieID + '/' + comments + '/' + score + '/')
+      .build()
+      .map(() => true)
+      .catch(error => {
+        console.log('Error updating review');
         return Observable.of(false);
       });
   }

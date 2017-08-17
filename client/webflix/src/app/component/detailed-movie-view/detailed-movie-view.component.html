@@ -19,12 +19,13 @@
     <p *ngIf="owned" class="inBasketOrOwnedMsg">
       You own this Movie!
     </p>
-    <div class="buttonDiv">
-      <button class="btn btn-success navbar-btn">
+    <div class="buttonDiv" *ngIf='!owned'>
+      <button class="btn btn-danger" (click)="addMovieToWishlist()" [disabled]="inWishlist">
         <span class="glyphicon glyphicon-list"></span>
         <span>Add to Wishlist</span>
         <span class="badge"></span>
       </button>
+      <p *ngIf="inWishlist">This Item is in your wishlist!</p>
     </div>
     <div class="buttonDiv">
       <button class="btn btn-warning">

@@ -23,10 +23,14 @@ public class ReviewRestController {
 	@Autowired
 	ReviewRepository repository;
 	
-	@RequestMapping(method = POST, value="/{accountID}/{movieID}/{comments}/{score}/",  produces = "application/json")
+	@RequestMapping(method = POST, value="/add/{accountID}/{movieID}/{comments}/{score}/",  produces = "application/json")
 	public void createReview(@PathVariable("accountID") int accountID, @PathVariable("movieID") int movieID, @PathVariable("comments") String comments, @PathVariable("score") double score){
-		logger.info(score);
 		repository.addReview(accountID, movieID, comments.replace("%20", " "), score);
+	}
+	
+	@RequestMapping(method = POST, value="/update/{accountID}/{movieID}/{comments}/{score}/", produces = "application/json")
+	public void updateReview(@PathVariable("accountID") int accountID, @PathVariable("movieID") int movieID, @PathVariable("comments") String comments, @PathVariable("score") double score) {
+		repository.updateReview(accountID, movieID, comments.replace("%20", " "), score);
 	}
 	
 	@RequestMapping(method = GET, value="/{movieID}", produces = "application/json")

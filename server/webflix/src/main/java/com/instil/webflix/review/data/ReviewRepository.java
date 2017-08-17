@@ -25,6 +25,11 @@ public interface ReviewRepository extends JpaRepository<Review, Long>{
 	@Modifying
 	@Query(nativeQuery = true, value = "INSERT INTO reviews (account_id, movie_id, comments, score) VALUES (:accountID, :movieID, :comments, :score)")
 	void addReview(@Param("accountID") int accountID, @Param("movieID") int movieID, @Param("comments") String comments, @Param("score") double score);
+	
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true, value = "UPDATE reviews SET score = :score, comments = :comments WHERE account_id = :accountID AND movie_id = :movieID")
+	void updateReview(@Param("accountID") int accountID, @Param("movieID") int movieID, @Param("comments") String comments, @Param("score") double score);
 
 	@Transactional
 	@Modifying
