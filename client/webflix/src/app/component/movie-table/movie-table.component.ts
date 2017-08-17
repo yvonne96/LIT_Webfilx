@@ -26,6 +26,10 @@ export class MovieDisplayComponent {
   @Input('showPrice')
   showPrice: boolean;
 
+  @Input('showFavorites')
+  showFavorites: boolean;
+
+
 
   constructor(private basket: BasketService,
               private moviesService: MovieService,  private wishlist: WishlistService) {

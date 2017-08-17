@@ -100,6 +100,7 @@ public class Account {
 	public Collection<Movie> getMyMovies() {
 		return myMovies;
 	}
+	
 
 	public void setMyMovies(Collection<Movie> myMovies) {
 		this.myMovies = myMovies;

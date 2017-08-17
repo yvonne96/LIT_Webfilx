@@ -18,7 +18,11 @@ public class Movie {
 	private String description;
 	private String director;
 	private String image;
+<<<<<<< HEAD
 	private Boolean purchasable;
+=======
+	//private boolean purchasable;
+>>>>>>> af6f12132a8139f69cdd8b186a7a6d2e9cf452d0
 	private BigDecimal price;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
@@ -47,7 +51,7 @@ public class Movie {
 		this.image="";
 		this.rating = 0;
 		this.main_cast = "";
-		this.purchasable = true;
+	//	this.purchasable = true;
 		this.director = "";
 	}
 	
@@ -90,6 +94,17 @@ public class Movie {
 		return  this.main_cast;
 	}
 	
+<<<<<<< HEAD
+=======
+//	public void setPurchasable(boolean purchasable) {
+//		this.purchasable = purchasable;
+//	}
+//	
+//	public boolean getPurchasable() {
+//		return this.purchasable;
+//	}
+
+>>>>>>> af6f12132a8139f69cdd8b186a7a6d2e9cf452d0
 	public void setTitle(String title) {
 		this.title = title;
 	}

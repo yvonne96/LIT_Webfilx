@@ -4,7 +4,10 @@ import com.instil.webflix.security.model.Account;
 import com.instil.webflix.security.service.AccountService;
 import com.instil.webflix.voucher.model.Voucher;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +31,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/movie")
 public class MovieRestController {
+	private final Log logger = LogFactory.getLog(this.getClass());
+	
 	@Autowired
 	private MovieRepository repository;
 
@@ -100,4 +105,17 @@ public class MovieRestController {
 		repository.editMovie(price, id,title,year,genre,classification,director,mainCast,description);
 	}
 	
+	@RequestMapping(method = POST, value="/{movie_id}/{favorite}",  produces = "application/json")
+	public void toggleFavorite(@PathVariable("movie_id") Integer movie_id, @PathVariable("favorite") boolean favorite){
+		Account current = accountService.getCurrent();
+		Long account_id = current.getId();
+		repository.toggleFavorite(movie_id, favorite, account_id);
+	}
+	
+	@RequestMapping(method = GET, value="/favorite", produces = "application/json")
+	public Iterable<Movie> getMyFavorites() {
+		Account current = accountService.getCurrent();
+		Long account_id = current.getId();
+		return repository.findByFavoriteTrue(account_id);
+	}
 }

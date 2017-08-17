@@ -6,7 +6,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {APP_BASE_HREF} from '@angular/common';
 
 import {AdminToolsComponent} from './component/admin-tools/admin-tools.component';
-import {AddEditMovieFormSharedFunction} from './component/admin-tools/manage-movies/add-edit-movie-form-shared-functions/add-edit-movie-form-shared-functions';
+import {AddEditMovieFormSharedFunction} from
+  './component/admin-tools/manage-movies/add-edit-movie-form-shared-functions/add-edit-movie-form-shared-functions';
 import {NonAdminWarningComponent} from './component/admin-tools/non-admin-warning/non-admin-warning.component';
 import {ManageMoviesComponent} from './component/admin-tools/manage-movies/manage-movies.component';
 import {ManageMoviesRowComponent} from './component/admin-tools/manage-movies/manage-movies-row.component';
@@ -25,6 +26,7 @@ import {MovieDisplayComponent}  from './component/movie-table/movie-table.compon
 import {MovieTableRowComponent} from './component/movie-table/movie.table.row.component';
 import {MovieSearchComponent} from './component/movie-search/movie-search.component';
 import {MyMoviesComponent} from './component/my-movies/my-movies.component';
+import {FavoritesComponent} from './component/my-movies/favorites/favorites.component';
 import {RegisterNewUserComponent} from './component/login/register-new-user.component';
 import {UserDashboardComponent} from './component/user-dashboard/user-dashboard.component';
 import { MovieGridComponent } from './component/movie-grid/movie.grid.component';
@@ -87,6 +89,7 @@ const appRoutes: Routes = [
       },
       {path: 'admin/manage-movies/edit-movie',
       component: EditMovieComponent},
+
       {
         path: 'wishlist',
         component: WishlistComponent,
@@ -98,7 +101,10 @@ const appRoutes: Routes = [
       {
         path: 'mymovies/detailedMovieView',
         component: DetailedMovieViewComponent,
-      }
+      },
+      { path: 'mymovies/favorites',
+        component: FavoritesComponent
+      },
     ]
   },
   {path: 'webflix', redirectTo: '/dashboard', pathMatch: 'prefix'},
@@ -130,6 +136,7 @@ const appRoutes: Routes = [
     MovieSearchComponent,
     MovieTableRowComponent,
     MyMoviesComponent,
+    FavoritesComponent,
     RegisterNewUserComponent,
     UserDashboardComponent,
     MovieGridComponent,

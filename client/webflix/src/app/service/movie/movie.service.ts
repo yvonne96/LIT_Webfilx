@@ -25,8 +25,13 @@ export abstract class MovieService {
   abstract editMovie(price: number, id: number, title: string, year: string, genre: number, classification: number,
                      director: string, cast: string, description: string): Observable<boolean>;
 
+
   abstract fetchPurchasableMovies(): Observable<Movie[]>;
 
   abstract togglePurchasableMovie(movie: Movie): Observable<boolean>;
+
+  abstract toggleFavorite(movie_id: number, favorite: boolean): Observable<boolean>;
+
+  abstract getMyFavorites(): Observable<Movie[]>;
 
 }

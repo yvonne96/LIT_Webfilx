@@ -12,6 +12,7 @@ export class Movie {
   description: string;
   image: string;
   purchasable: boolean;
+  favorite: boolean;
 }
 
 export interface Classification {
